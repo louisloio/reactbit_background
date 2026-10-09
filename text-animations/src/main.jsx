@@ -1,7 +1,9 @@
 // Text animation picker for the Core appshell.
-// Mounts three pieces with one React root (via portals), mirroring the background picker:
-//   - a picker in the header (prev / list / next / "Text" customise button)
-//   - a settings panel (.pnl), sharing the slot of the background settings panel
+// Mounts three pieces with one React root (via portals):
+//   - a single "Customise" icon button in the header
+//   - one settings panel (.pnl) with Background | Text tabs. The Background tab hosts the
+//     existing background picker and its settings panel (moved in from the header), the
+//     Text tab browses and tunes the React Bits text animations
 //   - the text area above the AI input, rendering the selected React Bits component
 import { Component as ReactComponent, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
@@ -22,7 +24,7 @@ const BASE_DEFAULTS = {
   letterSpacing: 0,
   align: 'center'
 };
-const PAGE_DEFAULTS = { id: 'TechText', height: 100, base: BASE_DEFAULTS, props: {} };
+const PAGE_DEFAULTS = { id: 'TechText', height: 100, base: BASE_DEFAULTS, props: {}, tab: 'background' };
 
 const FONTS = [
   ['', 'Inherit'],
@@ -168,7 +170,7 @@ const I = {
     'M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'
 };
 
-// ---------- picker (header) ----------
+// ---------- text picker (browse row of the Text tab) ----------
 
 function Picker() {
   const s = useStore();
@@ -200,15 +202,6 @@ function Picker() {
       </button>
       <button className="bgp-step" aria-label="Next text animation (Alt+↓)" title="Next (Alt+↓)" onClick={() => step(1)}>
         <Icon d={I.next} />
-      </button>
-      <button
-        className="bgp-tune"
-        aria-pressed={s.panel}
-        title="Customise text"
-        onClick={() => setState({ panel: !s.panel })}
-      >
-        <Icon d={I.tune} />
-        <span>Text</span>
       </button>
       {open && (
         <div className="bgp-pop">
@@ -367,7 +360,7 @@ function Control({ c, value, onChange }) {
   }
 }
 
-function Panel({ ctx }) {
+function TextTab({ ctx }) {
   const s = useStore();
   const [showCode, setShowCode] = useState(false);
   const [copied, setCopied] = useState('');
@@ -393,16 +386,10 @@ function Panel({ ctx }) {
   const code = entry ? toJsx(entry, props, ctx) : '';
 
   return (
-    <aside className="pnl glass tx-panel" aria-label="Text settings">
-      <header className="pnl-head">
-        <div>
-          <p className="pnl-eyebrow">Text animation</p>
-          <h2>{entry ? entry.name : 'No text'}</h2>
-        </div>
-        <button className="pnl-icon" aria-label="Close settings" onClick={() => setState({ panel: false })}>
-          <Icon d={I.close} />
-        </button>
-      </header>
+    <>
+      <div className="cust-browse">
+        <Picker />
+      </div>
       <div className="pnl-body">
         {entry?.adapter.hint && <p className="tx-note">{entry.adapter.hint}</p>}
         {(entry?.adapter.fill || entry?.adapter.scroll) && <p className="tx-section">Area</p>}
@@ -462,6 +449,74 @@ function Panel({ ctx }) {
           {copied || 'Copy JSX'}
         </button>
       </footer>
+    </>
+  );
+}
+
+// ---------- unified customise panel ----------
+
+function HeaderButton() {
+  const s = useStore();
+  return (
+    <button
+      className="bgp-tune cust-toggle"
+      aria-pressed={s.panel}
+      aria-label="Customise background and text"
+      title="Customise background & text (Alt+C)"
+      onClick={() => setState({ panel: !s.panel })}
+    >
+      <Icon d={I.tune} />
+    </button>
+  );
+}
+
+const TABS = [
+  ['background', 'Background'],
+  ['text', 'Text']
+];
+
+function CustomisePanel({ ctx }) {
+  const s = useStore();
+  const bgTab = useRef(null);
+
+  // The background picker + its settings panel come from the page's own bundle:
+  // move their containers into the Background tab once (their React roots keep working)
+  useEffect(() => {
+    const picker = document.querySelector('#bg-picker');
+    const panel = document.querySelector('#bg-panel');
+    if (!bgTab.current || !picker) return;
+    picker.classList.add('cust-browse');
+    bgTab.current.append(picker);
+    if (panel) bgTab.current.append(panel);
+  }, []);
+
+  // Keep the background settings open exactly while the Background tab is showing
+  useEffect(() => {
+    const want = s.panel && s.tab === 'background';
+    const tune = document.querySelector('#bg-picker .bgp-tune');
+    if (tune && (tune.getAttribute('aria-pressed') === 'true') !== want) tune.click();
+  }, [s.panel, s.tab]);
+
+  return (
+    <aside className="pnl glass cust-panel" aria-label="Customise" hidden={!s.panel}>
+      <header className="pnl-head cust-head">
+        <div className="segmented cust-tabs" role="tablist">
+          {TABS.map(([id, label]) => (
+            <button key={id} role="tab" aria-selected={s.tab === id} aria-pressed={s.tab === id} onClick={() => setState({ tab: id })}>
+              {label}
+            </button>
+          ))}
+        </div>
+        <button className="pnl-icon" aria-label="Close settings" onClick={() => setState({ panel: false })}>
+          <Icon d={I.close} />
+        </button>
+      </header>
+      <div className="cust-tab" ref={bgTab} hidden={s.tab !== 'background'} />
+      {s.tab === 'text' && (
+        <div className="cust-tab">
+          <TextTab ctx={ctx} />
+        </div>
+      )}
     </aside>
   );
 }
@@ -551,21 +606,12 @@ function Stage({ slot, ctx }) {
 
 // ---------- mount ----------
 
-function App({ pickerHost, panelHost, slot }) {
+function App({ buttonHost, panelHost, slot }) {
   const s = useStore();
   const ctx = useMemo(() => ({ scrollRef: { current: slot }, slotRef: { current: slot } }), [slot]);
 
-  // Only one settings panel at a time: share the spot with the background panel
   useEffect(() => {
-    const bgPanel = document.querySelector('#bg-panel');
     document.documentElement.classList.toggle('tx-open', s.panel);
-    if (s.panel) bgPanel?.querySelector('.pnl-head .pnl-icon')?.click();
-    if (!bgPanel) return undefined;
-    const mo = new MutationObserver(() => {
-      if (bgPanel.querySelector('.pnl') && state.panel) setState({ panel: false });
-    });
-    mo.observe(bgPanel, { childList: true, subtree: true });
-    return () => mo.disconnect();
   }, [s.panel]);
 
   useEffect(() => {
@@ -573,6 +619,10 @@ function App({ pickerHost, panelHost, slot }) {
       if (e.altKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
         e.preventDefault();
         step(e.key === 'ArrowUp' ? -1 : 1);
+      }
+      if (e.altKey && e.code === 'KeyC') {
+        e.preventDefault();
+        setState({ panel: !state.panel });
       }
       if (e.key === 'Escape' && state.panel) setState({ panel: false });
     };
@@ -582,8 +632,8 @@ function App({ pickerHost, panelHost, slot }) {
 
   return (
     <>
-      {createPortal(<Picker />, pickerHost)}
-      {s.panel && createPortal(<Panel ctx={ctx} />, panelHost)}
+      {createPortal(<HeaderButton />, buttonHost)}
+      {createPortal(<CustomisePanel ctx={ctx} />, panelHost)}
       {createPortal(<Stage slot={slot} ctx={ctx} />, slot)}
     </>
   );
@@ -598,12 +648,12 @@ const start = () => {
   slot.className = 'tx-slot';
   aiInput.parentNode.insertBefore(slot, aiInput);
 
-  const pickerHost = document.createElement('div');
-  pickerHost.id = 'tx-picker';
-  bgPicker.parentNode.insertBefore(pickerHost, bgPicker.nextSibling);
+  const buttonHost = document.createElement('div');
+  buttonHost.id = 'cust-button';
+  bgPicker.parentNode.insertBefore(buttonHost, bgPicker);
 
   const panelHost = document.createElement('div');
-  panelHost.id = 'tx-panel';
+  panelHost.id = 'cust-panel';
   document.body.appendChild(panelHost);
 
   const rootEl = document.createElement('div');
@@ -611,7 +661,7 @@ const start = () => {
   rootEl.hidden = true;
   document.body.appendChild(rootEl);
 
-  createRoot(rootEl).render(<App pickerHost={pickerHost} panelHost={panelHost} slot={slot} />);
+  createRoot(rootEl).render(<App buttonHost={buttonHost} panelHost={panelHost} slot={slot} />);
 };
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);

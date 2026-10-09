@@ -61,12 +61,6 @@ html.tx-open main {
 }
 
 /* ---------- picker + panel extras ---------- */
-#tx-picker {
-  display: flex;
-}
-.tx-picker .bgp-name {
-  min-width: 110px;
-}
 .tx-section {
   margin: 14px 0 2px;
   color: var(--text-placeholder);
@@ -101,7 +95,7 @@ html.tx-open main {
 .tx-colors {
   gap: 6px;
 }
-.tx-panel .pnl-foot button {
+.cust-panel .pnl-foot button {
   padding: 0 4px;
 }
 
@@ -247,19 +241,6 @@ html.tx-open main {
   height: 100%;
 }
 
-/* Keep the header from crowding on narrower screens */
-@media (max-width: 1360px) {
-  .tx-picker .bgp-tune span:last-child {
-    display: none;
-  }
-  .tx-picker .bgp-name {
-    min-width: 0;
-    max-width: 96px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-}
 
 .tx-loop {
   position: relative;
@@ -275,4 +256,92 @@ html.tx-open main {
 }
 .tx-loop--band .text-loop-svg {
   height: auto;
+}
+
+/* ---------- unified customise panel ---------- */
+#cust-button {
+  display: flex;
+}
+.cust-toggle {
+  margin-left: 0;
+  padding: 0 5px;
+}
+.cust-panel[hidden],
+.cust-tab[hidden] {
+  display: none !important;
+}
+.cust-head {
+  align-items: center;
+  padding: 12px 12px 12px 16px;
+}
+.cust-tabs button {
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.cust-tabs button[aria-pressed='true'] {
+  background: var(--btn-hover-bg);
+  color: var(--text-primary);
+}
+.cust-tab {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Browse row (‹ name ▾ ›) at the top of each tab */
+.cust-browse {
+  display: flex;
+  padding: 12px 16px;
+  border-bottom: 0.5px solid var(--border-subtle);
+}
+.cust-browse .bgp {
+  flex: 1;
+  min-width: 0;
+}
+.cust-browse .bgp-trigger {
+  flex: 1;
+  min-width: 0;
+}
+.cust-browse .bgp-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cust-browse .bgp-pop {
+  left: 0;
+  right: 0;
+  width: auto;
+}
+.cust-browse .bgp-tune {
+  display: none;
+}
+
+/* The page's own background settings panel, shown inline in the Background tab */
+.cust-tab #bg-panel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.cust-tab #bg-panel .pnl {
+  position: static;
+  flex: 1;
+  min-height: 0;
+  width: auto;
+  max-width: none;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.cust-tab #bg-panel .pnl-head {
+  display: none;
 }
