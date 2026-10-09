@@ -1,0 +1,278 @@
+/* ---------- layout: text area above the AI input ---------- */
+main {
+  flex-direction: column;
+  gap: 100px;
+}
+html.tx-open main {
+  padding-right: calc(var(--rail-w) + 8px + 320px + 24px);
+}
+
+.tx-slot {
+  position: relative;
+  width: 100%;
+  flex-shrink: 0;
+  pointer-events: auto;
+  overflow: hidden;
+  line-height: 1.1;
+  text-align: var(--tx-align, center);
+}
+.tx-slot[hidden] {
+  display: none;
+}
+.tx-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: var(--tx-align, center);
+}
+.tx-slot[style*='--tx-align: left'] .tx-stage {
+  justify-content: flex-start;
+}
+.tx-slot[style*='--tx-align: right'] .tx-stage {
+  justify-content: flex-end;
+}
+.tx-stage > * {
+  max-width: 100%;
+}
+
+/* The slot sizes to its content; only components that fill their parent get a fixed-height stage */
+.tx-slot.is-fill .tx-stage {
+  height: var(--tx-height, 100px);
+}
+
+/* Scroll-driven effects: the area itself becomes the scroller, so it needs a height */
+.tx-slot.is-scroll {
+  height: var(--tx-height, 100px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+.tx-stage--scroll {
+  display: block;
+  height: auto;
+  padding: var(--tx-height, 100px) 0 calc(var(--tx-height, 100px) * 1.2);
+}
+
+.tx-error {
+  font: 13px/18px var(--font-content, inherit);
+  color: #ffb4b4;
+}
+
+/* ---------- picker + panel extras ---------- */
+#tx-picker {
+  display: flex;
+}
+.tx-picker .bgp-name {
+  min-width: 110px;
+}
+.tx-section {
+  margin: 14px 0 2px;
+  color: var(--text-placeholder);
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.tx-section:first-child {
+  margin-top: 6px;
+}
+.tx-note {
+  margin: 8px 0 4px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 16px;
+}
+.tx-hint-inline {
+  font-style: normal;
+  color: var(--text-placeholder);
+  font-size: 12px;
+}
+.tx-textarea {
+  height: auto;
+  padding: 6px 8px;
+  resize: vertical;
+  line-height: 18px;
+}
+.tx-colors {
+  gap: 6px;
+}
+.tx-panel .pnl-foot button {
+  padding: 0 4px;
+}
+
+/* ---------- per-component fitting (demos assume ~400px tall boxes) ---------- */
+.tx-slot .curved-loop-jacket {
+  min-height: 0;
+  height: 100%;
+}
+.tx-slot .curved-loop-svg {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: auto;
+  fill: currentColor;
+}
+
+.tx-circular {
+  width: calc(var(--tx-circle) * 1px);
+  height: calc(var(--tx-circle) * 1px);
+  display: grid;
+  place-items: center;
+}
+.tx-circular .circular-text {
+  flex-shrink: 0;
+  scale: calc(var(--tx-circle) / 200);
+  color: inherit;
+}
+
+.tx-glitch .glitch {
+  font-size: var(--tx-glitch-size);
+  color: inherit;
+}
+.tx-glitch .glitch::before,
+.tx-glitch .glitch::after {
+  color: inherit;
+  background-color: var(--body-bg, #120f17);
+}
+
+.tx-rotating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: pre;
+}
+.tx-rotating-main {
+  padding: 0 0.3em;
+  border-radius: 0.2em;
+  background: var(--tx-pill);
+  overflow: hidden;
+  justify-content: center;
+}
+.tx-rotating-split {
+  overflow: hidden;
+  padding-bottom: 0.1em;
+}
+
+.tx-slot .falling-text-container {
+  width: 100%;
+  height: 100%;
+}
+.tx-slot .highlighted {
+  color: #22d3ee;
+  font-weight: 800;
+}
+
+.tx-slot .scroll-float,
+.tx-slot .scroll-reveal {
+  margin: 0;
+}
+.tx-slot .scroll-float-text,
+.tx-slot .scroll-reveal-text {
+  font-size: 1em;
+}
+
+.tx-slot .parallax {
+  width: 100%;
+}
+
+.tx-variable-proximity {
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tx-slot .text-cursor-container {
+  position: absolute;
+  inset: 0;
+}
+
+.tx-slot .tech-text,
+.tx-slot .warp-text,
+.tx-slot .particle-text {
+  width: 100%;
+  height: 100%;
+}
+.tx-slot .text-pressure-container,
+.tx-slot [class*='ascii-text'] {
+  width: 100%;
+  height: 100%;
+}
+
+.tx-slot .text-loop,
+.tx-slot .stroke-text {
+  height: 100%;
+}
+.tx-slot .text-loop-svg,
+.tx-slot .stroke-text__svg {
+  width: 100%;
+  height: 100%;
+}
+.tx-slot .warp-text,
+.tx-slot .particle-text {
+  min-height: 0;
+  height: 100%;
+}
+/* Scroll Velocity rows follow the shared Text style */
+.tx-slot .scroller {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: 1.15;
+  letter-spacing: inherit;
+}
+
+.tx-circular {
+  position: relative;
+}
+.tx-circular .circular-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 0;
+  translate: -50% -50%;
+}
+.tx-rotating-main {
+  color: var(--tx-pill-text);
+}
+.tx-slot .falling-text-container {
+  box-sizing: border-box;
+  padding-top: 8px;
+}
+.tx-pressure {
+  max-width: 100%;
+  height: 100%;
+}
+
+/* Keep the header from crowding on narrower screens */
+@media (max-width: 1360px) {
+  .tx-picker .bgp-tune span:last-child {
+    display: none;
+  }
+  .tx-picker .bgp-name {
+    min-width: 0;
+    max-width: 96px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.tx-loop {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.tx-loop--band .text-loop {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: auto;
+  translate: 0 -50%;
+}
+.tx-loop--band .text-loop-svg {
+  height: auto;
+}

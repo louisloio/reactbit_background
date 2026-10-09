@@ -1,0 +1,3356 @@
+[
+  {
+    "id": "ASCIIText",
+    "name": "ASCIIText",
+    "defaults": {
+      "preset": "classic",
+      "text": "Hey!",
+      "charset": " .'`^\",:;Il!i~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$",
+      "colors": [
+        "#ff6188",
+        "#fc9867",
+        "#ffd866"
+      ],
+      "asciiFontSize": 8,
+      "textScale": 1,
+      "blocks": 0.9,
+      "waves": 1,
+      "waveSpeed": 1,
+      "chroma": 1,
+      "tilt": 1,
+      "hueShift": 1,
+      "scramble": 0.6,
+      "clickRipple": true,
+      "idle": true,
+      "interactive": true
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 12
+      },
+      {
+        "key": "charset",
+        "label": "Characters",
+        "type": "text",
+        "maxLength": 80
+      },
+      {
+        "key": "asciiFontSize",
+        "label": "Cell Size",
+        "type": "range",
+        "min": 4,
+        "max": 24,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "key": "textScale",
+        "label": "Text Scale",
+        "type": "range",
+        "min": 0.4,
+        "max": 2,
+        "step": 0.05
+      },
+      {
+        "key": "blocks",
+        "label": "Blocks",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "waves",
+        "label": "Waves",
+        "type": "range",
+        "min": 0,
+        "max": 2,
+        "step": 0.05
+      },
+      {
+        "key": "waveSpeed",
+        "label": "Wave Speed",
+        "type": "range",
+        "min": 0,
+        "max": 3,
+        "step": 0.05
+      },
+      {
+        "key": "chroma",
+        "label": "Chroma",
+        "type": "range",
+        "min": 0,
+        "max": 3,
+        "step": 0.05
+      },
+      {
+        "key": "tilt",
+        "label": "Tilt",
+        "type": "range",
+        "min": 0,
+        "max": 2,
+        "step": 0.05
+      },
+      {
+        "key": "hueShift",
+        "label": "Hue Shift",
+        "type": "range",
+        "min": 0,
+        "max": 2,
+        "step": 0.05
+      },
+      {
+        "key": "scramble",
+        "label": "Scramble",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "clickRipple",
+        "label": "Click Ripple",
+        "type": "switch"
+      },
+      {
+        "key": "idle",
+        "label": "Idle Sway",
+        "type": "switch"
+      },
+      {
+        "key": "interactive",
+        "label": "Interactive",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "BlurText",
+    "name": "Blur Text",
+    "defaults": {
+      "text": "Isn't this so cool?!",
+      "animateBy": "words",
+      "direction": "top",
+      "delay": 200
+    },
+    "controls": [
+      {
+        "key": "animateBy",
+        "label": "Animate By",
+        "type": "select",
+        "options": [
+          [
+            "words",
+            "Words"
+          ],
+          [
+            "letters",
+            "Letters"
+          ]
+        ]
+      },
+      {
+        "key": "direction",
+        "label": "Direction",
+        "type": "select",
+        "options": [
+          [
+            "top",
+            "Top"
+          ],
+          [
+            "bottom",
+            "Bottom"
+          ]
+        ]
+      },
+      {
+        "key": "delay",
+        "label": "Delay",
+        "type": "range",
+        "min": 50,
+        "max": 500,
+        "step": 10,
+        "unit": "ms"
+      }
+    ]
+  },
+  {
+    "id": "CircularText",
+    "name": "Circular Text",
+    "defaults": {
+      "text": "REACT*BITS*COMPONENTS*",
+      "onHover": "speedUp",
+      "spinDuration": 20
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 25
+      },
+      {
+        "key": "onHover",
+        "label": "On Hover",
+        "type": "select",
+        "options": [
+          [
+            "slowDown",
+            "Slow Down"
+          ],
+          [
+            "speedUp",
+            "Speed Up"
+          ],
+          [
+            "pause",
+            "Pause"
+          ],
+          [
+            "goBonkers",
+            "Go Bonkers"
+          ]
+        ]
+      },
+      {
+        "key": "spinDuration",
+        "label": "Spin Duration (s)",
+        "type": "range",
+        "min": 1,
+        "max": 60,
+        "step": 1
+      }
+    ]
+  },
+  {
+    "id": "CountUp",
+    "name": "Count Up",
+    "defaults": {
+      "from": 0,
+      "to": 100,
+      "duration": 1,
+      "delay": 0,
+      "direction": "up",
+      "separator": ","
+    },
+    "controls": [
+      {
+        "key": "to",
+        "label": "To",
+        "type": "range",
+        "min": 0,
+        "max": 10000,
+        "step": 100
+      },
+      {
+        "key": "from",
+        "label": "From",
+        "type": "range",
+        "min": 0,
+        "max": 1000,
+        "step": 10
+      },
+      {
+        "key": "duration",
+        "label": "Duration",
+        "type": "range",
+        "min": 0.5,
+        "max": 10,
+        "step": 0.5
+      },
+      {
+        "key": "delay",
+        "label": "Delay",
+        "type": "range",
+        "min": 0,
+        "max": 5,
+        "step": 0.5
+      },
+      {
+        "key": "direction",
+        "label": "Direction",
+        "type": "select",
+        "options": [
+          [
+            "up",
+            "Up"
+          ],
+          [
+            "down",
+            "Down"
+          ]
+        ]
+      },
+      {
+        "key": "separator",
+        "label": "Separator",
+        "type": "text",
+        "maxLength": 1
+      }
+    ]
+  },
+  {
+    "id": "CurvedLoop",
+    "name": "Curved Loop",
+    "defaults": {
+      "marqueeText": "Be ✦ Creative ✦ With ✦ React ✦ Bits ✦",
+      "speed": 2,
+      "curveAmount": 400,
+      "interactive": true
+    },
+    "controls": [
+      {
+        "key": "marqueeText",
+        "label": "Marquee Text",
+        "type": "text"
+      },
+      {
+        "key": "speed",
+        "label": "Speed",
+        "type": "range",
+        "min": 0,
+        "max": 10,
+        "step": 0.1
+      },
+      {
+        "key": "curveAmount",
+        "label": "Curve Amount",
+        "type": "range",
+        "min": -400,
+        "max": 400,
+        "step": 10,
+        "unit": "px"
+      },
+      {
+        "key": "interactive",
+        "label": "Draggable",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "DecryptedText",
+    "name": "Decrypted Text",
+    "defaults": {
+      "speed": 60,
+      "maxIterations": 10,
+      "sequential": true,
+      "useOriginalCharsOnly": false,
+      "revealDirection": "start",
+      "animateOn": "view",
+      "clickMode": "once"
+    },
+    "controls": [
+      {
+        "key": "animateOn",
+        "label": "Animate On",
+        "type": "select",
+        "options": [
+          [
+            "view",
+            "View"
+          ],
+          [
+            "hover",
+            "Hover"
+          ],
+          [
+            "inViewHover",
+            "View & Hover"
+          ],
+          [
+            "click",
+            "Click"
+          ]
+        ]
+      },
+      {
+        "key": "clickMode",
+        "label": "Click Mode",
+        "type": "select",
+        "options": [
+          [
+            "once",
+            "Once"
+          ],
+          [
+            "toggle",
+            "Toggle"
+          ]
+        ],
+        "disabledWhen": "animateOn !== 'click'"
+      },
+      {
+        "key": "revealDirection",
+        "label": "Direction",
+        "type": "select",
+        "options": [
+          [
+            "start",
+            "Start"
+          ],
+          [
+            "end",
+            "End"
+          ],
+          [
+            "center",
+            "Center"
+          ]
+        ]
+      },
+      {
+        "key": "speed",
+        "label": "Speed",
+        "type": "range",
+        "min": 10,
+        "max": 200,
+        "step": 10,
+        "unit": "ms"
+      },
+      {
+        "key": "maxIterations",
+        "label": "Iterations",
+        "type": "range",
+        "min": 1,
+        "max": 50,
+        "step": 1
+      },
+      {
+        "key": "sequential",
+        "label": "Sequential",
+        "type": "switch"
+      },
+      {
+        "key": "useOriginalCharsOnly",
+        "label": "Original Chars",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "DepthText",
+    "name": "Depth Text",
+    "defaults": {
+      "text": "Elevate",
+      "layers": 34,
+      "depth": 2.4,
+      "faceColor": "#f8fafc",
+      "depthColor": "#7c3aed",
+      "tilt": 7.5,
+      "pointerTracking": true,
+      "smoothing": 0.14,
+      "perspective": 900,
+      "autoOrbit": true,
+      "orbitSpeed": 0.35,
+      "fontSize": "clamp(3rem, 12vw, 7rem)",
+      "fontWeight": 900,
+      "shadow": true
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 12
+      },
+      {
+        "key": "faceColor",
+        "label": "Face Color",
+        "type": "color"
+      },
+      {
+        "key": "depthColor",
+        "label": "Depth Color",
+        "type": "color"
+      },
+      {
+        "key": "fontSize",
+        "label": "Font Size",
+        "type": "select",
+        "options": [
+          [
+            "clamp(2.5rem, 9vw, 5.5rem)",
+            "Compact"
+          ],
+          [
+            "clamp(3rem, 12vw, 7rem)",
+            "Hero"
+          ],
+          [
+            "clamp(3.5rem, 15vw, 8.5rem)",
+            "Billboard"
+          ]
+        ]
+      },
+      {
+        "key": "fontWeight",
+        "label": "Weight",
+        "type": "select",
+        "options": [
+          [
+            700,
+            "Bold"
+          ],
+          [
+            800,
+            "Extra Bold"
+          ],
+          [
+            900,
+            "Black"
+          ]
+        ],
+        "transform": "(value) => Number(value)"
+      },
+      {
+        "key": "layers",
+        "label": "Layers",
+        "type": "range",
+        "min": 8,
+        "max": 56,
+        "step": 1
+      },
+      {
+        "key": "depth",
+        "label": "Depth",
+        "type": "range",
+        "min": 0.8,
+        "max": 5,
+        "step": 0.1,
+        "unit": "px"
+      },
+      {
+        "key": "tilt",
+        "label": "Tilt",
+        "type": "range",
+        "min": 0,
+        "max": 12,
+        "step": 0.5,
+        "unit": "°"
+      },
+      {
+        "key": "smoothing",
+        "label": "Smoothing",
+        "type": "range",
+        "min": 0.04,
+        "max": 0.3,
+        "step": 0.01
+      },
+      {
+        "key": "perspective",
+        "label": "Perspective",
+        "type": "range",
+        "min": 450,
+        "max": 1500,
+        "step": 25,
+        "unit": "px"
+      },
+      {
+        "key": "orbitSpeed",
+        "label": "Orbit Speed",
+        "type": "range",
+        "min": 0.05,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "pointerTracking",
+        "label": "Pointer Tracking",
+        "type": "switch"
+      },
+      {
+        "key": "autoOrbit",
+        "label": "Auto Orbit",
+        "type": "switch"
+      },
+      {
+        "key": "shadow",
+        "label": "Shadow",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "EchoText",
+    "name": "Echo Text",
+    "defaults": {
+      "text": "Motion Echo",
+      "echoes": 12,
+      "lag": 0.24,
+      "offset": 36,
+      "direction": "right",
+      "fade": 0.72,
+      "blur": 3,
+      "tint": "#7dd3fc",
+      "mode": "both",
+      "cursorRadius": 320,
+      "duration": 900,
+      "ease": "ease-out",
+      "fontSize": "clamp(3rem, 9vw, 7rem)",
+      "fontWeight": 800,
+      "color": "#f8fafc"
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 24
+      },
+      {
+        "key": "color",
+        "label": "Text Color",
+        "type": "color"
+      },
+      {
+        "key": "tint",
+        "label": "Echo Tint",
+        "type": "color"
+      },
+      {
+        "key": "tint",
+        "label": "Tint Echoes",
+        "type": "switch",
+        "transform": "(checked) => checked ? '#7dd3fc' : false"
+      },
+      {
+        "key": "mode",
+        "label": "Mode",
+        "type": "select",
+        "options": [
+          [
+            "both",
+            "Entrance + Pointer"
+          ],
+          [
+            "entrance",
+            "Entrance Only"
+          ],
+          [
+            "pointer",
+            "Pointer Only"
+          ]
+        ]
+      },
+      {
+        "key": "cursorRadius",
+        "label": "Cursor Radius",
+        "type": "range",
+        "min": 80,
+        "max": 900,
+        "step": 10,
+        "unit": "px",
+        "disabledWhen": "mode === 'entrance'"
+      },
+      {
+        "key": "direction",
+        "label": "Direction",
+        "type": "select",
+        "options": [
+          [
+            "right",
+            "Right"
+          ],
+          [
+            "left",
+            "Left"
+          ],
+          [
+            "up",
+            "Up"
+          ],
+          [
+            "down",
+            "Down"
+          ],
+          [
+            "diagonal",
+            "Diagonal"
+          ]
+        ]
+      },
+      {
+        "key": "ease",
+        "label": "Ease",
+        "type": "select",
+        "options": [
+          [
+            "ease-out",
+            "Ease Out"
+          ],
+          [
+            "ease-in-out",
+            "Ease In Out"
+          ],
+          [
+            "snappy",
+            "Snappy"
+          ],
+          [
+            "linear",
+            "Linear"
+          ]
+        ]
+      },
+      {
+        "key": "fontSize",
+        "label": "Size",
+        "type": "select",
+        "options": [
+          [
+            "clamp(2.5rem, 7vw, 5.5rem)",
+            "Compact"
+          ],
+          [
+            "clamp(3rem, 9vw, 7rem)",
+            "Hero"
+          ],
+          [
+            "clamp(4rem, 12vw, 9rem)",
+            "Billboard"
+          ]
+        ]
+      },
+      {
+        "key": "echoes",
+        "label": "Echoes",
+        "type": "range",
+        "min": 2,
+        "max": 18,
+        "step": 1
+      },
+      {
+        "key": "lag",
+        "label": "Lag",
+        "type": "range",
+        "min": 0.05,
+        "max": 0.3,
+        "step": 0.01
+      },
+      {
+        "key": "offset",
+        "label": "Offset",
+        "type": "range",
+        "min": 8,
+        "max": 56,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "key": "fade",
+        "label": "Fade",
+        "type": "range",
+        "min": 0.35,
+        "max": 0.85,
+        "step": 0.01
+      },
+      {
+        "key": "blur",
+        "label": "Blur",
+        "type": "range",
+        "min": 0,
+        "max": 7,
+        "step": 0.25,
+        "unit": "px"
+      },
+      {
+        "key": "duration",
+        "label": "Duration",
+        "type": "range",
+        "min": 300,
+        "max": 1600,
+        "step": 50,
+        "unit": "ms"
+      },
+      {
+        "key": "fontWeight",
+        "label": "Weight",
+        "type": "range",
+        "min": 500,
+        "max": 950,
+        "step": 50
+      }
+    ]
+  },
+  {
+    "id": "FallingText",
+    "name": "Falling Text",
+    "defaults": {
+      "gravity": 0.56,
+      "mouseConstraintStiffness": 0.9,
+      "trigger": "hover"
+    },
+    "controls": [
+      {
+        "key": "trigger",
+        "label": "Trigger",
+        "type": "select",
+        "options": [
+          [
+            "hover",
+            "Hover"
+          ],
+          [
+            "click",
+            "Click"
+          ],
+          [
+            "auto",
+            "Auto"
+          ],
+          [
+            "scroll",
+            "Scroll"
+          ]
+        ]
+      },
+      {
+        "key": "gravity",
+        "label": "Gravity",
+        "type": "range",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.01
+      },
+      {
+        "key": "mouseConstraintStiffness",
+        "label": "Mouse Constraint Stiffness",
+        "type": "range",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.1
+      }
+    ]
+  },
+  {
+    "id": "FoldText",
+    "name": "Fold Text",
+    "defaults": {
+      "text": "Design unfolds",
+      "splitBy": "char",
+      "hinge": "top",
+      "duration": 0.65,
+      "stagger": 0.045,
+      "ease": "power3.out",
+      "perspective": 700,
+      "creaseShading": 0.55,
+      "trigger": "mount",
+      "fontSize": 80,
+      "fontWeight": 800,
+      "color": "#f7f2e8"
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 34
+      },
+      {
+        "key": "splitBy",
+        "label": "Split By",
+        "type": "select",
+        "options": [
+          [
+            "char",
+            "Character"
+          ],
+          [
+            "word",
+            "Word"
+          ],
+          [
+            "line",
+            "Line"
+          ]
+        ]
+      },
+      {
+        "key": "hinge",
+        "label": "Hinge",
+        "type": "select",
+        "options": [
+          [
+            "top",
+            "Top"
+          ],
+          [
+            "bottom",
+            "Bottom"
+          ],
+          [
+            "left",
+            "Left"
+          ],
+          [
+            "right",
+            "Right"
+          ]
+        ]
+      },
+      {
+        "key": "trigger",
+        "label": "Trigger",
+        "type": "select",
+        "options": [
+          [
+            "mount",
+            "Mount"
+          ],
+          [
+            "hover",
+            "Hover"
+          ],
+          [
+            "scroll",
+            "Scroll"
+          ],
+          [
+            "loop",
+            "Loop"
+          ]
+        ]
+      },
+      {
+        "key": "ease",
+        "label": "Ease",
+        "type": "select",
+        "options": [
+          [
+            "power3.out",
+            "Power out"
+          ],
+          [
+            "expo.out",
+            "Expo out"
+          ],
+          [
+            "back.out(1.2)",
+            "Soft back"
+          ],
+          [
+            "circ.out",
+            "Circular"
+          ]
+        ]
+      },
+      {
+        "key": "color",
+        "label": "Text Color",
+        "type": "color"
+      },
+      {
+        "key": "duration",
+        "label": "Duration",
+        "type": "range",
+        "min": 0.35,
+        "max": 1.2,
+        "step": 0.05,
+        "unit": "s"
+      },
+      {
+        "key": "stagger",
+        "label": "Stagger",
+        "type": "range",
+        "min": 0.03,
+        "max": 0.08,
+        "step": 0.005,
+        "unit": "s"
+      },
+      {
+        "key": "perspective",
+        "label": "Perspective",
+        "type": "range",
+        "min": 350,
+        "max": 1200,
+        "step": 25,
+        "unit": "px"
+      },
+      {
+        "key": "creaseShading",
+        "label": "Crease Shading",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "fontSize",
+        "label": "Font Size",
+        "type": "range",
+        "min": 44,
+        "max": 112,
+        "step": 2,
+        "unit": "px"
+      },
+      {
+        "key": "fontWeight",
+        "label": "Font Weight",
+        "type": "range",
+        "min": 300,
+        "max": 900,
+        "step": 50
+      }
+    ]
+  },
+  {
+    "id": "FuzzyText",
+    "name": "Fuzzy Text",
+    "defaults": {
+      "baseIntensity": 0.2,
+      "hoverIntensity": 0.5,
+      "enableHover": true,
+      "fuzzRange": 30,
+      "fps": 60,
+      "direction": "horizontal",
+      "transitionDuration": 0,
+      "clickEffect": false,
+      "glitchMode": false,
+      "glitchInterval": 2000,
+      "glitchDuration": 200,
+      "letterSpacing": 0
+    },
+    "controls": [
+      {
+        "key": "baseIntensity",
+        "label": "Base Intensity",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "key": "hoverIntensity",
+        "label": "Hover Intensity",
+        "type": "range",
+        "min": 0,
+        "max": 2,
+        "step": 0.01
+      },
+      {
+        "key": "fuzzRange",
+        "label": "Fuzz Range",
+        "type": "range",
+        "min": 5,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "key": "fps",
+        "label": "FPS",
+        "type": "range",
+        "min": 10,
+        "max": 120,
+        "step": 5
+      },
+      {
+        "key": "transitionDuration",
+        "label": "Transition Duration",
+        "type": "range",
+        "min": 0,
+        "max": 60,
+        "step": 1
+      },
+      {
+        "key": "letterSpacing",
+        "label": "Letter Spacing",
+        "type": "range",
+        "min": -10,
+        "max": 50,
+        "step": 1
+      },
+      {
+        "key": "direction",
+        "label": "Direction",
+        "type": "select",
+        "options": [
+          [
+            "horizontal",
+            "Horizontal"
+          ],
+          [
+            "vertical",
+            "Vertical"
+          ],
+          [
+            "both",
+            "Both"
+          ]
+        ]
+      },
+      {
+        "key": "enableHover",
+        "label": "Enable Hover",
+        "type": "switch"
+      },
+      {
+        "key": "clickEffect",
+        "label": "Click Effect",
+        "type": "switch"
+      },
+      {
+        "key": "glitchMode",
+        "label": "Glitch Mode",
+        "type": "switch"
+      },
+      {
+        "key": "glitchInterval",
+        "label": "Glitch Interval",
+        "type": "range",
+        "min": 500,
+        "max": 5000,
+        "step": 100,
+        "disabledWhen": "!glitchMode"
+      },
+      {
+        "key": "glitchDuration",
+        "label": "Glitch Duration",
+        "type": "range",
+        "min": 50,
+        "max": 1000,
+        "step": 50,
+        "disabledWhen": "!glitchMode"
+      }
+    ]
+  },
+  {
+    "id": "GlitchText",
+    "name": "Glitch Text",
+    "defaults": {
+      "speed": 1,
+      "enableShadows": true,
+      "enableOnHover": false
+    },
+    "controls": [
+      {
+        "key": "speed",
+        "label": "Refresh Delay",
+        "type": "range",
+        "min": 0.1,
+        "max": 5,
+        "step": 0.1
+      },
+      {
+        "key": "enableShadows",
+        "label": "Glitch Colors",
+        "type": "switch"
+      },
+      {
+        "key": "enableOnHover",
+        "label": "Glitch On Hover",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "GradientText",
+    "name": "Gradient Text",
+    "defaults": {
+      "colors": [
+        "#5227FF",
+        "#FF9FFC",
+        "#B497CF"
+      ],
+      "animationSpeed": 8,
+      "variant": "linear",
+      "angle": 90,
+      "scale": 3,
+      "yoyo": true,
+      "glow": 0,
+      "showBorder": false,
+      "borderWidth": 1.5,
+      "pauseOnHover": false,
+      "followPointer": false
+    },
+    "controls": [
+      {
+        "key": "variant",
+        "label": "Variant",
+        "type": "select",
+        "options": [
+          [
+            "linear",
+            "Linear"
+          ],
+          [
+            "flow",
+            "Flow"
+          ],
+          [
+            "conic",
+            "Conic"
+          ]
+        ]
+      },
+      {
+        "key": "animationSpeed",
+        "label": "Animation Speed",
+        "type": "range",
+        "min": 1,
+        "max": 20,
+        "step": 0.5,
+        "unit": "s"
+      },
+      {
+        "key": "angle",
+        "label": "Angle",
+        "type": "range",
+        "min": 0,
+        "max": 360,
+        "step": 5,
+        "unit": "°"
+      },
+      {
+        "key": "scale",
+        "label": "Scale",
+        "type": "range",
+        "min": 1,
+        "max": 6,
+        "step": 0.25
+      },
+      {
+        "key": "glow",
+        "label": "Glow",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "borderWidth",
+        "label": "Border Width",
+        "type": "range",
+        "min": 0.5,
+        "max": 4,
+        "step": 0.5,
+        "unit": "px"
+      },
+      {
+        "key": "yoyo",
+        "label": "Yoyo",
+        "type": "switch"
+      },
+      {
+        "key": "showBorder",
+        "label": "Show Border",
+        "type": "switch"
+      },
+      {
+        "key": "pauseOnHover",
+        "label": "Pause on Hover",
+        "type": "switch"
+      },
+      {
+        "key": "followPointer",
+        "label": "Follow Pointer",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "MaskedHeading",
+    "name": "Masked Heading",
+    "defaults": {
+      "text": "Designed in the details",
+      "mediaType": "video",
+      "fillScale": 1.25,
+      "parallax": 26,
+      "drift": 18,
+      "brightness": 1,
+      "saturation": 1,
+      "grayscale": false,
+      "reveal": "rise",
+      "trigger": "view",
+      "duration": 1.1,
+      "stagger": 0.09,
+      "align": "center",
+      "weight": 700,
+      "tracking": -0.03,
+      "lineHeight": 1.06,
+      "textScale": 0.115
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "select",
+        "options": [
+          [
+            "Designed in the details",
+            "Details"
+          ],
+          [
+            "Made for the web",
+            "Web"
+          ],
+          [
+            "Shot on location",
+            "Location"
+          ]
+        ]
+      },
+      {
+        "key": "mediaType",
+        "label": "Media",
+        "type": "select",
+        "options": [
+          [
+            "video",
+            "Video"
+          ],
+          [
+            "image",
+            "Image"
+          ]
+        ]
+      },
+      {
+        "key": "reveal",
+        "label": "Reveal",
+        "type": "select",
+        "options": [
+          [
+            "rise",
+            "Rise"
+          ],
+          [
+            "wipe",
+            "Wipe"
+          ],
+          [
+            "fade",
+            "Fade"
+          ],
+          [
+            "none",
+            "None"
+          ]
+        ]
+      },
+      {
+        "key": "trigger",
+        "label": "Trigger",
+        "type": "select",
+        "options": [
+          [
+            "view",
+            "In View"
+          ],
+          [
+            "mount",
+            "On Mount"
+          ],
+          [
+            "hover",
+            "On Hover"
+          ]
+        ]
+      },
+      {
+        "key": "align",
+        "label": "Align",
+        "type": "select",
+        "options": [
+          [
+            "center",
+            "Center"
+          ],
+          [
+            "left",
+            "Left"
+          ],
+          [
+            "right",
+            "Right"
+          ]
+        ]
+      },
+      {
+        "key": "fillScale",
+        "label": "Fill Scale",
+        "type": "range",
+        "min": 1,
+        "max": 2,
+        "step": 0.05
+      },
+      {
+        "key": "parallax",
+        "label": "Parallax",
+        "type": "range",
+        "min": 0,
+        "max": 80,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "key": "drift",
+        "label": "Drift",
+        "type": "range",
+        "min": 0,
+        "max": 60,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "key": "brightness",
+        "label": "Brightness",
+        "type": "range",
+        "min": 0.4,
+        "max": 2,
+        "step": 0.05
+      },
+      {
+        "key": "saturation",
+        "label": "Saturation",
+        "type": "range",
+        "min": 0,
+        "max": 2,
+        "step": 0.05
+      },
+      {
+        "key": "duration",
+        "label": "Duration",
+        "type": "range",
+        "min": 0.3,
+        "max": 2.4,
+        "step": 0.05,
+        "unit": "s"
+      },
+      {
+        "key": "stagger",
+        "label": "Stagger",
+        "type": "range",
+        "min": 0,
+        "max": 0.3,
+        "step": 0.01,
+        "unit": "s"
+      },
+      {
+        "key": "textScale",
+        "label": "Text Size",
+        "type": "range",
+        "min": 0.05,
+        "max": 0.15,
+        "step": 0.005
+      },
+      {
+        "key": "weight",
+        "label": "Weight",
+        "type": "range",
+        "min": 300,
+        "max": 900,
+        "step": 100
+      },
+      {
+        "key": "tracking",
+        "label": "Tracking",
+        "type": "range",
+        "min": -0.08,
+        "max": 0.06,
+        "step": 0.005,
+        "unit": "em"
+      },
+      {
+        "key": "lineHeight",
+        "label": "Line Height",
+        "type": "range",
+        "min": 0.85,
+        "max": 1.6,
+        "step": 0.02
+      },
+      {
+        "key": "grayscale",
+        "label": "Grayscale",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "ParticleText",
+    "name": "Particle Text",
+    "defaults": {
+      "text": "Future Interfaces",
+      "particleSize": 2.2,
+      "density": 4,
+      "color": "#f8fafc",
+      "highlightColor": "#8b5cf6",
+      "scatter": 190,
+      "gatherDuration": 1600,
+      "stagger": 420,
+      "pointerRepel": 42,
+      "repelRadius": 120,
+      "idleDrift": 0.8,
+      "trigger": "mount",
+      "fontSize": "clamp(3.5rem, 13vw, 9rem)",
+      "fontWeight": 800,
+      "fontFamily": "inherit",
+      "glow": true
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 24
+      },
+      {
+        "key": "trigger",
+        "label": "Trigger",
+        "type": "select",
+        "options": [
+          [
+            "mount",
+            "Mount"
+          ],
+          [
+            "hover",
+            "Hover"
+          ],
+          [
+            "click",
+            "Click"
+          ]
+        ]
+      },
+      {
+        "key": "fontWeight",
+        "label": "Weight",
+        "type": "select",
+        "options": [
+          [
+            500,
+            "500"
+          ],
+          [
+            650,
+            "650"
+          ],
+          [
+            800,
+            "800"
+          ],
+          [
+            900,
+            "900"
+          ]
+        ]
+      },
+      {
+        "key": "color",
+        "label": "Color",
+        "type": "color"
+      },
+      {
+        "key": "highlightColor",
+        "label": "Highlight",
+        "type": "color"
+      },
+      {
+        "key": "particleSize",
+        "label": "Particle Size",
+        "type": "range",
+        "min": 1,
+        "max": 4,
+        "step": 0.1,
+        "unit": "px"
+      },
+      {
+        "key": "density",
+        "label": "Density",
+        "type": "range",
+        "min": 2,
+        "max": 8,
+        "step": 1
+      },
+      {
+        "key": "scatter",
+        "label": "Scatter",
+        "type": "range",
+        "min": 40,
+        "max": 320,
+        "step": 10,
+        "unit": "px"
+      },
+      {
+        "key": "gatherDuration",
+        "label": "Gather",
+        "type": "range",
+        "min": 500,
+        "max": 3000,
+        "step": 100,
+        "unit": "ms"
+      },
+      {
+        "key": "stagger",
+        "label": "Stagger",
+        "type": "range",
+        "min": 0,
+        "max": 900,
+        "step": 30,
+        "unit": "ms"
+      },
+      {
+        "key": "pointerRepel",
+        "label": "Repel Strength",
+        "type": "range",
+        "min": 0,
+        "max": 90,
+        "step": 2
+      },
+      {
+        "key": "repelRadius",
+        "label": "Repel Radius",
+        "type": "range",
+        "min": 40,
+        "max": 220,
+        "step": 5,
+        "unit": "px"
+      },
+      {
+        "key": "idleDrift",
+        "label": "Idle Drift",
+        "type": "range",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "unit": "px"
+      },
+      {
+        "key": "glow",
+        "label": "Glow",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "RotatingText",
+    "name": "Rotating Text",
+    "defaults": {
+      "rotationInterval": 2000,
+      "staggerDuration": 0.025,
+      "staggerFrom": "last",
+      "splitBy": "characters",
+      "auto": true,
+      "loop": true
+    },
+    "controls": [
+      {
+        "key": "rotationInterval",
+        "label": "Rotation Interval (ms)",
+        "type": "range",
+        "min": 500,
+        "max": 5000,
+        "step": 100
+      },
+      {
+        "key": "staggerDuration",
+        "label": "Stagger Duration",
+        "type": "range",
+        "min": 0,
+        "max": 0.1,
+        "step": 0.005
+      },
+      {
+        "key": "staggerFrom",
+        "label": "Stagger From",
+        "type": "select",
+        "options": [
+          [
+            "first",
+            "First"
+          ],
+          [
+            "last",
+            "Last"
+          ],
+          [
+            "center",
+            "Center"
+          ],
+          [
+            "random",
+            "Random"
+          ]
+        ]
+      },
+      {
+        "key": "splitBy",
+        "label": "Split By",
+        "type": "select",
+        "options": [
+          [
+            "characters",
+            "Characters"
+          ],
+          [
+            "words",
+            "Words"
+          ],
+          [
+            "lines",
+            "Lines"
+          ]
+        ]
+      },
+      {
+        "key": "auto",
+        "label": "Auto",
+        "type": "switch"
+      },
+      {
+        "key": "loop",
+        "label": "Loop",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "ScrambledText",
+    "name": "Scrambled Text",
+    "defaults": {
+      "radius": 100,
+      "duration": 1.2,
+      "speed": 0.5,
+      "scrambleChars": ".:"
+    },
+    "controls": [
+      {
+        "key": "scrambleChars",
+        "label": "Scramble Characters",
+        "type": "text",
+        "maxLength": 5
+      },
+      {
+        "key": "radius",
+        "label": "Radius",
+        "type": "range",
+        "min": 10,
+        "max": 300,
+        "step": 10
+      },
+      {
+        "key": "duration",
+        "label": "Duration",
+        "type": "range",
+        "min": 0.1,
+        "max": 5,
+        "step": 0.1
+      },
+      {
+        "key": "speed",
+        "label": "Speed",
+        "type": "range",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.1
+      }
+    ]
+  },
+  {
+    "id": "ScrollFloat",
+    "name": "Scroll Float",
+    "defaults": {
+      "stagger": 0.03,
+      "duration": 1
+    },
+    "controls": [
+      {
+        "key": "stagger",
+        "label": "Stagger",
+        "type": "range",
+        "min": 0.01,
+        "max": 0.1,
+        "step": 0.01
+      },
+      {
+        "key": "duration",
+        "label": "Duration",
+        "type": "range",
+        "min": 1,
+        "max": 10,
+        "step": 0.1
+      }
+    ]
+  },
+  {
+    "id": "ScrollReveal",
+    "name": "Scroll Reveal",
+    "defaults": {
+      "enableBlur": true,
+      "baseOpacity": 0.1,
+      "baseRotation": 3,
+      "blurStrength": 4
+    },
+    "controls": [
+      {
+        "key": "enableBlur",
+        "label": "Enable Blur",
+        "type": "switch"
+      },
+      {
+        "key": "blurStrength",
+        "label": "Blur Strength",
+        "type": "range",
+        "min": 0,
+        "max": 15,
+        "step": 1
+      },
+      {
+        "key": "baseOpacity",
+        "label": "Starting Opacity",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.1
+      },
+      {
+        "key": "baseRotation",
+        "label": "Starting Rotation",
+        "type": "range",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "unit": "°"
+      }
+    ]
+  },
+  {
+    "id": "ScrollVelocity",
+    "name": "Scroll Velocity",
+    "defaults": {
+      "velocity": 100,
+      "numCopies": 6,
+      "damping": 50,
+      "stiffness": 400
+    },
+    "controls": [
+      {
+        "key": "velocity",
+        "label": "Velocity",
+        "type": "range",
+        "min": 10,
+        "max": 500,
+        "step": 10
+      },
+      {
+        "key": "numCopies",
+        "label": "Num Copies",
+        "type": "range",
+        "min": 2,
+        "max": 12,
+        "step": 1
+      },
+      {
+        "key": "damping",
+        "label": "Damping",
+        "type": "range",
+        "min": 10,
+        "max": 100,
+        "step": 5
+      },
+      {
+        "key": "stiffness",
+        "label": "Stiffness",
+        "type": "range",
+        "min": 100,
+        "max": 800,
+        "step": 50
+      }
+    ]
+  },
+  {
+    "id": "ShinyText",
+    "name": "Shiny Text",
+    "defaults": {
+      "color": "#b5b5b5",
+      "shineColor": "#ffffff",
+      "speed": 2,
+      "delay": 0,
+      "angle": 120,
+      "shineWidth": 40,
+      "softness": 0.8,
+      "bands": 1,
+      "glow": 0,
+      "direction": "left",
+      "easing": "smooth",
+      "trigger": "loop",
+      "yoyo": false,
+      "followPointer": false,
+      "pauseOnHover": false,
+      "disabled": false
+    },
+    "controls": [
+      {
+        "key": "color",
+        "label": "Text Color",
+        "type": "color"
+      },
+      {
+        "key": "shineColor",
+        "label": "Shine Color",
+        "type": "color"
+      },
+      {
+        "key": "shineWidth",
+        "label": "Shine Width",
+        "type": "range",
+        "min": 5,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      {
+        "key": "softness",
+        "label": "Softness",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "angle",
+        "label": "Angle",
+        "type": "range",
+        "min": 60,
+        "max": 150,
+        "step": 1,
+        "unit": "°"
+      },
+      {
+        "key": "bands",
+        "label": "Bands",
+        "type": "range",
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "key": "glow",
+        "label": "Glow",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "speed",
+        "label": "Speed",
+        "type": "range",
+        "min": 0.5,
+        "max": 5,
+        "step": 0.1,
+        "unit": "s"
+      },
+      {
+        "key": "delay",
+        "label": "Delay",
+        "type": "range",
+        "min": 0,
+        "max": 3,
+        "step": 0.1,
+        "unit": "s"
+      },
+      {
+        "key": "direction",
+        "label": "Direction",
+        "type": "select",
+        "options": [
+          [
+            "left",
+            "Left"
+          ],
+          [
+            "right",
+            "Right"
+          ]
+        ]
+      },
+      {
+        "key": "easing",
+        "label": "Easing",
+        "type": "select",
+        "options": [
+          [
+            "smooth",
+            "Smooth"
+          ],
+          [
+            "linear",
+            "Linear"
+          ],
+          [
+            "snappy",
+            "Snappy"
+          ]
+        ]
+      },
+      {
+        "key": "trigger",
+        "label": "Trigger",
+        "type": "select",
+        "options": [
+          [
+            "loop",
+            "Loop"
+          ],
+          [
+            "hover",
+            "Hover"
+          ],
+          [
+            "view",
+            "In View"
+          ]
+        ]
+      },
+      {
+        "key": "yoyo",
+        "label": "Yoyo",
+        "type": "switch"
+      },
+      {
+        "key": "followPointer",
+        "label": "Follow Pointer",
+        "type": "switch"
+      },
+      {
+        "key": "pauseOnHover",
+        "label": "Pause on Hover",
+        "type": "switch"
+      },
+      {
+        "key": "disabled",
+        "label": "Disabled",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "Shuffle",
+    "name": "Shuffle",
+    "defaults": {
+      "duration": 0.35,
+      "shuffleTimes": 1,
+      "stagger": 0.03,
+      "shuffleDirection": "right",
+      "ease": "power3.out",
+      "loop": false,
+      "loopDelay": 0,
+      "triggerOnHover": true
+    },
+    "controls": [
+      {
+        "key": "shuffleDirection",
+        "label": "Direction",
+        "type": "select",
+        "options": [
+          [
+            "right",
+            "Right"
+          ],
+          [
+            "left",
+            "Left"
+          ],
+          [
+            "up",
+            "Up"
+          ],
+          [
+            "down",
+            "Down"
+          ]
+        ]
+      },
+      {
+        "key": "ease",
+        "label": "Ease",
+        "type": "select",
+        "options": [
+          [
+            "power2.out",
+            "power2.out"
+          ],
+          [
+            "power3.out",
+            "power3.out"
+          ],
+          [
+            "back.out(1.1)",
+            "back.out(1.1)"
+          ],
+          [
+            "expo.out",
+            "expo.out"
+          ]
+        ]
+      },
+      {
+        "key": "duration",
+        "label": "Duration",
+        "type": "range",
+        "min": 0.1,
+        "max": 1.5,
+        "step": 0.05,
+        "unit": "s",
+        "transform": "(val) => Number(val)"
+      },
+      {
+        "key": "shuffleTimes",
+        "label": "Shuffle Times",
+        "type": "range",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "transform": "(val) => Number(val)"
+      },
+      {
+        "key": "stagger",
+        "label": "Stagger",
+        "type": "range",
+        "min": 0,
+        "max": 0.2,
+        "step": 0.01,
+        "unit": "s",
+        "transform": "(val) => Number(val)"
+      },
+      {
+        "key": "triggerOnHover",
+        "label": "Hover Replay",
+        "type": "switch"
+      },
+      {
+        "key": "loop",
+        "label": "Loop",
+        "type": "switch"
+      },
+      {
+        "key": "loopDelay",
+        "label": "Loop Delay",
+        "type": "range",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "unit": "s",
+        "disabledWhen": "!loop",
+        "transform": "(val) => Number(val)"
+      }
+    ]
+  },
+  {
+    "id": "SplitFlapText",
+    "name": "Split Flap Text",
+    "defaults": {
+      "words": [
+        "LAUNCH READY",
+        "SYNC ONLINE",
+        "SIGNAL LIVE"
+      ],
+      "flipDuration": 0.12,
+      "stagger": 0.06,
+      "cycleDelay": 2400,
+      "charset": "alphanumeric",
+      "flipsPerChar": 8,
+      "tileColor": "#111827",
+      "textColor": "#f8fafc",
+      "tileRadius": 8,
+      "gap": 6,
+      "fontSize": 52,
+      "loop": true,
+      "padTo": 12
+    },
+    "controls": [
+      {
+        "key": "words",
+        "label": "Phrase Set",
+        "type": "select",
+        "options": [
+          [
+            "launch",
+            "Launch"
+          ],
+          [
+            "travel",
+            "Travel"
+          ],
+          [
+            "product",
+            "Product"
+          ],
+          [
+            "numeric",
+            "Numeric"
+          ]
+        ],
+        "transform": "(value) => PHRASE_SETS[value]"
+      },
+      {
+        "key": "charset",
+        "label": "Charset",
+        "type": "select",
+        "options": [
+          [
+            "alphanumeric",
+            "A-Z + 0-9"
+          ],
+          [
+            "alpha",
+            "A-Z"
+          ],
+          [
+            "numeric",
+            "0-9"
+          ],
+          [
+            "ABCDEF0123456789•",
+            "Hex + dot"
+          ]
+        ]
+      },
+      {
+        "key": "tileColor",
+        "label": "Tile Color",
+        "type": "color"
+      },
+      {
+        "key": "textColor",
+        "label": "Text Color",
+        "type": "color"
+      },
+      {
+        "key": "flipDuration",
+        "label": "Flip Duration",
+        "type": "range",
+        "min": 0.06,
+        "max": 0.24,
+        "step": 0.01,
+        "unit": "s"
+      },
+      {
+        "key": "stagger",
+        "label": "Stagger",
+        "type": "range",
+        "min": 0,
+        "max": 0.14,
+        "step": 0.01,
+        "unit": "s"
+      },
+      {
+        "key": "cycleDelay",
+        "label": "Cycle Delay",
+        "type": "range",
+        "min": 900,
+        "max": 5000,
+        "step": 100,
+        "unit": "ms"
+      },
+      {
+        "key": "flipsPerChar",
+        "label": "Flips",
+        "type": "range",
+        "min": 1,
+        "max": 14,
+        "step": 1
+      },
+      {
+        "key": "padTo",
+        "label": "Pad To",
+        "type": "range",
+        "min": 8,
+        "max": 18,
+        "step": 1
+      },
+      {
+        "key": "fontSize",
+        "label": "Font Size",
+        "type": "range",
+        "min": 32,
+        "max": 76,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "key": "tileRadius",
+        "label": "Tile Radius",
+        "type": "range",
+        "min": 0,
+        "max": 18,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "key": "gap",
+        "label": "Gap",
+        "type": "range",
+        "min": 2,
+        "max": 14,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "key": "loop",
+        "label": "Loop",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "SplitText",
+    "name": "Split Text",
+    "defaults": {
+      "text": "Hello, you!",
+      "delay": 50,
+      "duration": 1.25,
+      "ease": "power3.out",
+      "splitType": "chars",
+      "showCallback": true
+    },
+    "controls": [
+      {
+        "key": "splitType",
+        "label": "Split Type",
+        "type": "select",
+        "options": [
+          [
+            "chars",
+            "Chars"
+          ],
+          [
+            "words",
+            "Words"
+          ],
+          [
+            "lines",
+            "Lines"
+          ]
+        ]
+      },
+      {
+        "key": "ease",
+        "label": "Ease",
+        "type": "select",
+        "options": [
+          [
+            "power3.out",
+            "power3.out"
+          ],
+          [
+            "bounce.out",
+            "bounce.out"
+          ],
+          [
+            "elastic.out(1, 0.3)",
+            "elastic.out"
+          ]
+        ]
+      },
+      {
+        "key": "delay",
+        "label": "Stagger Delay (ms)",
+        "type": "range",
+        "min": 10,
+        "max": 500,
+        "step": 10
+      },
+      {
+        "key": "duration",
+        "label": "Duration (s)",
+        "type": "range",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.1
+      },
+      {
+        "key": "showCallback",
+        "label": "Show Completion Toast",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "StrokeText",
+    "name": "Stroke Text",
+    "defaults": {
+      "text": "Draw Attention",
+      "strokeColor": "#A78BFA",
+      "fillColor": "#F8FAFC",
+      "strokeWidth": 1.4,
+      "drawDuration": 1.6,
+      "fillDelay": 0.2,
+      "stagger": 0.05,
+      "ease": "power2.out",
+      "trigger": "mount",
+      "fillMode": "wipe",
+      "fontSize": 128,
+      "fontWeight": 800,
+      "letterSpacing": -4,
+      "reverse": false
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 22
+      },
+      {
+        "key": "strokeColor",
+        "label": "Stroke",
+        "type": "color"
+      },
+      {
+        "key": "fillColor",
+        "label": "Fill",
+        "type": "color"
+      },
+      {
+        "key": "trigger",
+        "label": "Trigger",
+        "type": "select",
+        "options": [
+          [
+            "mount",
+            "Mount"
+          ],
+          [
+            "hover",
+            "Hover"
+          ],
+          [
+            "scroll",
+            "Scroll"
+          ],
+          [
+            "loop",
+            "Loop"
+          ]
+        ]
+      },
+      {
+        "key": "fillMode",
+        "label": "Fill Mode",
+        "type": "select",
+        "options": [
+          [
+            "wipe",
+            "Wipe"
+          ],
+          [
+            "fade",
+            "Fade"
+          ],
+          [
+            "none",
+            "None"
+          ]
+        ]
+      },
+      {
+        "key": "ease",
+        "label": "Ease",
+        "type": "select",
+        "options": [
+          [
+            "power2.out",
+            "Power Out"
+          ],
+          [
+            "power3.out",
+            "Crisp Out"
+          ],
+          [
+            "expo.out",
+            "Expo Out"
+          ],
+          [
+            "sine.inOut",
+            "Sine In Out"
+          ]
+        ]
+      },
+      {
+        "key": "strokeWidth",
+        "label": "Stroke Width",
+        "type": "range",
+        "min": 0.5,
+        "max": 4,
+        "step": 0.1
+      },
+      {
+        "key": "drawDuration",
+        "label": "Draw Duration",
+        "type": "range",
+        "min": 0.6,
+        "max": 3,
+        "step": 0.1,
+        "unit": "s"
+      },
+      {
+        "key": "fillDelay",
+        "label": "Fill Delay",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "unit": "s"
+      },
+      {
+        "key": "stagger",
+        "label": "Stagger",
+        "type": "range",
+        "min": 0,
+        "max": 0.12,
+        "step": 0.005,
+        "unit": "s"
+      },
+      {
+        "key": "fontSize",
+        "label": "Font Size",
+        "type": "range",
+        "min": 72,
+        "max": 170,
+        "step": 2,
+        "unit": "px"
+      },
+      {
+        "key": "fontWeight",
+        "label": "Font Weight",
+        "type": "range",
+        "min": 300,
+        "max": 900,
+        "step": 50
+      },
+      {
+        "key": "letterSpacing",
+        "label": "Letter Spacing",
+        "type": "range",
+        "min": -10,
+        "max": 8,
+        "step": 0.5,
+        "unit": "px"
+      },
+      {
+        "key": "reverse",
+        "label": "Reverse Stagger",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "TechText",
+    "name": "Tech Text",
+    "defaults": {
+      "text": "React Bits",
+      "fontFamily": "",
+      "color": "#ffffff",
+      "accentColor": "#ffffff",
+      "fontWeight": 600,
+      "fontSize": 150,
+      "letterSpacing": -0.05,
+      "reach": 200,
+      "softness": 0.7,
+      "dashLength": 4,
+      "dashGap": 2,
+      "strokeWidth": 1.5,
+      "speed": 1,
+      "specks": 15,
+      "lineStyle": "dashed",
+      "reveal": "letter",
+      "selection": true,
+      "labels": true,
+      "draggable": true,
+      "sweep": true
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 24
+      },
+      {
+        "key": "fontFamily",
+        "label": "Font",
+        "type": "select",
+        "options": [
+          [
+            "",
+            "Inherit"
+          ],
+          [
+            "\"Geist Mono\", monospace",
+            "Geist Mono"
+          ],
+          [
+            "Georgia, \"Times New Roman\", serif",
+            "Serif"
+          ],
+          [
+            "system-ui, sans-serif",
+            "System"
+          ]
+        ]
+      },
+      {
+        "key": "color",
+        "label": "Color",
+        "type": "color"
+      },
+      {
+        "key": "accentColor",
+        "label": "Accent",
+        "type": "color"
+      },
+      {
+        "key": "fontWeight",
+        "label": "Font Weight",
+        "type": "range",
+        "min": 300,
+        "max": 900,
+        "step": 100
+      },
+      {
+        "key": "fontSize",
+        "label": "Font Size",
+        "type": "range",
+        "min": 60,
+        "max": 320,
+        "step": 5,
+        "unit": "px"
+      },
+      {
+        "key": "letterSpacing",
+        "label": "Letter Spacing",
+        "type": "range",
+        "min": -0.1,
+        "max": 0.2,
+        "step": 0.01,
+        "unit": "em"
+      },
+      {
+        "key": "reveal",
+        "label": "Reveal",
+        "type": "select",
+        "options": [
+          [
+            "area",
+            "Area"
+          ],
+          [
+            "letter",
+            "Letter"
+          ],
+          [
+            "off",
+            "Off"
+          ]
+        ]
+      },
+      {
+        "key": "reach",
+        "label": "Reach",
+        "type": "range",
+        "min": 80,
+        "max": 400,
+        "step": 10,
+        "unit": "px",
+        "disabledWhen": "reveal !== 'area'"
+      },
+      {
+        "key": "softness",
+        "label": "Softness",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "disabledWhen": "reveal !== 'area'"
+      },
+      {
+        "key": "lineStyle",
+        "label": "Line Style",
+        "type": "select",
+        "options": [
+          [
+            "dashed",
+            "Dashed"
+          ],
+          [
+            "solid",
+            "Solid"
+          ]
+        ]
+      },
+      {
+        "key": "dashLength",
+        "label": "Dash Length",
+        "type": "range",
+        "min": 2,
+        "max": 16,
+        "step": 1,
+        "unit": "px",
+        "disabledWhen": "lineStyle === 'solid'"
+      },
+      {
+        "key": "dashGap",
+        "label": "Dash Gap",
+        "type": "range",
+        "min": 2,
+        "max": 12,
+        "step": 1,
+        "unit": "px",
+        "disabledWhen": "lineStyle === 'solid'"
+      },
+      {
+        "key": "strokeWidth",
+        "label": "Stroke Width",
+        "type": "range",
+        "min": 0.5,
+        "max": 4,
+        "step": 0.25,
+        "unit": "px"
+      },
+      {
+        "key": "speed",
+        "label": "Speed",
+        "type": "range",
+        "min": 0.2,
+        "max": 3,
+        "step": 0.1
+      },
+      {
+        "key": "specks",
+        "label": "Specks",
+        "type": "range",
+        "min": 0,
+        "max": 48,
+        "step": 1
+      },
+      {
+        "key": "selection",
+        "label": "Selection",
+        "type": "switch"
+      },
+      {
+        "key": "labels",
+        "label": "Labels",
+        "type": "switch"
+      },
+      {
+        "key": "draggable",
+        "label": "Draggable",
+        "type": "switch"
+      },
+      {
+        "key": "sweep",
+        "label": "Sweep",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "TextCursor",
+    "name": "Text Cursor",
+    "defaults": {
+      "text": "⚛️",
+      "followMouseDirection": true,
+      "randomFloat": true
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 10
+      },
+      {
+        "key": "followMouseDirection",
+        "label": "Follow Mouse Direction",
+        "type": "switch"
+      },
+      {
+        "key": "randomFloat",
+        "label": "Enable Random Floating",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "TextLoop",
+    "name": "Text Loop",
+    "defaults": {
+      "text": "React ✦ Bits",
+      "shape": "wave",
+      "speed": 90,
+      "direction": "forward",
+      "separator": "✦",
+      "curviness": 90,
+      "fontSize": 46,
+      "fontWeight": 800,
+      "letterSpacing": 2,
+      "uppercase": true,
+      "color": "#ffffff",
+      "ribbon": true,
+      "ribbonColor": "#5227FF",
+      "ribbonWidth": 86,
+      "pauseOnHover": true
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 30
+      },
+      {
+        "key": "separator",
+        "label": "Separator",
+        "type": "text",
+        "maxLength": 3
+      },
+      {
+        "key": "shape",
+        "label": "Shape",
+        "type": "select",
+        "options": [
+          [
+            "wave",
+            "Wave"
+          ],
+          [
+            "circle",
+            "Circle"
+          ],
+          [
+            "infinity",
+            "Infinity"
+          ],
+          [
+            "arch",
+            "Arch"
+          ],
+          [
+            "line",
+            "Line"
+          ]
+        ]
+      },
+      {
+        "key": "direction",
+        "label": "Direction",
+        "type": "select",
+        "options": [
+          [
+            "forward",
+            "Forward"
+          ],
+          [
+            "reverse",
+            "Reverse"
+          ]
+        ]
+      },
+      {
+        "key": "color",
+        "label": "Text Color",
+        "type": "color"
+      },
+      {
+        "key": "ribbonColor",
+        "label": "Ribbon Color",
+        "type": "color"
+      },
+      {
+        "key": "ribbon",
+        "label": "Ribbon",
+        "type": "switch"
+      },
+      {
+        "key": "uppercase",
+        "label": "Uppercase",
+        "type": "switch"
+      },
+      {
+        "key": "pauseOnHover",
+        "label": "Pause On Hover",
+        "type": "switch"
+      },
+      {
+        "key": "speed",
+        "label": "Speed",
+        "type": "range",
+        "min": 10,
+        "max": 260,
+        "step": 5
+      },
+      {
+        "key": "curviness",
+        "label": "Curviness",
+        "type": "range",
+        "min": 0,
+        "max": 160,
+        "step": 2
+      },
+      {
+        "key": "ribbonWidth",
+        "label": "Ribbon Width",
+        "type": "range",
+        "min": 0,
+        "max": 160,
+        "step": 2,
+        "unit": "px"
+      },
+      {
+        "key": "fontSize",
+        "label": "Font Size",
+        "type": "range",
+        "min": 18,
+        "max": 90,
+        "step": 2,
+        "unit": "px"
+      },
+      {
+        "key": "fontWeight",
+        "label": "Font Weight",
+        "type": "range",
+        "min": 300,
+        "max": 900,
+        "step": 50
+      },
+      {
+        "key": "letterSpacing",
+        "label": "Letter Spacing",
+        "type": "range",
+        "min": -2,
+        "max": 14,
+        "step": 0.5,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "id": "TextPressure",
+    "name": "Text Pressure",
+    "defaults": {
+      "text": "Hello!",
+      "flex": true,
+      "alpha": false,
+      "stroke": false,
+      "width": true,
+      "weight": true,
+      "italic": true,
+      "textColor": "#ffffff",
+      "strokeColor": "#5227FF"
+    },
+    "controls": [
+      {
+        "key": "textColor",
+        "label": "Text Color",
+        "type": "color"
+      },
+      {
+        "key": "strokeColor",
+        "label": "Stroke Color",
+        "type": "color"
+      },
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 10
+      },
+      {
+        "key": "flex",
+        "label": "Flex",
+        "type": "switch"
+      },
+      {
+        "key": "alpha",
+        "label": "Alpha",
+        "type": "switch"
+      },
+      {
+        "key": "stroke",
+        "label": "Stroke",
+        "type": "switch"
+      },
+      {
+        "key": "width",
+        "label": "Width",
+        "type": "switch"
+      },
+      {
+        "key": "weight",
+        "label": "Weight",
+        "type": "switch"
+      },
+      {
+        "key": "italic",
+        "label": "Italic",
+        "type": "switch"
+      }
+    ]
+  },
+  {
+    "id": "TextType",
+    "name": "Text Type",
+    "defaults": {
+      "texts": [
+        "Welcome to React Bits! Good to see you!",
+        "Build some amazing experiences!"
+      ],
+      "typingSpeed": 75,
+      "pauseDuration": 1500,
+      "deletingSpeed": 50,
+      "showCursor": true,
+      "cursorCharacter": "_",
+      "variableSpeedEnabled": false,
+      "variableSpeedMin": 60,
+      "variableSpeedMax": 120,
+      "cursorBlinkDuration": 0.5
+    },
+    "controls": [
+      {
+        "key": "cursorCharacter",
+        "label": "Cursor Character",
+        "type": "select",
+        "options": [
+          [
+            "_",
+            "Underscore (_)"
+          ],
+          [
+            "|",
+            "Pipe (|)"
+          ],
+          [
+            "▎",
+            "Block (▎)"
+          ],
+          [
+            "●",
+            "Dot (●)"
+          ],
+          [
+            "█",
+            "Full Block (█)"
+          ]
+        ]
+      },
+      {
+        "key": "typingSpeed",
+        "label": "Typing Speed",
+        "type": "range",
+        "min": 10,
+        "max": 200,
+        "step": 5,
+        "unit": "ms"
+      },
+      {
+        "key": "pauseDuration",
+        "label": "Pause Duration",
+        "type": "range",
+        "min": 500,
+        "max": 5000,
+        "step": 100,
+        "unit": "ms"
+      },
+      {
+        "key": "deletingSpeed",
+        "label": "Deleting Speed",
+        "type": "range",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "unit": "ms"
+      },
+      {
+        "key": "cursorBlinkDuration",
+        "label": "Cursor Blink Duration",
+        "type": "range",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.1,
+        "unit": "s"
+      },
+      {
+        "key": "showCursor",
+        "label": "Show Cursor",
+        "type": "switch"
+      },
+      {
+        "key": "variableSpeedEnabled",
+        "label": "Variable Speed",
+        "type": "switch"
+      },
+      {
+        "key": "variableSpeedMin",
+        "label": "Variable Speed Min",
+        "type": "range",
+        "min": 10,
+        "max": 150,
+        "step": 5,
+        "unit": "ms",
+        "disabledWhen": "!variableSpeedEnabled"
+      },
+      {
+        "key": "variableSpeedMax",
+        "label": "Variable Speed Max",
+        "type": "range",
+        "min": 50,
+        "max": 300,
+        "step": 5,
+        "unit": "ms",
+        "disabledWhen": "!variableSpeedEnabled"
+      }
+    ]
+  },
+  {
+    "id": "TrueFocus",
+    "name": "True Focus",
+    "defaults": {
+      "manualMode": false,
+      "blurAmount": 5,
+      "animationDuration": 0.5,
+      "pauseBetweenAnimations": 1,
+      "borderColor": "#5227FF"
+    },
+    "controls": [
+      {
+        "key": "borderColor",
+        "label": "Border Color",
+        "type": "color"
+      },
+      {
+        "key": "manualMode",
+        "label": "Hover Mode",
+        "type": "switch"
+      },
+      {
+        "key": "blurAmount",
+        "label": "Blur Amount",
+        "type": "range",
+        "min": 0,
+        "max": 15,
+        "step": 0.5,
+        "unit": "px"
+      },
+      {
+        "key": "animationDuration",
+        "label": "Animation Duration",
+        "type": "range",
+        "min": 0.1,
+        "max": 3,
+        "step": 0.1,
+        "unit": "s",
+        "disabledWhen": "!manualMode"
+      },
+      {
+        "key": "pauseBetweenAnimations",
+        "label": "Pause Between Animations",
+        "type": "range",
+        "min": 0,
+        "max": 5,
+        "step": 0.5,
+        "unit": "s",
+        "disabledWhen": "manualMode"
+      }
+    ]
+  },
+  {
+    "id": "VariableProximity",
+    "name": "Variable Proximity",
+    "defaults": {
+      "radius": 100,
+      "falloff": "linear"
+    },
+    "controls": [
+      {
+        "key": "radius",
+        "label": "Radius",
+        "type": "range",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "unit": "px"
+      },
+      {
+        "key": "falloff",
+        "label": "Falloff",
+        "type": "select",
+        "options": [
+          [
+            "linear",
+            "Linear"
+          ],
+          [
+            "exponential",
+            "Exponential"
+          ],
+          [
+            "gaussian",
+            "Gaussian"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "WarpText",
+    "name": "Warp Text",
+    "defaults": {
+      "text": "Bend the moment",
+      "color": "#f8f5ff",
+      "warpStrength": 0.08,
+      "warpScale": 1.7,
+      "speed": 0.55,
+      "pointerInfluence": 0.42,
+      "pointerStrength": 0.38,
+      "refraction": 0.018,
+      "ripple": true,
+      "fontSize": 116,
+      "fontWeight": 800,
+      "fontFamily": "inherit",
+      "letterSpacing": -0.06,
+      "lineHeight": 0.9
+    },
+    "controls": [
+      {
+        "key": "text",
+        "label": "Text",
+        "type": "text",
+        "maxLength": 36
+      },
+      {
+        "key": "color",
+        "label": "Text Color",
+        "type": "color"
+      },
+      {
+        "key": "fontFamily",
+        "label": "Font",
+        "type": "select",
+        "options": [
+          [
+            "inherit",
+            "System"
+          ],
+          [
+            "Georgia, serif",
+            "Serif"
+          ],
+          [
+            "ui-monospace, SFMono-Regular, Menlo, monospace",
+            "Mono"
+          ]
+        ]
+      },
+      {
+        "key": "fontWeight",
+        "label": "Weight",
+        "type": "select",
+        "options": [
+          [
+            600,
+            "600"
+          ],
+          [
+            700,
+            "700"
+          ],
+          [
+            800,
+            "800"
+          ],
+          [
+            900,
+            "900"
+          ]
+        ]
+      },
+      {
+        "key": "fontSize",
+        "label": "Font Size",
+        "type": "range",
+        "min": 56,
+        "max": 160,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "key": "letterSpacing",
+        "label": "Letter Spacing",
+        "type": "range",
+        "min": -0.12,
+        "max": 0.04,
+        "step": 0.01,
+        "unit": "em"
+      },
+      {
+        "key": "lineHeight",
+        "label": "Line Height",
+        "type": "range",
+        "min": 0.78,
+        "max": 1.2,
+        "step": 0.01
+      },
+      {
+        "key": "warpStrength",
+        "label": "Warp Strength",
+        "type": "range",
+        "min": 0,
+        "max": 0.18,
+        "step": 0.01
+      },
+      {
+        "key": "warpScale",
+        "label": "Warp Scale",
+        "type": "range",
+        "min": 0.8,
+        "max": 3,
+        "step": 0.1
+      },
+      {
+        "key": "speed",
+        "label": "Speed",
+        "type": "range",
+        "min": 0,
+        "max": 1.5,
+        "step": 0.05
+      },
+      {
+        "key": "pointerInfluence",
+        "label": "Pointer Radius",
+        "type": "range",
+        "min": 0.18,
+        "max": 0.75,
+        "step": 0.01
+      },
+      {
+        "key": "pointerStrength",
+        "label": "Pointer Strength",
+        "type": "range",
+        "min": 0,
+        "max": 0.8,
+        "step": 0.01
+      },
+      {
+        "key": "refraction",
+        "label": "Refraction",
+        "type": "range",
+        "min": 0,
+        "max": 0.05,
+        "step": 0.001
+      },
+      {
+        "key": "ripple",
+        "label": "Ripple",
+        "type": "switch"
+      }
+    ]
+  }
+]
