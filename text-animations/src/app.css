@@ -345,3 +345,61 @@ html.tx-open main {
 .cust-tab #bg-panel .pnl-head {
   display: none;
 }
+
+/* ---------- header: saved looks + share ---------- */
+#cust-button {
+  gap: 2px;
+}
+.cust-toggle {
+  position: relative;
+}
+.cust-toast {
+  position: absolute;
+  top: 34px;
+  right: 0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #172027eb;
+  border: 0.5px solid var(--border-subtle);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+}
+.cust-saved-pop {
+  width: 300px;
+}
+.cust-saved-new input {
+  flex: 1;
+}
+.cust-icon-btn {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  color: var(--text-secondary);
+}
+.cust-icon-btn:hover {
+  background: var(--btn-hover-bg);
+  color: var(--text-primary);
+}
+.cust-icon-btn .ico,
+.cust-icon-btn .ico svg {
+  width: 16px;
+  height: 16px;
+}
+.cust-saved li span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cust-saved li .bgp-empty,
+.cust-saved .bgp-empty {
+  height: auto;
+  padding: 8px;
+  white-space: normal;
+  line-height: 16px;
+}

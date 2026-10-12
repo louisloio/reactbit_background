@@ -1,6 +1,6 @@
 // Text animation picker for the Core appshell.
 // Mounts three pieces with one React root (via portals):
-//   - a single "Customise" icon button in the header
+//   - three icon buttons in the header: Saved looks, Share, Customise
 //   - one settings panel (.pnl) with Background | Text tabs. The Background tab hosts the
 //     existing background picker and its settings panel (moved in from the header), the
 //     Text tab browses and tunes the React Bits text animations
@@ -11,6 +11,15 @@ import { createRoot } from 'react-dom/client';
 
 import { TEXT_ANIMATIONS } from './registry.js';
 import { renderWithAdapter } from './adapters.jsx';
+import {
+  applyBackground,
+  getBackground,
+  loadSavedLooks,
+  lookUrl,
+  persistBackground,
+  storeSavedLooks,
+  takeLookFromUrl
+} from './looks.js';
 import './app.css';
 
 const STORAGE_KEY = 'core.textAnimations.v1';
@@ -166,6 +175,14 @@ const I = {
     'M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z',
   replay: 'M8 5v14l11-7z',
   copy: 'M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z',
+  share:
+    'M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z',
+  saved:
+    'M19 18l2 1V3c0-1.1-.9-2-2-2H8.99C7.89 1 7 1.9 7 3h10c1.1 0 2 .9 2 2v13zM15 5H5c-1.1 0-2 .9-2 2v16l7-3 7 3V7c0-1.1-.9-2-2-2z',
+  link: 'M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z',
+  trash: 'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z',
+  check: 'M9 16.17 4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z',
+  add: 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z',
   search:
     'M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'
 };
@@ -455,6 +472,156 @@ function TextTab({ ctx }) {
 
 // ---------- unified customise panel ----------
 
+// ---------- looks: share + saved ----------
+
+const currentLook = () => {
+  const s = state;
+  return {
+    v: 1,
+    bg: getBackground(),
+    text: { id: s.id, height: s.height, base: s.base, props: s.id ? s.props[s.id] ?? {} : {} }
+  };
+};
+
+const applyLook = look => {
+  if (!look || typeof look !== 'object') return;
+  if (look.bg) applyBackground(look.bg);
+  const t = look.text;
+  if (t && (t.id === null || BY_ID[t.id]))
+    setState(st => ({
+      id: t.id,
+      height: typeof t.height === 'number' ? t.height : st.height,
+      base: { ...BASE_DEFAULTS, ...t.base },
+      props: t.id ? { ...st.props, [t.id]: t.props ?? {} } : st.props
+    }));
+};
+
+const copyText = async text => {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const lookTitle = look => {
+  const bgName = document.querySelector('#bg-picker .bgp-name')?.textContent || look.bg?.id || 'Background';
+  const textName = look.text?.id ? BY_ID[look.text.id]?.name : null;
+  return textName ? `${bgName} + ${textName}` : bgName;
+};
+
+function ShareButton() {
+  const [status, setStatus] = useState('');
+  return (
+    <button
+      className="bgp-tune cust-toggle"
+      aria-label="Copy share link"
+      title={status || 'Copy a link to this background + text'}
+      data-status={status ? 'done' : undefined}
+      onClick={async () => {
+        const ok = await copyText(await lookUrl(currentLook()));
+        setStatus(ok ? 'Link copied' : 'Copy failed');
+        setTimeout(() => setStatus(''), 1600);
+      }}
+    >
+      <Icon d={status === 'Link copied' ? I.check : I.share} />
+      {status && <span className="cust-toast" role="status">{status}</span>}
+    </button>
+  );
+}
+
+function SavedLooks() {
+  const [open, setOpen] = useState(false);
+  const [looks, setLooks] = useState(loadSavedLooks);
+  const [name, setName] = useState('');
+  const [copied, setCopied] = useState(null);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const close = e => !ref.current?.contains(e.target) && setOpen(false);
+    document.addEventListener('pointerdown', close);
+    return () => document.removeEventListener('pointerdown', close);
+  }, [open]);
+
+  const update = list => {
+    setLooks(list);
+    storeSavedLooks(list);
+  };
+
+  const save = () => {
+    const look = currentLook();
+    const entry = { id: Date.now().toString(36), name: name.trim() || lookTitle(look), look };
+    update([entry, ...looks]);
+    setName('');
+  };
+
+  return (
+    <div className="bgp cust-saved" ref={ref}>
+      <button
+        className="bgp-tune cust-toggle"
+        aria-pressed={open}
+        aria-haspopup="dialog"
+        aria-label="Saved looks"
+        title="Saved looks"
+        onClick={() => setOpen(o => !o)}
+      >
+        <Icon d={I.saved} />
+      </button>
+      {open && (
+        <div className="bgp-pop cust-saved-pop" role="dialog" aria-label="Saved looks">
+          <form
+            className="bgp-search cust-saved-new"
+            onSubmit={e => {
+              e.preventDefault();
+              save();
+            }}
+          >
+            <input placeholder="Name this look" value={name} maxLength={60} onChange={e => setName(e.target.value)} />
+            <button type="submit" className="cust-icon-btn" aria-label="Save current look" title="Save current look">
+              <Icon d={I.add} />
+            </button>
+          </form>
+          <ul>
+            {looks.map(l => (
+              <li key={l.id} onClick={() => applyLook(l.look)} title="Load this look">
+                <span>{l.name}</span>
+                <button
+                  className="cust-icon-btn"
+                  aria-label={`Copy link to ${l.name}`}
+                  title={copied === l.id ? 'Link copied' : 'Copy share link'}
+                  onClick={async e => {
+                    e.stopPropagation();
+                    if (await copyText(await lookUrl(l.look))) {
+                      setCopied(l.id);
+                      setTimeout(() => setCopied(null), 1400);
+                    }
+                  }}
+                >
+                  <Icon d={copied === l.id ? I.check : I.link} />
+                </button>
+                <button
+                  className="cust-icon-btn"
+                  aria-label={`Delete ${l.name}`}
+                  title="Delete"
+                  onClick={e => {
+                    e.stopPropagation();
+                    update(looks.filter(x => x.id !== l.id));
+                  }}
+                >
+                  <Icon d={I.trash} />
+                </button>
+              </li>
+            ))}
+            {!looks.length && <li className="bgp-empty">No saved looks yet. Name the current look and press +.</li>}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function HeaderButton() {
   const s = useStore();
   return (
@@ -632,7 +799,14 @@ function App({ buttonHost, panelHost, slot }) {
 
   return (
     <>
-      {createPortal(<HeaderButton />, buttonHost)}
+      {createPortal(
+        <>
+          <SavedLooks />
+          <ShareButton />
+          <HeaderButton />
+        </>,
+        buttonHost
+      )}
       {createPortal(<CustomisePanel ctx={ctx} />, panelHost)}
       {createPortal(<Stage slot={slot} ctx={ctx} />, slot)}
     </>
@@ -662,6 +836,10 @@ const start = () => {
   document.body.appendChild(rootEl);
 
   createRoot(rootEl).render(<App buttonHost={buttonHost} panelHost={panelHost} slot={slot} />);
+
+  // Restore background settings from the last visit, then apply a shared look if the URL has one
+  persistBackground();
+  takeLookFromUrl().then(applyLook);
 };
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);

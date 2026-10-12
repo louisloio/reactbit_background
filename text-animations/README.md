@@ -15,3 +15,12 @@ npm run build   # vite build, then inline dist/ into the page
   `DEFAULT_PROPS` and `<Customize>` controls from them.
 - `src/adapters.jsx` — per-component glue: text passed as children, extra controls, defaults that suit a short area.
 - `src/main.jsx` — picker, panel and text area; settings are saved in `localStorage` (`core.textAnimations.v1`).
+
+## Looks (share links + saved looks)
+
+`src/looks.js` snapshots the background + text animation and their settings. Share links put the snapshot,
+deflate-compressed and base64url-encoded, in a `?look=` query parameter next to the usual `#background-slug`,
+so they work on GitHub Pages with no server. Saved looks are kept in `localStorage` (`core.looks.v1`).
+
+The background lives in the page's precompiled bundle. One line was added to it (right after `G9=new Set,`)
+to expose its store as `window.__coreBg = { get, set, subscribe }`; keep it if that bundle is ever replaced.
