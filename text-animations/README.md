@@ -16,7 +16,8 @@ Shared files in `../assets/`: `appshell.css/js` (shell styles, theme toggle, pag
 ```
 npm install
 npm run gen     # re-read demos/*.jsx → src/registry.generated.json (defaults + controls)
-npm run build   # vite build, then copy dist/ into ../assets
+npm run build   # vite build, copy dist/ into ../assets, stamp asset links
+npm run stamp   # re-stamp ?v=<hash> on every assets/ link after editing a file in ../assets by hand
 ```
 
 - `src/components/` — React Bits components, copied unchanged from DavidHDev/react-bits.

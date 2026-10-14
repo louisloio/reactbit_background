@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "gen": "node scripts/gen-registry.mjs",
-    "build": "vite build && node scripts/inject.mjs"
+    "build": "vite build && node scripts/inject.mjs && node scripts/stamp-assets.mjs",
+    "stamp": "node scripts/stamp-assets.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
