@@ -24,7 +24,7 @@ import {
   stepBg,
   SurfaceRow
 } from './backgrounds.jsx';
-import { Boundary, BrowseRow, Control, copyText, disabledFn, I, Icon, jsxValue } from './ui.jsx';
+import { Boundary, BrowseRow, Control, copyText, disabledFn, I, Icon, jsxValue, Section } from './ui.jsx';
 import { readView, seedViews, writeView } from './layout.js';
 import { loadSavedLooks, lookUrl, storeSavedLooks, takeLookFromUrl } from './looks.js';
 import { applyGlowLook, getGlowLook, GlowTab } from './glow.jsx';
@@ -203,23 +203,40 @@ function TextTab({ ctx }) {
       </div>
       <div className="pnl-body">
         {entry?.adapter.hint && <p className="tx-note">{entry.adapter.hint}</p>}
-        {(entry?.adapter.fill || entry?.adapter.scroll) && <p className="tx-section">Area</p>}
-        {(entry?.adapter.fill || entry?.adapter.scroll ? AREA_CONTROLS : []).map(c => (
-          <Control key={c.key} c={c} value={s[c.key]} onChange={v => setState({ [c.key]: v })} />
-        ))}
-        <p className="tx-section">Text style</p>
-        {BASE_CONTROLS.map(c => (
-          <Control key={c.key} c={c} value={s.base[c.key]} onChange={v => setState(st => ({ base: { ...st.base, [c.key]: v } }))} />
-        ))}
+        {(entry?.adapter.fill || entry?.adapter.scroll) && (
+          <Section id="text-area" title="Area">
+            {AREA_CONTROLS.map(c => (
+              <Control key={c.key} c={c} value={s[c.key]} onChange={v => setState({ [c.key]: v })} />
+            ))}
+          </Section>
+        )}
+        <Section id="text-style" title="Text style">
+          {BASE_CONTROLS.map(c => (
+            <Control key={c.key} c={c} value={s.base[c.key]} onChange={v => setState(st => ({ base: { ...st.base, [c.key]: v } }))} />
+          ))}
+        </Section>
         {entry ? (
           <>
-            <p className="tx-section">{entry.name}</p>
-            {visible.map((c, i) => (
-              <div key={`${c.key}-${c.type}`} title={c.description} className="tx-control">
-                {c.extra && !visible[i - 1]?.extra && <p className="tx-section">More settings</p>}
-                <Control c={c} value={props[c.key] ?? c.default} onChange={v => setProp(c.key, v)} />
-              </div>
-            ))}
+            <Section id="text-settings" title={entry.name}>
+              {visible
+                .filter(c => !c.extra)
+                .map(c => (
+                  <div key={`${c.key}-${c.type}`} title={c.description} className="tx-control">
+                    <Control c={c} value={props[c.key] ?? c.default} onChange={v => setProp(c.key, v)} />
+                  </div>
+                ))}
+            </Section>
+            {visible.some(c => c.extra) && (
+              <Section id="text-more" title="More settings" defaultOpen={false}>
+                {visible
+                  .filter(c => c.extra)
+                  .map(c => (
+                    <div key={`${c.key}-${c.type}`} title={c.description} className="tx-control">
+                      <Control c={c} value={props[c.key] ?? c.default} onChange={v => setProp(c.key, v)} />
+                    </div>
+                  ))}
+              </Section>
+            )}
           </>
         ) : (
           <p className="pnl-empty">Pick a text animation from the list to see its settings.</p>

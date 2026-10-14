@@ -311,3 +311,43 @@ export class Boundary extends ReactComponent {
     return <p className="tx-error">{this.props.label ?? 'This animation'} failed to render: {String(this.state.error.message)}</p>;
   }
 }
+
+// ---------- collapsible section ----------
+// Remembers which sections are collapsed (per browser), by a stable id.
+
+const SECTIONS_KEY = 'core.sections.v1';
+const readCollapsed = () => {
+  try {
+    return JSON.parse(localStorage.getItem(SECTIONS_KEY) || '{}') ?? {};
+  } catch {
+    return {};
+  }
+};
+
+export function Section({ id, title, children, actions = null, defaultOpen = true }) {
+  const [open, setOpen] = useState(() => {
+    const saved = readCollapsed()[id];
+    return saved === undefined ? defaultOpen : !saved;
+  });
+  const toggle = () =>
+    setOpen(o => {
+      try {
+        localStorage.setItem(SECTIONS_KEY, JSON.stringify({ ...readCollapsed(), [id]: o }));
+      } catch {
+        /* storage unavailable */
+      }
+      return !o;
+    });
+  return (
+    <div className={`tx-group${open ? '' : ' is-collapsed'}`}>
+      <div className="tx-section tx-section-head">
+        <button className="tx-section-btn" aria-expanded={open} onClick={toggle}>
+          <Icon d={I.down} />
+          <span>{title}</span>
+        </button>
+        {actions}
+      </div>
+      {open && <div className="tx-group-body">{children}</div>}
+    </div>
+  );
+}

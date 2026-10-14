@@ -3,7 +3,7 @@
 // which assets/appshell.css reads (defaults there match DEFAULTS below).
 import { useState, useSyncExternalStore } from 'react';
 
-import { Control, copyText, I, Icon } from './ui.jsx';
+import { Control, copyText, I, Icon, Section } from './ui.jsx';
 import { readView, seedViews, writeView } from './layout.js';
 
 const KEY = 'core.glow.v1';
@@ -216,14 +216,13 @@ export function GlowTab() {
       <div className="pnl-body">
         {g.trigger === 'focus' && <p className="tx-note">Click into the question box to see the glow, or set Show to Always while you tune it.</p>}
         {CONTROLS.map(group => (
-          <div key={group.section}>
-            <p className="tx-section">{group.section}</p>
+          <Section key={group.section} id={`glow-${group.section}`} title={group.section}>
             {group.items
               .filter(c => !c.when || c.when(g))
               .map(c => (
                 <Control key={c.key} idPrefix="glow" c={c} value={c.key === 'preset' ? preset : g[c.key]} onChange={v => onChange(c.key, v)} />
               ))}
-          </div>
+          </Section>
         ))}
       </div>
       {showCode && <pre className="pnl-code">{cssText()}</pre>}

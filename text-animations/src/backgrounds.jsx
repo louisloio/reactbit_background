@@ -6,7 +6,7 @@
 import { lazy, Suspense, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 
 import { BACKGROUNDS } from './bg-registry.js';
-import { Boundary, BrowseRow, Control, copyText, I, Icon, jsxValue, toHex } from './ui.jsx';
+import { Boundary, BrowseRow, Control, copyText, I, Icon, jsxValue, Section, toHex } from './ui.jsx';
 import { TrameSettings } from './trame.jsx';
 import { readView, readViewString, seedViews, writeView, writeViewString } from './layout.js';
 
@@ -278,7 +278,11 @@ export function BgSettings() {
     <>
       <div className="pnl-body">
         {controls.length ? (
-          controls.map(c => <Control key={c.key} idPrefix="bg" c={c} value={props[c.key]} onChange={v => setProp(c.key, v)} />)
+          <Section id="bg-settings" title={entry?.label ?? 'Settings'}>
+            {controls.map(c => (
+              <Control key={c.key} idPrefix="bg" c={c} value={props[c.key]} onChange={v => setProp(c.key, v)} />
+            ))}
+          </Section>
         ) : (
           <p className="pnl-empty">
             {s.id === 'solid' ? 'A plain colour. Set it with the Colour row above.' : 'This background has no settings.'}

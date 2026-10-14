@@ -9,7 +9,7 @@
 // (see keepWebGLFramesReadable below, installed before any background loads).
 import { useEffect, useRef, useSyncExternalStore } from 'react';
 
-import { Control, I, Icon } from './ui.jsx';
+import { Control, I, Icon, Section } from './ui.jsx';
 import { readView, seedViews, writeView } from './layout.js';
 
 // ---------- make WebGL frames readable ----------
@@ -163,23 +163,31 @@ export const applyTrameLook = look => {
 export function TrameSettings() {
   const t = useTrame();
   const isDefault = !Object.keys(getTrameLook()).length;
+  // Split the flat control list at its { section } markers
+  const groups = [{ title: null, items: [] }];
+  for (const c of CONTROLS.filter(c => !c.when || c.when(t))) {
+    if (c.section) groups.push({ title: c.section, items: [] });
+    else groups[groups.length - 1].items.push(c);
+  }
+  const row = c => <Control key={c.key} idPrefix="trame" c={c} value={t[c.key]} onChange={v => setTrame({ [c.key]: v })} />;
   return (
     <div className="trame-settings">
-      <div className="tx-section trame-head">
-        <span>Pattern overlay</span>
-        <button className="cust-icon-btn" title="Reset the pattern" aria-label="Reset the pattern" disabled={isDefault} onClick={() => setTrame({ ...TRAME_DEFAULTS })}>
-          <Icon d={I.reset} />
-        </button>
-      </div>
-      {CONTROLS.filter(c => !c.when || c.when(t)).map(c =>
-        c.section ? (
-          <p key={c.section} className="tx-section">
-            {c.section}
-          </p>
-        ) : (
-          <Control key={c.key} idPrefix="trame" c={c} value={t[c.key]} onChange={v => setTrame({ [c.key]: v })} />
-        )
-      )}
+      <Section
+        id="pattern"
+        title="Pattern overlay"
+        actions={
+          <button className="cust-icon-btn" title="Reset the pattern" aria-label="Reset the pattern" disabled={isDefault} onClick={() => setTrame({ ...TRAME_DEFAULTS })}>
+            <Icon d={I.reset} />
+          </button>
+        }
+      >
+        {groups[0].items.map(row)}
+        {groups.slice(1).map(g => (
+          <Section key={g.title} id={`pattern-${g.title}`} title={g.title}>
+            {g.items.map(row)}
+          </Section>
+        ))}
+      </Section>
     </div>
   );
 }

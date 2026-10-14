@@ -455,3 +455,51 @@ html.tx-open main {
   opacity: 0.35;
   cursor: default;
 }
+
+/* ---------- collapsible sections in the customisation panels ---------- */
+.tx-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.tx-section-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding: 2px 4px 2px 0;
+  border-radius: 4px;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+.tx-section-btn:hover {
+  color: var(--text-secondary);
+}
+.tx-section-btn .ico,
+.tx-section-btn .ico svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.15s ease;
+}
+.tx-group.is-collapsed > .tx-section-head .tx-section-btn .ico {
+  transform: rotate(-90deg);
+}
+.tx-section-btn span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tx-group + .tx-group {
+  border-top: 0.5px solid rgba(255, 255, 255, 0.05);
+}
+.tx-group-body .tx-group {
+  padding-left: 0;
+}
+.tx-section-head .cust-icon-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
