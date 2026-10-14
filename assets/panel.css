@@ -16,7 +16,9 @@ html.tx-open body.layout-panel main.ws {
   inset: var(--header-h) var(--rail-w) 0 var(--rail-w);
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(240px, 399px) minmax(240px, 399px) minmax(340px, 1fr);
+  /* three settings columns; the dashboard sits off canvas (see .ws-content) */
+  grid-template-columns: repeat(3, minmax(240px, 399px));
+  overflow: hidden;
   gap: 0 32px;
   align-items: stretch;
   justify-content: stretch;
@@ -107,19 +109,27 @@ html.tx-open body.layout-panel main.ws {
   display: none;
 }
 /* The Text column reuses the panel's body + footer classes outside a .pnl */
-#text-column-body .pnl-body {
+#text-column-body .pnl-body,
+#glow-column-body .pnl-body {
   flex: 1;
   overflow-y: auto;
   padding: 8px 16px 12px;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
-#text-column-body .pnl-foot button {
+#text-column-body .pnl-foot button,
+#glow-column-body .pnl-foot button {
   padding: 0 4px;
 }
 
-/* ---------- content area ---------- */
+/* ---------- content area: pushed off canvas, past the right edge ---------- */
 .ws-content {
+  position: absolute !important;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: 720px;
+  visibility: hidden;
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
@@ -498,9 +508,4 @@ html[data-theme='light'] .ws-content {
 }
 .cm-tiles {
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-}
-
-/* Text column: Text | Input glow switch */
-.ws-col-tabs {
-  padding: 10px 16px 0;
 }

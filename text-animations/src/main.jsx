@@ -433,27 +433,6 @@ function BackgroundTab() {
   );
 }
 
-// Classic page: the second column switches between Text and the input Glow
-function TextColumn({ ctx }) {
-  const s = useStore();
-  const tab = s.colTab === 'glow' ? 'glow' : 'text';
-  return (
-    <>
-      <div className="segmented cust-tabs ws-col-tabs" role="tablist">
-        {[
-          ['text', 'Text'],
-          ['glow', 'Input glow']
-        ].map(([id, label]) => (
-          <button key={id} role="tab" aria-selected={tab === id} aria-pressed={tab === id} onClick={() => setState({ colTab: id })}>
-            {label}
-          </button>
-        ))}
-      </div>
-      {tab === 'text' ? <TextTab ctx={ctx} /> : <GlowTab />}
-    </>
-  );
-}
-
 function CustomisePanel({ ctx }) {
   const s = useStore();
 
@@ -604,7 +583,8 @@ function App({ buttonHost, panelHost, slot, layout, bgRoot }) {
       {isPanel ? (
         <>
           {createPortal(<BackgroundTab />, layout.bgHost)}
-          {createPortal(<TextColumn ctx={ctx} />, layout.textHost)}
+          {createPortal(<TextTab ctx={ctx} />, layout.textHost)}
+          {layout.glowHost && createPortal(<GlowTab />, layout.glowHost)}
         </>
       ) : (
         createPortal(<CustomisePanel ctx={ctx} />, panelHost)
@@ -632,7 +612,12 @@ const start = () => {
     document.querySelector('.header-actions')?.before(buttonHost);
   }
   const layout = panelLayout
-    ? { panel: true, bgHost: document.querySelector('#bg-column-body'), textHost: document.querySelector('#text-column-body') }
+    ? {
+        panel: true,
+        bgHost: document.querySelector('#bg-column-body'),
+        textHost: document.querySelector('#text-column-body'),
+        glowHost: document.querySelector('#glow-column-body')
+      }
     : null;
 
   const panelHost = document.createElement('div');
