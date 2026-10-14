@@ -14,6 +14,50 @@ export const LOOK_PARAM = 'look';
 
 const bg = () => window.__coreBg;
 
+// ---------- colour formats ----------
+// Backgrounds store colours as '#rrggbb', as [r, g, b] in 0–1 (e.g. Dither), or as a 0xrrggbb number.
+// Writing one format into a prop that expects another crashes the bundle's settings panel.
+
+const hexToRgb01 = hex => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255);
+const rgb01ToHex = arr =>
+  '#' + arr.slice(0, 3).map(v => Math.round(Math.min(1, Math.max(0, +v || 0)) * 255).toString(16).padStart(2, '0')).join('');
+const isHex = v => typeof v === 'string' && /^#[0-9a-f]{6}/i.test(v);
+
+// Convert a '#rrggbb' colour into the format of `like` (the prop's default value)
+export const colorLike = (hex, like) => {
+  if (Array.isArray(like)) return hexToRgb01(hex);
+  if (typeof like === 'number') return parseInt(hex.slice(1, 7), 16);
+  return hex;
+};
+
+// Any colour value → '#rrggbb' for display
+export const colorToHex = v => {
+  if (Array.isArray(v)) return rgb01ToHex(v);
+  if (typeof v === 'number') return '#' + v.toString(16).padStart(6, '0').slice(-6);
+  return isHex(v) ? v.slice(0, 7) : '#000000';
+};
+
+// Repair props whose colour format doesn't match the background's defaults
+export const sanitizeProps = (id, props) => {
+  const defaults = bg()?.defaults(id);
+  if (!defaults || !props) return props;
+  let out = props;
+  for (const [key, value] of Object.entries(props)) {
+    const like = defaults[key];
+    const wrong =
+      (Array.isArray(like) && !Array.isArray(value) && isHex(value)) ||
+      (typeof like === 'string' && isHex(like) && Array.isArray(value)) ||
+      (typeof like === 'number' && isHex(value));
+    if (wrong) {
+      if (out === props) out = { ...props };
+      out[key] = colorLike(colorToHex(value), like);
+    }
+  }
+  return out;
+};
+const sanitizeDemo = demo =>
+  Object.fromEntries(Object.entries(demo ?? {}).map(([id, props]) => [id, sanitizeProps(id, props)]));
+
 // ---------- background snapshot ----------
 
 export const getBackground = () => {
@@ -30,7 +74,7 @@ export const applyBackground = look => {
   if (!api || !look?.id) return;
   const s = api.get();
   const demo = { ...s.demo };
-  if (look.props) demo[look.id] = look.props;
+  if (look.props) demo[look.id] = sanitizeProps(look.id, look.props);
   else delete demo[look.id];
   // bump rev so the background remounts with the restored settings
   api.set({
@@ -49,7 +93,7 @@ export const persistBackground = () => {
     const saved = JSON.parse(localStorage.getItem(BG_KEY) || 'null');
     if (saved && typeof saved === 'object') {
       const s = api.get();
-      api.set({ backdrop: saved.backdrop ?? s.backdrop, demo: { ...saved.demo, ...s.demo } });
+      api.set({ backdrop: saved.backdrop ?? s.backdrop, demo: sanitizeDemo({ ...saved.demo, ...s.demo }) });
     }
   } catch {
     /* ignore unreadable storage */

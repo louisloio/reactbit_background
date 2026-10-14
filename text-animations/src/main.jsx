@@ -17,6 +17,8 @@ import { TEXT_ANIMATIONS } from './registry.js';
 import { renderWithAdapter } from './adapters.jsx';
 import {
   applyBackground,
+  colorLike,
+  colorToHex,
   getBackground,
   loadSavedLooks,
   lookUrl,
@@ -504,7 +506,8 @@ const fallbackBackdrop = id => (id === 'solid' ? '#5500ff' : '#120f17');
 const ownSurface = s => {
   const defaults = bgApi()?.defaults(s.id);
   if (!defaults || !('backgroundColor' in defaults)) return null;
-  return { value: (s.demo[s.id] ?? defaults).backgroundColor ?? defaults.backgroundColor, defaults };
+  const raw = (s.demo[s.id] ?? defaults).backgroundColor ?? defaults.backgroundColor;
+  return { value: colorToHex(raw), base: colorToHex(defaults.backgroundColor), defaults };
 };
 
 const applySurface = color => {
@@ -514,7 +517,8 @@ const applySurface = color => {
   const own = ownSurface(s);
   const patch = { backdrop: color };
   if (own) {
-    const props = { ...(s.demo[s.id] ?? own.defaults), backgroundColor: color ?? own.defaults.backgroundColor };
+    const like = own.defaults.backgroundColor;
+    const props = { ...(s.demo[s.id] ?? own.defaults), backgroundColor: color ? colorLike(color, like) : like };
     patch.demo = { ...s.demo, [s.id]: props };
   }
   api.set(patch);
@@ -531,13 +535,13 @@ function SurfaceRow() {
     const s = bgApi()?.get();
     if (!surface || !s) return;
     const own = ownSurface(s);
-    if (own && own.value === own.defaults.backgroundColor && own.value !== surface) applySurface(surface);
+    if (own && own.value === own.base && own.value !== surface) applySurface(surface);
   }, [id]);
 
   if (!bg) return null;
   const own = ownSurface(bg);
   const value = own ? own.value : bg.backdrop ?? fallbackBackdrop(bg.id);
-  const changed = !!bg.backdrop || (own && own.value !== own.defaults.backgroundColor);
+  const changed = !!bg.backdrop || (own && own.value !== own.base);
   const label = bg.id === 'solid' ? 'Colour' : 'Surface';
 
   return (
