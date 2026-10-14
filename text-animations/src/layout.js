@@ -56,3 +56,33 @@ export const writeViewString = (key, value) => {
     /* storage unavailable */
   }
 };
+
+// ---------- copy customisation from the other view ----------
+
+export const OTHER_VIEW = VIEW === 'drawer' ? 'full' : 'drawer';
+export const VIEW_NAMES = { full: 'full page', drawer: 'drawer view' };
+
+// Storage keys holding each part's per-view customisation
+export const VIEW_PARTS = {
+  background: ['core.background.v2', 'core.surface.v1'],
+  text: ['core.textAnimations.v1'],
+  glow: ['core.glow.v1'],
+  pattern: ['core.trame.v1']
+};
+
+// Copies the other view's saved customisation over this view's; returns true if anything was copied
+export const copyFromOtherView = (parts = Object.keys(VIEW_PARTS)) => {
+  let copied = false;
+  try {
+    for (const part of parts)
+      for (const key of VIEW_PARTS[part] ?? []) {
+        const value = localStorage.getItem(`${key}.${OTHER_VIEW}`);
+        if (value === null) continue;
+        localStorage.setItem(`${key}.${VIEW}`, value);
+        copied = true;
+      }
+  } catch {
+    /* storage unavailable */
+  }
+  return copied;
+};

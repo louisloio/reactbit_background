@@ -25,7 +25,7 @@ import {
   SurfaceRow
 } from './backgrounds.jsx';
 import { Boundary, BrowseRow, Control, copyText, disabledFn, I, Icon, jsxValue, Section } from './ui.jsx';
-import { readView, seedViews, writeView } from './layout.js';
+import { copyFromOtherView, OTHER_VIEW, readView, seedViews, VIEW_NAMES, writeView } from './layout.js';
 import { loadSavedLooks, lookUrl, storeSavedLooks, takeLookFromUrl } from './looks.js';
 import { applyGlowLook, getGlowLook, GlowTab } from './glow.jsx';
 import { applyTrameLook, getTrameLook, keepWebGLFramesReadable, TrameLayer } from './trame.jsx';
@@ -345,6 +345,7 @@ function SavedLooks() {
   const [looks, setLooks] = useState(loadSavedLooks);
   const [name, setName] = useState('');
   const [copied, setCopied] = useState(null);
+  const [importNote, setImportNote] = useState('');
   const ref = useRef(null);
 
   useEffect(() => {
@@ -392,6 +393,32 @@ function SavedLooks() {
               <Icon d={I.add} />
             </button>
           </form>
+          <div className="cust-import">
+            <span>Copy settings from the {VIEW_NAMES[OTHER_VIEW]}</span>
+            <div className="cust-import__chips">
+              {[
+                ['all', 'Everything'],
+                ['background', 'Background'],
+                ['text', 'Text'],
+                ['glow', 'Glow'],
+                ['pattern', 'Pattern']
+              ].map(([part, label]) => (
+                <button
+                  key={part}
+                  className="cust-chip"
+                  title={`Replace this page's ${part === 'all' ? 'customisation' : part + ' settings'} with the ${VIEW_NAMES[OTHER_VIEW]}'s`}
+                  onClick={() => {
+                    // Settings are read when the page starts, so reload to apply them
+                    if (copyFromOtherView(part === 'all' ? undefined : [part])) location.reload();
+                    else setImportNote(`Nothing saved on the ${VIEW_NAMES[OTHER_VIEW]} yet`);
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            {importNote && <em className="cust-import__note">{importNote}</em>}
+          </div>
           <ul>
             {looks.map(l => (
               <li key={l.id} onClick={() => applyLook(l.look)} title="Load this look">
