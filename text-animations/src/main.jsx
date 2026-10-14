@@ -5,6 +5,10 @@
 //     existing background picker and its settings panel (moved in from the header), the
 //     Text tab browses and tunes the React Bits text animations
 //   - the text area above the AI input, rendering the selected React Bits component
+//
+// On the Classic page (body.layout-panel) the settings are always visible instead: the
+// background picker/settings and the Text settings render into fixed columns, the header
+// only gets Saved looks + Share, and the text area sits in the Chat AI drawer.
 import { Component as ReactComponent, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { createRoot } from 'react-dom/client';
@@ -689,6 +693,26 @@ function CustomisePanel({ ctx }) {
   );
 }
 
+// ---------- Classic page: fixed columns ----------
+
+function BackgroundColumn({ host }) {
+  // Move the bundle's settings panel next to its picker, then keep it open
+  useEffect(() => {
+    const keepOpen = () => {
+      const panel = document.querySelector('body > #bg-panel');
+      if (panel) host.append(panel);
+      const tune = document.querySelector('#bg-picker .bgp-tune');
+      if (tune && tune.getAttribute('aria-pressed') !== 'true') tune.click();
+    };
+    keepOpen();
+    // The bundle closes its panel on some actions (e.g. Esc); reopen it
+    return window.__coreBg?.subscribe(s => {
+      if (!s.panel) setTimeout(keepOpen);
+    });
+  }, [host]);
+  return null;
+}
+
 // ---------- text area ----------
 
 class Boundary extends ReactComponent {
@@ -774,8 +798,9 @@ function Stage({ slot, ctx }) {
 
 // ---------- mount ----------
 
-function App({ buttonHost, panelHost, slot }) {
+function App({ buttonHost, panelHost, slot, layout }) {
   const s = useStore();
+  const isPanel = layout?.panel;
   const ctx = useMemo(() => ({ scrollRef: { current: slot }, slotRef: { current: slot } }), [slot]);
 
   useEffect(() => {
@@ -788,7 +813,7 @@ function App({ buttonHost, panelHost, slot }) {
         e.preventDefault();
         step(e.key === 'ArrowUp' ? -1 : 1);
       }
-      if (e.altKey && e.code === 'KeyC') {
+      if (e.altKey && e.code === 'KeyC' && !document.body.classList.contains('layout-panel')) {
         e.preventDefault();
         setState({ panel: !state.panel });
       }
@@ -804,18 +829,25 @@ function App({ buttonHost, panelHost, slot }) {
         <>
           <SavedLooks />
           <ShareButton />
-          <HeaderButton />
+          {!isPanel && <HeaderButton />}
         </>,
         buttonHost
       )}
-      {createPortal(<CustomisePanel ctx={ctx} />, panelHost)}
+      {isPanel ? (
+        <>
+          <BackgroundColumn host={layout.bgHost} />
+          {createPortal(<TextTab ctx={ctx} />, layout.textHost)}
+        </>
+      ) : (
+        createPortal(<CustomisePanel ctx={ctx} />, panelHost)
+      )}
       {createPortal(<Stage slot={slot} ctx={ctx} />, slot)}
     </>
   );
 }
 
 const start = () => {
-  const aiInput = document.querySelector('main .ai-input');
+  const aiInput = document.querySelector('.ai-input');
   const bgPicker = document.querySelector('#bg-picker');
   if (!aiInput || !bgPicker) return;
 
@@ -823,9 +855,17 @@ const start = () => {
   slot.className = 'tx-slot';
   aiInput.parentNode.insertBefore(slot, aiInput);
 
-  const buttonHost = document.createElement('div');
-  buttonHost.id = 'cust-button';
-  bgPicker.parentNode.insertBefore(buttonHost, bgPicker);
+  // The Classic page places these hosts in its own markup
+  const panelLayout = document.body.classList.contains('layout-panel');
+  let buttonHost = document.querySelector('#cust-button');
+  if (!buttonHost) {
+    buttonHost = document.createElement('div');
+    buttonHost.id = 'cust-button';
+    bgPicker.parentNode.insertBefore(buttonHost, bgPicker);
+  }
+  const layout = panelLayout
+    ? { panel: true, bgHost: document.querySelector('#bg-column-body'), textHost: document.querySelector('#text-column-body') }
+    : null;
 
   const panelHost = document.createElement('div');
   panelHost.id = 'cust-panel';
@@ -836,7 +876,7 @@ const start = () => {
   rootEl.hidden = true;
   document.body.appendChild(rootEl);
 
-  createRoot(rootEl).render(<App buttonHost={buttonHost} panelHost={panelHost} slot={slot} />);
+  createRoot(rootEl).render(<App buttonHost={buttonHost} panelHost={panelHost} slot={slot} layout={layout} />);
 
   // Restore background settings from the last visit, then apply a shared look if the URL has one
   persistBackground();
