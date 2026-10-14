@@ -25,6 +25,7 @@ import {
   SurfaceRow
 } from './backgrounds.jsx';
 import { Boundary, BrowseRow, Control, copyText, disabledFn, I, Icon, jsxValue } from './ui.jsx';
+import { readView, seedViews, writeView } from './layout.js';
 import { loadSavedLooks, lookUrl, storeSavedLooks, takeLookFromUrl } from './looks.js';
 import { applyGlowLook, getGlowLook, GlowTab } from './glow.jsx';
 import { applyTrameLook, getTrameLook, keepWebGLFramesReadable, TrameLayer } from './trame.jsx';
@@ -76,9 +77,15 @@ const BASE_CONTROLS = [
 
 // ---------- store ----------
 
+// The selected text animation is shared by both views (STORAGE_KEY); its customisation (text
+// style, area height, settings per animation) is kept per view (STORAGE_KEY.full / .drawer).
+seedViews(STORAGE_KEY);
+
 const load = () => {
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    const shared = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') ?? {};
+    const own = readView(STORAGE_KEY);
+    const saved = own && typeof own === 'object' ? { ...own, ...('id' in shared ? { id: shared.id } : {}) } : shared;
     if (!saved || typeof saved !== 'object') return structuredClone(PAGE_DEFAULTS);
     return {
       ...PAGE_DEFAULTS,
@@ -97,8 +104,9 @@ const listeners = new Set();
 const setState = patch => {
   state = { ...state, ...(typeof patch === 'function' ? patch(state) : patch) };
   try {
-    const { panel, replay, ...persist } = state;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(persist));
+    const { panel, replay, id, ...persist } = state;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ id }));
+    writeView(STORAGE_KEY, persist);
   } catch {
     /* storage unavailable: settings last for this visit only */
   }

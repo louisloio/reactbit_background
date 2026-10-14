@@ -4,6 +4,7 @@
 import { useState, useSyncExternalStore } from 'react';
 
 import { Control, copyText, I, Icon } from './ui.jsx';
+import { readView, seedViews, writeView } from './layout.js';
 
 const KEY = 'core.glow.v1';
 
@@ -124,13 +125,11 @@ const CONTROLS = [
 
 // ---------- store ----------
 
+// Kept per view (full page / drawer)
+seedViews(KEY);
 const read = () => {
-  try {
-    const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
-    return saved && typeof saved === 'object' ? { ...GLOW_DEFAULTS, ...saved } : { ...GLOW_DEFAULTS };
-  } catch {
-    return { ...GLOW_DEFAULTS };
-  }
+  const saved = readView(KEY);
+  return saved && typeof saved === 'object' ? { ...GLOW_DEFAULTS, ...saved } : { ...GLOW_DEFAULTS };
 };
 
 let glow = read();
@@ -173,11 +172,7 @@ apply();
 
 export const setGlow = patch => {
   glow = { ...glow, ...(typeof patch === 'function' ? patch(glow) : patch) };
-  try {
-    localStorage.setItem(KEY, JSON.stringify(glow));
-  } catch {
-    /* storage unavailable */
-  }
+  writeView(KEY, glow);
   apply();
   listeners.forEach(l => l());
 };

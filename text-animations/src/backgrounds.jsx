@@ -8,6 +8,7 @@ import { lazy, Suspense, useEffect, useMemo, useState, useSyncExternalStore } fr
 import { BACKGROUNDS } from './bg-registry.js';
 import { Boundary, BrowseRow, Control, copyText, I, Icon, jsxValue, toHex } from './ui.jsx';
 import { TrameSettings } from './trame.jsx';
+import { readView, readViewString, seedViews, writeView, writeViewString } from './layout.js';
 
 // ---------- registry ----------
 
@@ -81,15 +82,21 @@ const read = key => {
   }
 };
 
+// The selected background is shared by both views (KEY); its customisation — settings per
+// background and the backdrop / Surface — is kept per view (KEY.full / KEY.drawer).
+seedViews(KEY);
+seedViews(SURFACE_KEY);
+
 const load = () => {
-  const saved = read(KEY) ?? {};
+  const shared = read(KEY) ?? {};
+  const own = readView(KEY) ?? {};
   // From the previous (precompiled) background system, only the backdrop carries over
-  const old = saved.id ? null : read(OLD_KEY);
+  const old = shared.id || own.id ? null : read(OLD_KEY);
   const fromHash = resolveBgId(location.hash.slice(1));
   return {
-    id: fromHash ?? resolveBgId(saved.id) ?? 'solid',
-    backdrop: saved.backdrop ?? old?.backdrop ?? null,
-    props: saved.props && typeof saved.props === 'object' ? saved.props : {},
+    id: fromHash ?? resolveBgId(shared.id ?? own.id) ?? 'solid',
+    backdrop: own.backdrop ?? old?.backdrop ?? null,
+    props: own.props && typeof own.props === 'object' ? own.props : {},
     rev: 0
   };
 };
@@ -115,11 +122,11 @@ const sync = () => {
 export const setBg = patch => {
   bg = { ...bg, ...(typeof patch === 'function' ? patch(bg) : patch) };
   try {
-    const { rev, ...persist } = bg;
-    localStorage.setItem(KEY, JSON.stringify(persist));
+    localStorage.setItem(KEY, JSON.stringify({ id: bg.id }));
   } catch {
     /* storage unavailable */
   }
+  writeView(KEY, { backdrop: bg.backdrop, props: bg.props });
   sync();
   listeners.forEach(l => l());
 };
@@ -143,21 +150,8 @@ export const propsOf = (s, id = s.id) => ({ ...bgDefaults(BG_BY_ID[id]), ...cust
 // One colour for what the animation sits on: the page backdrop, plus the background's own
 // `backgroundColor` setting when it has one. It follows you to other backgrounds.
 
-const loadSurface = () => {
-  try {
-    return localStorage.getItem(SURFACE_KEY);
-  } catch {
-    return null;
-  }
-};
-const saveSurface = v => {
-  try {
-    if (v) localStorage.setItem(SURFACE_KEY, v);
-    else localStorage.removeItem(SURFACE_KEY);
-  } catch {
-    /* storage unavailable */
-  }
-};
+const loadSurface = () => readViewString(SURFACE_KEY);
+const saveSurface = v => writeViewString(SURFACE_KEY, v);
 
 const withSurface = (s, id, color) => {
   if (!hasOwnSurface(BG_BY_ID[id])) return s.props;

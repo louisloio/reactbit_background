@@ -10,6 +10,7 @@
 import { useEffect, useRef, useSyncExternalStore } from 'react';
 
 import { Control, I, Icon } from './ui.jsx';
+import { readView, seedViews, writeView } from './layout.js';
 
 // ---------- make WebGL frames readable ----------
 
@@ -130,24 +131,18 @@ const CONTROLS = [
   { key: 'edgeFade', label: 'Fade Edges', type: 'range', min: 0, max: 1, step: 0.05, when: s => s.show }
 ];
 
+// Kept per view (full page / drawer)
+seedViews(KEY);
 const read = () => {
-  try {
-    const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
-    return saved && typeof saved === 'object' ? { ...TRAME_DEFAULTS, ...saved } : { ...TRAME_DEFAULTS };
-  } catch {
-    return { ...TRAME_DEFAULTS };
-  }
+  const saved = readView(KEY);
+  return saved && typeof saved === 'object' ? { ...TRAME_DEFAULTS, ...saved } : { ...TRAME_DEFAULTS };
 };
 
 let trame = read();
 const listeners = new Set();
 export const setTrame = patch => {
   trame = { ...trame, ...(typeof patch === 'function' ? patch(trame) : patch) };
-  try {
-    localStorage.setItem(KEY, JSON.stringify(trame));
-  } catch {
-    /* storage unavailable */
-  }
+  writeView(KEY, trame);
   listeners.forEach(l => l());
 };
 const useTrame = () =>
