@@ -26,6 +26,81 @@
     },
     "controls": [
       {
+        "key": "preset",
+        "label": "Preset",
+        "type": "select",
+        "options": [
+          [
+            "classic",
+            "Classic"
+          ],
+          [
+            "terminal",
+            "Terminal"
+          ],
+          [
+            "blocks",
+            "Blocks"
+          ],
+          [
+            "binary",
+            "Binary"
+          ],
+          [
+            "mono",
+            "Mono"
+          ]
+        ],
+        "presets": {
+          "classic": {},
+          "terminal": {
+            "charset": " .:-=+*#%@",
+            "colors": [
+              "#b8f5c8",
+              "#5ee08a",
+              "#1f9d55"
+            ],
+            "blocks": 0,
+            "chroma": 0.3,
+            "hueShift": 0,
+            "asciiFontSize": 10
+          },
+          "blocks": {
+            "charset": " ░▒▓█",
+            "colors": [
+              "#ffffff",
+              "#d4d4d8",
+              "#a1a1aa"
+            ],
+            "blocks": 0.2,
+            "hueShift": 0,
+            "chroma": 0.6
+          },
+          "binary": {
+            "charset": " 01",
+            "colors": [
+              "#ffffff",
+              "#bae6fd",
+              "#38bdf8"
+            ],
+            "blocks": 0.35,
+            "hueShift": 0.4,
+            "asciiFontSize": 9
+          },
+          "mono": {
+            "colors": [
+              "#ffffff",
+              "#e4e4e7",
+              "#a1a1aa"
+            ],
+            "blocks": 0.15,
+            "chroma": 0,
+            "hueShift": 0,
+            "waves": 0.6
+          }
+        }
+      },
+      {
         "key": "text",
         "label": "Text",
         "type": "text",
@@ -125,6 +200,229 @@
         "label": "Interactive",
         "type": "switch"
       }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "'Hey!'",
+        "description": "Text rendered in ASCII."
+      },
+      {
+        "name": "asciiFontSize",
+        "type": "number",
+        "default": "8",
+        "description": "Height of each character cell in pixels. Smaller cells give finer detail."
+      },
+      {
+        "name": "charset",
+        "type": "string",
+        "default": "' .'`^\",:;Il!i~+_-?][}{1)(|/...'",
+        "description": "Characters from darkest to brightest. Any string works, including Unicode blocks."
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "default": "['#ff6188', '#fc9867', '#ffd866']",
+        "description": "Gradient for the characters, from the center outward. Up to three colors."
+      },
+      {
+        "name": "textColor",
+        "type": "string",
+        "default": "'#fdf9f3'",
+        "description": "Color of the text behind the characters."
+      },
+      {
+        "name": "fontFamily",
+        "type": "string",
+        "default": "'IBM Plex Mono', ui-monospace, ...",
+        "description": "Font for the text and the characters."
+      },
+      {
+        "name": "fontWeight",
+        "type": "number",
+        "default": "600",
+        "description": "Weight of the rendered text."
+      },
+      {
+        "name": "textScale",
+        "type": "number",
+        "default": "1",
+        "description": "Size of the text relative to the container."
+      },
+      {
+        "name": "blocks",
+        "type": "number",
+        "default": "0.9",
+        "description": "Opacity of the colored pixel blocks under the characters, from 0 to 1."
+      },
+      {
+        "name": "waves",
+        "type": "number",
+        "default": "1",
+        "description": "Strength of the wavy motion. 0 keeps the text flat."
+      },
+      {
+        "name": "waveSpeed",
+        "type": "number",
+        "default": "1",
+        "description": "Speed of the wavy motion."
+      },
+      {
+        "name": "chroma",
+        "type": "number",
+        "default": "1",
+        "description": "Amount of color fringing around the letters."
+      },
+      {
+        "name": "tilt",
+        "type": "number",
+        "default": "1",
+        "description": "How far the text turns toward the pointer."
+      },
+      {
+        "name": "hueShift",
+        "type": "number",
+        "default": "1",
+        "description": "Rotates the hue as the pointer circles the text. 0 keeps the colors fixed."
+      },
+      {
+        "name": "scramble",
+        "type": "number",
+        "default": "0.6",
+        "description": "Size and strength of the glitchy scramble under the pointer, from 0 to 1."
+      },
+      {
+        "name": "clickRipple",
+        "type": "boolean",
+        "default": "true",
+        "description": "Sends a ring of characters across the canvas from where you click."
+      },
+      {
+        "name": "intro",
+        "type": "boolean",
+        "default": "true",
+        "description": "Decodes the text out of random characters on load."
+      },
+      {
+        "name": "idle",
+        "type": "boolean",
+        "default": "true",
+        "description": "Sways the text gently when nobody interacts."
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "default": "true",
+        "description": "Reacts to the pointer with tilt, hue, scramble and ripples."
+      },
+      {
+        "name": "theme",
+        "type": "'dark' | 'light'",
+        "default": "'dark'",
+        "description": "Light inverts the colors so the effect works on white pages."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "''",
+        "description": "Extra class names for the container."
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "default": "-",
+        "description": "Inline styles for the container."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "'Hey!'"
+      },
+      {
+        "name": "asciiFontSize",
+        "default": "8"
+      },
+      {
+        "name": "charset",
+        "default": "CHARSET"
+      },
+      {
+        "name": "fontFamily",
+        "default": "FONT"
+      },
+      {
+        "name": "fontWeight",
+        "default": "600"
+      },
+      {
+        "name": "textColor",
+        "default": "'#fdf9f3'"
+      },
+      {
+        "name": "colors",
+        "default": "['#ff6188', '#fc9867', '#ffd866']"
+      },
+      {
+        "name": "textScale",
+        "default": "1"
+      },
+      {
+        "name": "blocks",
+        "default": "0.9"
+      },
+      {
+        "name": "waves",
+        "default": "1"
+      },
+      {
+        "name": "waveSpeed",
+        "default": "1"
+      },
+      {
+        "name": "chroma",
+        "default": "1"
+      },
+      {
+        "name": "tilt",
+        "default": "1"
+      },
+      {
+        "name": "hueShift",
+        "default": "1"
+      },
+      {
+        "name": "scramble",
+        "default": "0.6"
+      },
+      {
+        "name": "clickRipple",
+        "default": "true"
+      },
+      {
+        "name": "intro",
+        "default": "true"
+      },
+      {
+        "name": "idle",
+        "default": "true"
+      },
+      {
+        "name": "interactive",
+        "default": "true"
+      },
+      {
+        "name": "theme",
+        "default": "'dark'"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style"
+      }
     ]
   },
   {
@@ -176,6 +474,103 @@
         "step": 10,
         "unit": "ms"
       }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"\"",
+        "description": "The text content to animate."
+      },
+      {
+        "name": "animateBy",
+        "type": "string",
+        "default": "\"words\"",
+        "description": "Determines whether to animate by 'words' or 'letters'."
+      },
+      {
+        "name": "direction",
+        "type": "string",
+        "default": "\"top\"",
+        "description": "Direction from which the words/letters appear ('top' or 'bottom')."
+      },
+      {
+        "name": "delay",
+        "type": "number",
+        "default": "200",
+        "description": "Delay between animations for each word/letter (in ms)."
+      },
+      {
+        "name": "stepDuration",
+        "type": "number",
+        "default": "0.35",
+        "description": "The time taken for each letter/word to animate (in seconds)."
+      },
+      {
+        "name": "threshold",
+        "type": "number",
+        "default": "0.1",
+        "description": "Intersection threshold for triggering the animation."
+      },
+      {
+        "name": "rootMargin",
+        "type": "string",
+        "default": "\"0px\"",
+        "description": "Root margin for the intersection observer."
+      },
+      {
+        "name": "onAnimationComplete",
+        "type": "function",
+        "default": "undefined",
+        "description": "Callback function triggered when all animations complete."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "''"
+      },
+      {
+        "name": "delay",
+        "default": "200"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "animateBy",
+        "default": "'words'"
+      },
+      {
+        "name": "direction",
+        "default": "'top'"
+      },
+      {
+        "name": "threshold",
+        "default": "0.1"
+      },
+      {
+        "name": "rootMargin",
+        "default": "'0px'"
+      },
+      {
+        "name": "animationFrom"
+      },
+      {
+        "name": "animationTo"
+      },
+      {
+        "name": "easing",
+        "default": "t => t"
+      },
+      {
+        "name": "onAnimationComplete"
+      },
+      {
+        "name": "stepDuration",
+        "default": "0.35"
+      }
     ]
   },
   {
@@ -223,6 +618,49 @@
         "min": 1,
         "max": 60,
         "step": 1
+      }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "''",
+        "description": "The text to display in a circular layout."
+      },
+      {
+        "name": "spinDuration",
+        "type": "number",
+        "default": "20",
+        "description": "The duration (in seconds) for one full rotation."
+      },
+      {
+        "name": "onHover",
+        "type": "'slowDown' | 'speedUp' | 'pause' | 'goBonkers'",
+        "default": "undefined",
+        "description": "Specifies the hover behavior variant. Options include 'slowDown', 'speedUp', 'pause', and 'goBonkers'."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "''",
+        "description": "Optional additional CSS classes to apply to the component."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text"
+      },
+      {
+        "name": "spinDuration",
+        "default": "20"
+      },
+      {
+        "name": "onHover",
+        "default": "'speedUp'"
+      },
+      {
+        "name": "className",
+        "default": "''"
       }
     ]
   },
@@ -291,6 +729,107 @@
         "type": "text",
         "maxLength": 1
       }
+    ],
+    "propTable": [
+      {
+        "name": "to",
+        "type": "number",
+        "default": "—",
+        "description": "The target number to count up to."
+      },
+      {
+        "name": "from",
+        "type": "number",
+        "default": "0",
+        "description": "The initial number from which the count starts."
+      },
+      {
+        "name": "direction",
+        "type": "string",
+        "default": "\"up\"",
+        "description": "Direction of the count; can be \"up\" or \"down\". When this is set to \"down\", \"from\" and \"to\" become reversed, in order to count down."
+      },
+      {
+        "name": "delay",
+        "type": "number",
+        "default": "0",
+        "description": "Delay in seconds before the counting starts."
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "2",
+        "description": "Duration of the count animation - based on the damping and stiffness configured inside the component."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "CSS class to apply to the component for additional styling."
+      },
+      {
+        "name": "startWhen",
+        "type": "boolean",
+        "default": "true",
+        "description": "A boolean to control whether the animation should start when the component is in view. It basically works like an if statement, if this is true, the count will start."
+      },
+      {
+        "name": "separator",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Character to use as a thousands separator in the displayed number."
+      },
+      {
+        "name": "onStart",
+        "type": "function",
+        "default": "—",
+        "description": "Callback function that is called when the count animation starts."
+      },
+      {
+        "name": "onEnd",
+        "type": "function",
+        "default": "—",
+        "description": "Callback function that is called when the count animation ends."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "to"
+      },
+      {
+        "name": "from",
+        "default": "0"
+      },
+      {
+        "name": "direction",
+        "default": "'up'"
+      },
+      {
+        "name": "delay",
+        "default": "0"
+      },
+      {
+        "name": "duration",
+        "default": "2"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "startWhen",
+        "default": "true"
+      },
+      {
+        "name": "separator",
+        "default": "''"
+      },
+      {
+        "name": "onStart"
+      },
+      {
+        "name": "onEnd"
+      }
     ]
   },
   {
@@ -329,6 +868,69 @@
         "key": "interactive",
         "label": "Draggable",
         "type": "switch"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "marqueeText",
+        "type": "string",
+        "default": "\"\"",
+        "description": "The text to display in the curved marquee"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "default": "2",
+        "description": "Animation speed of the marquee text"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "undefined",
+        "description": "CSS class name for styling the text"
+      },
+      {
+        "name": "curveAmount",
+        "type": "number",
+        "default": "400",
+        "description": "Amount of curve in the text path"
+      },
+      {
+        "name": "direction",
+        "type": "\"left\" | \"right\"",
+        "default": "\"left\"",
+        "description": "Initial direction of the marquee animation"
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether the marquee can be dragged by the user"
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "marqueeText",
+        "default": "''"
+      },
+      {
+        "name": "speed",
+        "default": "2"
+      },
+      {
+        "name": "className"
+      },
+      {
+        "name": "curveAmount",
+        "default": "400"
+      },
+      {
+        "name": "direction",
+        "default": "'left'"
+      },
+      {
+        "name": "interactive",
+        "default": "true"
       }
     ]
   },
@@ -429,6 +1031,123 @@
         "key": "useOriginalCharsOnly",
         "label": "Original Chars",
         "type": "switch"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"\"",
+        "description": "The text content to decrypt."
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "default": "50",
+        "description": "Time in ms between each iteration."
+      },
+      {
+        "name": "maxIterations",
+        "type": "number",
+        "default": "10",
+        "description": "Max # of random iterations (non-sequential mode)."
+      },
+      {
+        "name": "sequential",
+        "type": "boolean",
+        "default": "false",
+        "description": "Whether to reveal one character at a time in sequence."
+      },
+      {
+        "name": "revealDirection",
+        "type": "\"start\" | \"end\" | \"center\"",
+        "default": "\"start\"",
+        "description": "From which position characters begin to reveal in sequential mode."
+      },
+      {
+        "name": "useOriginalCharsOnly",
+        "type": "boolean",
+        "default": "false",
+        "description": "Restrict scrambling to only the characters already in the text."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "CSS class for revealed characters."
+      },
+      {
+        "name": "parentClassName",
+        "type": "string",
+        "default": "\"\"",
+        "description": "CSS class for the main characters container."
+      },
+      {
+        "name": "encryptedClassName",
+        "type": "string",
+        "default": "\"\"",
+        "description": "CSS class for encrypted characters."
+      },
+      {
+        "name": "animateOn",
+        "type": "\"view\" | \"hover\" | \"inViewHover\" | \"click\"",
+        "default": "\"hover\"",
+        "description": "Trigger scrambling on hover or scroll-into-view."
+      },
+      {
+        "name": "clickMode",
+        "type": "\"once\" | \"toggle\"",
+        "default": "\"once\"",
+        "description": "Controls click behavior; only applies when animateOn is \"click\"."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text"
+      },
+      {
+        "name": "speed",
+        "default": "50"
+      },
+      {
+        "name": "maxIterations",
+        "default": "10"
+      },
+      {
+        "name": "sequential",
+        "default": "false"
+      },
+      {
+        "name": "revealDirection",
+        "default": "'start'"
+      },
+      {
+        "name": "useOriginalCharsOnly",
+        "default": "false"
+      },
+      {
+        "name": "characters",
+        "default": "'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+'"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "parentClassName",
+        "default": "''"
+      },
+      {
+        "name": "encryptedClassName",
+        "default": "''"
+      },
+      {
+        "name": "animateOn",
+        "default": "'hover'"
+      },
+      {
+        "name": "clickMode",
+        "default": "'once'"
       }
     ]
   },
@@ -572,6 +1291,170 @@
         "key": "shadow",
         "label": "Shadow",
         "type": "switch"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"Elevate\"",
+        "description": "The word or short phrase rendered as extruded type."
+      },
+      {
+        "name": "layers",
+        "type": "number",
+        "default": "34",
+        "description": "Number of stacked copies that form the extrusion. Clamped to protect the DOM."
+      },
+      {
+        "name": "depth",
+        "type": "number",
+        "default": "2.4",
+        "description": "Spacing in pixels between each layer of the extrusion."
+      },
+      {
+        "name": "faceColor",
+        "type": "string",
+        "default": "\"#f8fafc\"",
+        "description": "Color of the crisp front face of the text."
+      },
+      {
+        "name": "depthColor",
+        "type": "string",
+        "default": "\"#7c3aed\"",
+        "description": "Tint used for the back of the extrusion and its shadow."
+      },
+      {
+        "name": "tilt",
+        "type": "number",
+        "default": "7.5",
+        "description": "Maximum pointer-driven rotation in degrees."
+      },
+      {
+        "name": "pointerTracking",
+        "type": "boolean",
+        "default": "true",
+        "description": "Enables smoothed pointer parallax on fine pointer devices."
+      },
+      {
+        "name": "smoothing",
+        "type": "number",
+        "default": "0.14",
+        "description": "Damping amount used to ease rotation toward the pointer target."
+      },
+      {
+        "name": "perspective",
+        "type": "number",
+        "default": "900",
+        "description": "Perspective distance in pixels for the 3D stack."
+      },
+      {
+        "name": "autoOrbit",
+        "type": "boolean",
+        "default": "true",
+        "description": "Adds a subtle orbit when pointer tracking is unavailable or idle."
+      },
+      {
+        "name": "orbitSpeed",
+        "type": "number",
+        "default": "0.35",
+        "description": "Speed of the fallback orbit in cycles per second."
+      },
+      {
+        "name": "fontSize",
+        "type": "string",
+        "default": "\"clamp(3rem, 12vw, 7rem)\"",
+        "description": "CSS font-size value for the display word."
+      },
+      {
+        "name": "fontWeight",
+        "type": "number | string",
+        "default": "900",
+        "description": "Font weight used for every layer."
+      },
+      {
+        "name": "shadow",
+        "type": "boolean",
+        "default": "true",
+        "description": "Adds a soft colored drop shadow to the front face."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Optional class name for the outer wrapper."
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "default": "{}",
+        "description": "Optional inline styles for the outer wrapper."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "'Elevate'"
+      },
+      {
+        "name": "layers",
+        "default": "34"
+      },
+      {
+        "name": "depth",
+        "default": "2.4"
+      },
+      {
+        "name": "faceColor",
+        "default": "'#f8fafc'"
+      },
+      {
+        "name": "depthColor",
+        "default": "'#7c3aed'"
+      },
+      {
+        "name": "tilt",
+        "default": "7.5"
+      },
+      {
+        "name": "pointerTracking",
+        "default": "true"
+      },
+      {
+        "name": "smoothing",
+        "default": "0.14"
+      },
+      {
+        "name": "perspective",
+        "default": "900"
+      },
+      {
+        "name": "autoOrbit",
+        "default": "true"
+      },
+      {
+        "name": "orbitSpeed",
+        "default": "0.35"
+      },
+      {
+        "name": "fontSize",
+        "default": "'clamp(3rem, 12vw, 7rem)'"
+      },
+      {
+        "name": "fontWeight",
+        "default": "900"
+      },
+      {
+        "name": "shadow",
+        "default": "true"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style",
+        "default": "{}"
       }
     ]
   },
@@ -775,17 +1658,257 @@
         "max": 950,
         "step": 50
       }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"Motion Echo\"",
+        "description": "Text rendered by the crisp front copy and every echo layer."
+      },
+      {
+        "name": "echoes",
+        "type": "number",
+        "default": "12",
+        "description": "Number of ghost copies behind the front text."
+      },
+      {
+        "name": "lag",
+        "type": "number",
+        "default": "0.24",
+        "description": "How slowly deeper echoes chase the current target."
+      },
+      {
+        "name": "offset",
+        "type": "number",
+        "default": "36",
+        "description": "Pixel travel used by the entrance spread and pointer response."
+      },
+      {
+        "name": "direction",
+        "type": "\"right\" | \"left\" | \"up\" | \"down\" | \"diagonal\"",
+        "default": "\"right\"",
+        "description": "Direction the entrance trail collapses from."
+      },
+      {
+        "name": "fade",
+        "type": "number",
+        "default": "0.72",
+        "description": "Opacity falloff applied from one echo to the next."
+      },
+      {
+        "name": "blur",
+        "type": "number",
+        "default": "3",
+        "description": "Maximum blur in pixels on the deepest echo."
+      },
+      {
+        "name": "tint",
+        "type": "string | false",
+        "default": "\"#7dd3fc\"",
+        "description": "Optional chromatic tint blended into the echo layers."
+      },
+      {
+        "name": "mode",
+        "type": "\"entrance\" | \"pointer\" | \"both\"",
+        "default": "\"both\"",
+        "description": "Whether to run the entrance, pointer smear, or both."
+      },
+      {
+        "name": "cursorRadius",
+        "type": "number",
+        "default": "320",
+        "description": "Distance in pixels over which the cursor pulls the text to full offset. Larger values react from further away and arrive later."
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "900",
+        "description": "Entrance convergence duration in milliseconds."
+      },
+      {
+        "name": "ease",
+        "type": "\"linear\" | \"ease-out\" | \"ease-in-out\" | \"snappy\"",
+        "default": "\"ease-out\"",
+        "description": "Timing curve used for the entrance convergence."
+      },
+      {
+        "name": "fontSize",
+        "type": "string | number",
+        "default": "\"clamp(3rem, 9vw, 7rem)\"",
+        "description": "Font size applied to the text stack."
+      },
+      {
+        "name": "fontWeight",
+        "type": "string | number",
+        "default": "800",
+        "description": "Font weight applied to all copies."
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "\"#f8fafc\"",
+        "description": "Color of the crisp front copy."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Additional class names for the root element."
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "default": "undefined",
+        "description": "Optional inline styles for the root element."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "'Motion Echo'"
+      },
+      {
+        "name": "echoes",
+        "default": "12"
+      },
+      {
+        "name": "lag",
+        "default": "0.24"
+      },
+      {
+        "name": "offset",
+        "default": "36"
+      },
+      {
+        "name": "direction",
+        "default": "'right'"
+      },
+      {
+        "name": "fade",
+        "default": "0.72"
+      },
+      {
+        "name": "blur",
+        "default": "3"
+      },
+      {
+        "name": "tint",
+        "default": "'#7dd3fc'"
+      },
+      {
+        "name": "mode",
+        "default": "'both'"
+      },
+      {
+        "name": "cursorRadius",
+        "default": "320"
+      },
+      {
+        "name": "duration",
+        "default": "900"
+      },
+      {
+        "name": "ease",
+        "default": "'ease-out'"
+      },
+      {
+        "name": "fontSize",
+        "default": "'clamp(3rem, 9vw, 7rem)'"
+      },
+      {
+        "name": "fontWeight",
+        "default": "800"
+      },
+      {
+        "name": "color",
+        "default": "'#f8fafc'"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style"
+      }
     ]
   },
   {
     "id": "FallingText",
     "name": "Falling Text",
     "defaults": {
-      "gravity": 0.56,
-      "mouseConstraintStiffness": 0.9,
-      "trigger": "hover"
+      "preset": "classic",
+      "trigger": "hover",
+      "variant": "text",
+      "split": "words",
+      "order": "random",
+      "gravity": 1,
+      "bounciness": 0.2,
+      "scatter": 0.5,
+      "stagger": 0.03,
+      "cursorPush": 0.5,
+      "mouseConstraintStiffness": 0.2,
+      "restoreDelay": 2,
+      "size": 2,
+      "accentColor": "#5b8cff",
+      "draggable": true,
+      "wireframes": false
     },
     "controls": [
+      {
+        "key": "preset",
+        "label": "Preset",
+        "type": "select",
+        "options": [
+          [
+            "classic",
+            "Classic"
+          ],
+          [
+            "tiles",
+            "Tiles"
+          ],
+          [
+            "letters",
+            "Letters"
+          ],
+          [
+            "domino",
+            "Domino"
+          ],
+          [
+            "bouncy",
+            "Bouncy"
+          ]
+        ],
+        "presets": {
+          "classic": {},
+          "tiles": {
+            "variant": "tiles",
+            "size": 1.5,
+            "bounciness": 0.15
+          },
+          "letters": {
+            "split": "letters",
+            "size": 3.25,
+            "order": "sequence",
+            "stagger": 0.035,
+            "scatter": 0.8
+          },
+          "domino": {
+            "order": "sequence",
+            "stagger": 0.12,
+            "scatter": 0.2,
+            "bounciness": 0.1
+          },
+          "bouncy": {
+            "bounciness": 0.7,
+            "scatter": 1,
+            "gravity": 1.3,
+            "cursorPush": 1
+          }
+        }
+      },
       {
         "key": "trigger",
         "label": "Trigger",
@@ -810,20 +1933,364 @@
         ]
       },
       {
+        "key": "variant",
+        "label": "Variant",
+        "type": "select",
+        "options": [
+          [
+            "text",
+            "Text"
+          ],
+          [
+            "tiles",
+            "Tiles"
+          ]
+        ]
+      },
+      {
+        "key": "split",
+        "label": "Split",
+        "type": "select",
+        "options": [
+          [
+            "words",
+            "Words"
+          ],
+          [
+            "letters",
+            "Letters"
+          ]
+        ]
+      },
+      {
+        "key": "order",
+        "label": "Order",
+        "type": "select",
+        "options": [
+          [
+            "random",
+            "Random"
+          ],
+          [
+            "sequence",
+            "Sequence"
+          ],
+          [
+            "center",
+            "Center"
+          ],
+          [
+            "together",
+            "Together"
+          ]
+        ]
+      },
+      {
+        "key": "accentColor",
+        "label": "Accent Color",
+        "type": "color"
+      },
+      {
+        "key": "size",
+        "label": "Font Size",
+        "type": "range",
+        "min": 1,
+        "max": 4,
+        "step": 0.25,
+        "unit": "rem"
+      },
+      {
         "key": "gravity",
         "label": "Gravity",
         "type": "range",
-        "min": 0.1,
-        "max": 2,
-        "step": 0.01
+        "min": 0.2,
+        "max": 2.5,
+        "step": 0.05
+      },
+      {
+        "key": "bounciness",
+        "label": "Bounciness",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "scatter",
+        "label": "Scatter",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "stagger",
+        "label": "Stagger",
+        "type": "range",
+        "min": 0,
+        "max": 0.2,
+        "step": 0.01,
+        "unit": "s",
+        "disabledWhen": "settings.order === 'together'"
+      },
+      {
+        "key": "cursorPush",
+        "label": "Cursor Push",
+        "type": "range",
+        "min": 0,
+        "max": 1.5,
+        "step": 0.05
       },
       {
         "key": "mouseConstraintStiffness",
-        "label": "Mouse Constraint Stiffness",
+        "label": "Drag Stiffness",
         "type": "range",
-        "min": 0.1,
-        "max": 2,
-        "step": 0.1
+        "min": 0.05,
+        "max": 1,
+        "step": 0.05,
+        "disabledWhen": "!settings.draggable"
+      },
+      {
+        "key": "restoreDelay",
+        "label": "Restore Delay",
+        "type": "range",
+        "min": 0,
+        "max": 6,
+        "step": 0.5,
+        "unit": "s"
+      },
+      {
+        "key": "draggable",
+        "label": "Draggable",
+        "type": "switch"
+      },
+      {
+        "key": "wireframes",
+        "label": "Wireframes",
+        "type": "switch"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "''",
+        "description": "The text that falls apart."
+      },
+      {
+        "name": "highlightWords",
+        "type": "string[]",
+        "default": "[]",
+        "description": "Words that start with any of these strings get the accent color, or the accent tile in the tiles variant."
+      },
+      {
+        "name": "highlightClass",
+        "type": "string",
+        "default": "'highlighted'",
+        "description": "Extra class added to highlighted words."
+      },
+      {
+        "name": "trigger",
+        "type": "'auto' | 'hover' | 'click' | 'scroll'",
+        "default": "'auto'",
+        "description": "What starts the fall. Scroll starts it when the text scrolls into view."
+      },
+      {
+        "name": "variant",
+        "type": "'text' | 'tiles'",
+        "default": "'text'",
+        "description": "Plain falling text, or words on tiles that stack like blocks."
+      },
+      {
+        "name": "split",
+        "type": "'words' | 'letters'",
+        "default": "'words'",
+        "description": "Whether whole words or single letters fall."
+      },
+      {
+        "name": "order",
+        "type": "'random' | 'sequence' | 'center' | 'together'",
+        "default": "'random'",
+        "description": "Which pieces drop first. Falling pieces knock loose the ones they land on."
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "default": "0.03",
+        "description": "Delay between pieces dropping, in seconds."
+      },
+      {
+        "name": "gravity",
+        "type": "number",
+        "default": "1",
+        "description": "Strength of gravity. Negative values fall upward."
+      },
+      {
+        "name": "bounciness",
+        "type": "number",
+        "default": "0.2",
+        "description": "How much pieces bounce when they land, from 0 to 1."
+      },
+      {
+        "name": "scatter",
+        "type": "number",
+        "default": "0.5",
+        "description": "How much spin and sideways push each piece gets as it drops, from 0 to 1."
+      },
+      {
+        "name": "draggable",
+        "type": "boolean",
+        "default": "true",
+        "description": "Lets people pick up, drag and throw pieces."
+      },
+      {
+        "name": "mouseConstraintStiffness",
+        "type": "number",
+        "default": "0.2",
+        "description": "How tightly a dragged piece follows the pointer, from 0 to 1."
+      },
+      {
+        "name": "cursorPush",
+        "type": "number",
+        "default": "0.5",
+        "description": "How hard a quick swipe knocks the fallen pieces around. 0 turns it off."
+      },
+      {
+        "name": "restoreDelay",
+        "type": "number",
+        "default": "0",
+        "description": "Seconds after the pile settles, with the pointer away, before the text flies back into place and can fall again. 0 keeps it fallen."
+      },
+      {
+        "name": "fontSize",
+        "type": "string",
+        "default": "'1rem'",
+        "description": "Font size of the text."
+      },
+      {
+        "name": "accentColor",
+        "type": "string",
+        "default": "'#5b8cff'",
+        "description": "Color of highlighted words, or of their tiles in the tiles variant."
+      },
+      {
+        "name": "theme",
+        "type": "'dark' | 'light'",
+        "default": "'dark'",
+        "description": "Color theme of the tiles."
+      },
+      {
+        "name": "backgroundColor",
+        "type": "string",
+        "default": "'transparent'",
+        "description": "Background of the area the text falls into."
+      },
+      {
+        "name": "wireframes",
+        "type": "boolean",
+        "default": "false",
+        "description": "Outlines each piece to show its physics shape."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "''",
+        "description": "Extra class names for the container."
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "default": "-",
+        "description": "Inline styles for the container."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "''"
+      },
+      {
+        "name": "highlightWords",
+        "default": "[]"
+      },
+      {
+        "name": "highlightClass",
+        "default": "'highlighted'"
+      },
+      {
+        "name": "trigger",
+        "default": "'auto'"
+      },
+      {
+        "name": "variant",
+        "default": "'text'"
+      },
+      {
+        "name": "split",
+        "default": "'words'"
+      },
+      {
+        "name": "gravity",
+        "default": "1"
+      },
+      {
+        "name": "bounciness",
+        "default": "0.2"
+      },
+      {
+        "name": "scatter",
+        "default": "0.5"
+      },
+      {
+        "name": "stagger",
+        "default": "0.03"
+      },
+      {
+        "name": "order",
+        "default": "'random'"
+      },
+      {
+        "name": "draggable",
+        "default": "true"
+      },
+      {
+        "name": "mouseConstraintStiffness",
+        "default": "0.2"
+      },
+      {
+        "name": "cursorPush",
+        "default": "0.5"
+      },
+      {
+        "name": "restoreDelay",
+        "default": "0"
+      },
+      {
+        "name": "fontSize",
+        "default": "'1rem'"
+      },
+      {
+        "name": "accentColor",
+        "default": "'#5b8cff'"
+      },
+      {
+        "name": "theme",
+        "default": "'dark'"
+      },
+      {
+        "name": "backgroundColor",
+        "default": "'transparent'"
+      },
+      {
+        "name": "wireframes",
+        "default": "false"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style"
       }
     ]
   },
@@ -996,6 +2463,150 @@
         "max": 900,
         "step": 50
       }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"Design unfolds\"",
+        "description": "The text content to split and fold into place."
+      },
+      {
+        "name": "splitBy",
+        "type": "\"char\" | \"word\" | \"line\"",
+        "default": "\"char\"",
+        "description": "Controls whether each character, word, or explicit line folds as a panel."
+      },
+      {
+        "name": "hinge",
+        "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+        "default": "\"top\"",
+        "description": "The edge that acts as the 3D fold hinge."
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "0.65",
+        "description": "Duration in seconds for each panel to unfold."
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "default": "0.045",
+        "description": "Delay in seconds between panels; 0.03–0.08 keeps the cascade crisp."
+      },
+      {
+        "name": "ease",
+        "type": "string",
+        "default": "\"power3.out\"",
+        "description": "GSAP easing curve used by the unfold timeline."
+      },
+      {
+        "name": "perspective",
+        "type": "number",
+        "default": "700",
+        "description": "Perspective distance applied to each panel parent."
+      },
+      {
+        "name": "creaseShading",
+        "type": "number",
+        "default": "0.55",
+        "description": "Strength of the gradient shade while panels are folded."
+      },
+      {
+        "name": "trigger",
+        "type": "\"mount\" | \"hover\" | \"scroll\" | \"loop\"",
+        "default": "\"mount\"",
+        "description": "Determines when the unfold animation starts."
+      },
+      {
+        "name": "fontSize",
+        "type": "string | number",
+        "default": "80",
+        "description": "Font size applied to the root text."
+      },
+      {
+        "name": "fontWeight",
+        "type": "string | number",
+        "default": "800",
+        "description": "Font weight applied to the root text."
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "\"#f7f2e8\"",
+        "description": "Text color of the folded panels."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Adds custom classes to the root element."
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "default": "{}",
+        "description": "Inline style overrides for the root element."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "'Design unfolds'"
+      },
+      {
+        "name": "splitBy",
+        "default": "'char'"
+      },
+      {
+        "name": "hinge",
+        "default": "'top'"
+      },
+      {
+        "name": "duration",
+        "default": "0.65"
+      },
+      {
+        "name": "stagger",
+        "default": "0.045"
+      },
+      {
+        "name": "ease",
+        "default": "'power3.out'"
+      },
+      {
+        "name": "perspective",
+        "default": "700"
+      },
+      {
+        "name": "creaseShading",
+        "default": "0.55"
+      },
+      {
+        "name": "trigger",
+        "default": "'mount'"
+      },
+      {
+        "name": "fontSize",
+        "default": "80"
+      },
+      {
+        "name": "fontWeight",
+        "default": "800"
+      },
+      {
+        "name": "color",
+        "default": "'#f7f2e8'"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style",
+        "default": "{}"
+      }
     ]
   },
   {
@@ -1116,6 +2727,199 @@
         "step": 50,
         "disabledWhen": "!glitchMode"
       }
+    ],
+    "propTable": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "default": "",
+        "description": "The text content to display inside the fuzzy text component."
+      },
+      {
+        "name": "fontSize",
+        "type": "number | string",
+        "default": "\"clamp(2rem, 8vw, 8rem)\"",
+        "description": "Specifies the font size of the text. Accepts any valid CSS font-size value or a number (interpreted as pixels)."
+      },
+      {
+        "name": "fontWeight",
+        "type": "string | number",
+        "default": "900",
+        "description": "Specifies the font weight of the text."
+      },
+      {
+        "name": "fontFamily",
+        "type": "string",
+        "default": "\"inherit\"",
+        "description": "Specifies the font family of the text. 'inherit' uses the computed style from the parent."
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "#fff",
+        "description": "Specifies the text color."
+      },
+      {
+        "name": "enableHover",
+        "type": "boolean",
+        "default": "true",
+        "description": "Enables the hover effect for the fuzzy text."
+      },
+      {
+        "name": "baseIntensity",
+        "type": "number",
+        "default": "0.18",
+        "description": "The fuzz intensity when the text is not hovered."
+      },
+      {
+        "name": "hoverIntensity",
+        "type": "number",
+        "default": "0.5",
+        "description": "The fuzz intensity when the text is hovered."
+      },
+      {
+        "name": "fuzzRange",
+        "type": "number",
+        "default": "30",
+        "description": "Maximum pixel displacement for the fuzzy effect."
+      },
+      {
+        "name": "fps",
+        "type": "number",
+        "default": "60",
+        "description": "Frame rate cap for the animation. Lower values reduce CPU usage."
+      },
+      {
+        "name": "direction",
+        "type": "'horizontal' | 'vertical' | 'both'",
+        "default": "'horizontal'",
+        "description": "The axis/axes for the fuzzy displacement effect."
+      },
+      {
+        "name": "transitionDuration",
+        "type": "number",
+        "default": "0",
+        "description": "Number of frames to ease between intensity states for smooth transitions."
+      },
+      {
+        "name": "clickEffect",
+        "type": "boolean",
+        "default": "false",
+        "description": "Enables a momentary burst of maximum intensity on click."
+      },
+      {
+        "name": "glitchMode",
+        "type": "boolean",
+        "default": "false",
+        "description": "Enables periodic random intensity spikes for a glitch effect."
+      },
+      {
+        "name": "glitchInterval",
+        "type": "number",
+        "default": "2000",
+        "description": "Milliseconds between glitch bursts when glitchMode is enabled."
+      },
+      {
+        "name": "glitchDuration",
+        "type": "number",
+        "default": "200",
+        "description": "Milliseconds duration of each glitch burst."
+      },
+      {
+        "name": "gradient",
+        "type": "string[] | null",
+        "default": "null",
+        "description": "Array of colors to create a gradient text effect (e.g. [\"#ff0000\", \"#00ff00\"])."
+      },
+      {
+        "name": "letterSpacing",
+        "type": "number",
+        "default": "0",
+        "description": "Extra pixels between characters."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "''",
+        "description": "CSS class for the canvas element."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "children"
+      },
+      {
+        "name": "fontSize",
+        "default": "'clamp(2rem, 8vw, 8rem)'"
+      },
+      {
+        "name": "fontWeight",
+        "default": "900"
+      },
+      {
+        "name": "fontFamily",
+        "default": "'inherit'"
+      },
+      {
+        "name": "color",
+        "default": "'#fff'"
+      },
+      {
+        "name": "enableHover",
+        "default": "true"
+      },
+      {
+        "name": "baseIntensity",
+        "default": "0.18"
+      },
+      {
+        "name": "hoverIntensity",
+        "default": "0.5"
+      },
+      {
+        "name": "fuzzRange",
+        "default": "30"
+      },
+      {
+        "name": "fps",
+        "default": "60"
+      },
+      {
+        "name": "direction",
+        "default": "'horizontal'"
+      },
+      {
+        "name": "transitionDuration",
+        "default": "0"
+      },
+      {
+        "name": "clickEffect",
+        "default": "false"
+      },
+      {
+        "name": "glitchMode",
+        "default": "false"
+      },
+      {
+        "name": "glitchInterval",
+        "default": "2000"
+      },
+      {
+        "name": "glitchDuration",
+        "default": "200"
+      },
+      {
+        "name": "gradient",
+        "default": "null"
+      },
+      {
+        "name": "letterSpacing",
+        "default": "0"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      }
     ]
   },
   {
@@ -1144,6 +2948,59 @@
         "key": "enableOnHover",
         "label": "Glitch On Hover",
         "type": "switch"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "children",
+        "type": "string",
+        "default": "",
+        "description": "The text content that will display the glitch effect."
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "default": "0.5",
+        "description": "Multiplier for the animation speed. Higher values slow down the glitch effect."
+      },
+      {
+        "name": "enableShadows",
+        "type": "boolean",
+        "default": "true",
+        "description": "Toggle the colored text shadows on the glitch pseudo-elements."
+      },
+      {
+        "name": "enableOnHover",
+        "type": "boolean",
+        "default": "false",
+        "description": "If true, the glitch animation is only activated on hover."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "",
+        "description": "Additional custom classes to apply to the component."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "children"
+      },
+      {
+        "name": "speed",
+        "default": "0.5"
+      },
+      {
+        "name": "enableShadows",
+        "default": "true"
+      },
+      {
+        "name": "enableOnHover",
+        "default": "false"
+      },
+      {
+        "name": "className",
+        "default": "''"
       }
     ]
   },
@@ -1249,6 +3106,151 @@
         "key": "followPointer",
         "label": "Follow Pointer",
         "type": "switch"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "-",
+        "description": "The text to fill with the gradient."
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "default": "[\"#5227FF\", \"#FF9FFC\", \"#B497CF\"]",
+        "description": "Colors of the gradient, in order. The first color is repeated at the end so loops stay seamless."
+      },
+      {
+        "name": "animationSpeed",
+        "type": "number",
+        "default": "8",
+        "description": "Seconds for one full cycle of the animation."
+      },
+      {
+        "name": "variant",
+        "type": "'linear' | 'flow' | 'conic'",
+        "default": "'linear'",
+        "description": "How the colors move. Linear slides a gradient through the text, flow drifts soft blobs of color around like a living mesh gradient and conic swings colors around the center."
+      },
+      {
+        "name": "angle",
+        "type": "number",
+        "default": "90",
+        "description": "Direction of the gradient in degrees. 90 runs left to right, 180 top to bottom."
+      },
+      {
+        "name": "scale",
+        "type": "number",
+        "default": "3",
+        "description": "How broad the colors are. Higher values show fewer colors at once in longer, calmer bands."
+      },
+      {
+        "name": "yoyo",
+        "type": "boolean",
+        "default": "true",
+        "description": "Eases back and forth instead of scrolling the gradient in one direction forever."
+      },
+      {
+        "name": "glow",
+        "type": "number",
+        "default": "0",
+        "description": "A soft bloom of the gradient colors around the letters, from 0 to 1."
+      },
+      {
+        "name": "showBorder",
+        "type": "boolean",
+        "default": "false",
+        "description": "Wraps the text in a pill with an animated gradient outline that works on any background."
+      },
+      {
+        "name": "borderWidth",
+        "type": "number",
+        "default": "1.5",
+        "description": "Thickness of the outline in px."
+      },
+      {
+        "name": "pauseOnHover",
+        "type": "boolean",
+        "default": "false",
+        "description": "Holds the colors still while the pointer is over the text."
+      },
+      {
+        "name": "followPointer",
+        "type": "boolean",
+        "default": "false",
+        "description": "While hovered, the colors are drawn toward the pointer."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "''",
+        "description": "Extra class names for the root element."
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "default": "-",
+        "description": "Inline styles for the root element."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "children"
+      },
+      {
+        "name": "colors",
+        "default": "['#5227FF', '#FF9FFC', '#B497CF']"
+      },
+      {
+        "name": "animationSpeed",
+        "default": "8"
+      },
+      {
+        "name": "variant",
+        "default": "'linear'"
+      },
+      {
+        "name": "angle",
+        "default": "90"
+      },
+      {
+        "name": "direction"
+      },
+      {
+        "name": "scale",
+        "default": "3"
+      },
+      {
+        "name": "yoyo",
+        "default": "true"
+      },
+      {
+        "name": "glow",
+        "default": "0"
+      },
+      {
+        "name": "showBorder",
+        "default": "false"
+      },
+      {
+        "name": "borderWidth",
+        "default": "1.5"
+      },
+      {
+        "name": "pauseOnHover",
+        "default": "false"
+      },
+      {
+        "name": "followPointer",
+        "default": "false"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style"
       }
     ]
   },
@@ -1468,6 +3470,229 @@
         "label": "Grayscale",
         "type": "switch"
       }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "'Designed in the details'",
+        "description": "Heading copy."
+      },
+      {
+        "name": "tag",
+        "type": "string",
+        "default": "'h2'",
+        "description": "Element the heading renders as, so it can carry the right semantics."
+      },
+      {
+        "name": "mediaType",
+        "type": "\"image\" | \"video\"",
+        "default": "\"image\"",
+        "description": "Whether the source showing through the letters is an image or a looping muted video."
+      },
+      {
+        "name": "src",
+        "type": "string",
+        "default": "''",
+        "description": "Image or video URL."
+      },
+      {
+        "name": "poster",
+        "type": "string",
+        "default": "''",
+        "description": "Poster frame used while a video loads."
+      },
+      {
+        "name": "fillScale",
+        "type": "number",
+        "default": "1.25",
+        "description": "How far the media is zoomed past the heading. The overscan is what parallax travels into."
+      },
+      {
+        "name": "parallax",
+        "type": "number",
+        "default": "26",
+        "description": "How far the media slides under the letters as the pointer moves, in px."
+      },
+      {
+        "name": "drift",
+        "type": "number",
+        "default": "18",
+        "description": "Amplitude of the slow idle motion, in px. 0 holds the media still."
+      },
+      {
+        "name": "brightness",
+        "type": "number",
+        "default": "1",
+        "description": "Brightness of the media."
+      },
+      {
+        "name": "saturation",
+        "type": "number",
+        "default": "1",
+        "description": "Saturation of the media."
+      },
+      {
+        "name": "grayscale",
+        "type": "boolean",
+        "default": "false",
+        "description": "Render the media in black and white."
+      },
+      {
+        "name": "reveal",
+        "type": "\"rise\" | \"wipe\" | \"fade\" | \"none\"",
+        "default": "\"rise\"",
+        "description": "Entrance style: words rise into place, a wipe sweeps across, or the whole block fades up."
+      },
+      {
+        "name": "trigger",
+        "type": "\"view\" | \"mount\" | \"hover\"",
+        "default": "\"view\"",
+        "description": "When the entrance runs."
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "1.1",
+        "description": "Entrance duration, in seconds."
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "default": "0.09",
+        "description": "Delay between words, in seconds. Used by the rise reveal."
+      },
+      {
+        "name": "align",
+        "type": "\"left\" | \"center\" | \"right\"",
+        "default": "\"center\"",
+        "description": "Text alignment."
+      },
+      {
+        "name": "weight",
+        "type": "number",
+        "default": "700",
+        "description": "Font weight."
+      },
+      {
+        "name": "tracking",
+        "type": "number",
+        "default": "-0.03",
+        "description": "Letter spacing, in em."
+      },
+      {
+        "name": "lineHeight",
+        "type": "number",
+        "default": "1.06",
+        "description": "Line height."
+      },
+      {
+        "name": "textScale",
+        "type": "number",
+        "default": "0.115",
+        "description": "Type size as a fraction of the container width, so the heading stays responsive."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "''",
+        "description": "Additional class names."
+      },
+      {
+        "name": "style",
+        "type": "object",
+        "default": "—",
+        "description": "Inline styles for the heading."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "'Designed in the details'"
+      },
+      {
+        "name": "tag",
+        "default": "'h2'"
+      },
+      {
+        "name": "mediaType",
+        "default": "'image'"
+      },
+      {
+        "name": "src",
+        "default": "''"
+      },
+      {
+        "name": "poster",
+        "default": "''"
+      },
+      {
+        "name": "fillScale",
+        "default": "1.25"
+      },
+      {
+        "name": "parallax",
+        "default": "26"
+      },
+      {
+        "name": "drift",
+        "default": "18"
+      },
+      {
+        "name": "brightness",
+        "default": "1"
+      },
+      {
+        "name": "saturation",
+        "default": "1"
+      },
+      {
+        "name": "grayscale",
+        "default": "false"
+      },
+      {
+        "name": "reveal",
+        "default": "'rise'"
+      },
+      {
+        "name": "duration",
+        "default": "1.1"
+      },
+      {
+        "name": "stagger",
+        "default": "0.09"
+      },
+      {
+        "name": "trigger",
+        "default": "'view'"
+      },
+      {
+        "name": "align",
+        "default": "'center'"
+      },
+      {
+        "name": "weight",
+        "default": "700"
+      },
+      {
+        "name": "tracking",
+        "default": "-0.03"
+      },
+      {
+        "name": "lineHeight",
+        "default": "1.06"
+      },
+      {
+        "name": "textScale",
+        "default": "0.115"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style"
+      }
     ]
   },
   {
@@ -1625,6 +3850,189 @@
         "label": "Glow",
         "type": "switch"
       }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"React Bits\"",
+        "description": "The words sampled into particle targets."
+      },
+      {
+        "name": "particleSize",
+        "type": "number",
+        "default": "2",
+        "description": "Rendered size of each particle in CSS pixels."
+      },
+      {
+        "name": "density",
+        "type": "number",
+        "default": "4",
+        "description": "Pixel sampling step for the offscreen glyph canvas. Lower values create more particles."
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "\"#ffffff\"",
+        "description": "Primary particle color."
+      },
+      {
+        "name": "highlightColor",
+        "type": "string",
+        "default": "\"#8b5cf6\"",
+        "description": "Secondary color blended through the particle field."
+      },
+      {
+        "name": "scatter",
+        "type": "number",
+        "default": "180",
+        "description": "How far particles begin from their final glyph targets."
+      },
+      {
+        "name": "gatherDuration",
+        "type": "number",
+        "default": "1600",
+        "description": "Milliseconds for particles to converge into the text."
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "default": "420",
+        "description": "Maximum per-particle delay in milliseconds before gathering."
+      },
+      {
+        "name": "pointerRepel",
+        "type": "number",
+        "default": "40",
+        "description": "Strength of the cursor pushback."
+      },
+      {
+        "name": "repelRadius",
+        "type": "number",
+        "default": "120",
+        "description": "Cursor influence radius in pixels."
+      },
+      {
+        "name": "idleDrift",
+        "type": "number",
+        "default": "0.7",
+        "description": "Subtle resting motion after the text has formed."
+      },
+      {
+        "name": "trigger",
+        "type": "\"mount\" | \"hover\" | \"click\"",
+        "default": "\"mount\"",
+        "description": "How the scatter-and-reform sequence can replay after the first formation."
+      },
+      {
+        "name": "fontSize",
+        "type": "number | string",
+        "default": "\"clamp(3rem, 12vw, 8rem)\"",
+        "description": "Canvas text size used for glyph sampling."
+      },
+      {
+        "name": "fontWeight",
+        "type": "number | string",
+        "default": "800",
+        "description": "Font weight used for sampling."
+      },
+      {
+        "name": "fontFamily",
+        "type": "string",
+        "default": "\"inherit\"",
+        "description": "Font family used for sampling. Inherit waits for the surrounding font before sampling."
+      },
+      {
+        "name": "glow",
+        "type": "boolean",
+        "default": "true",
+        "description": "Adds a soft particle bloom in the highlight color."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Optional wrapper class name."
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "default": "undefined",
+        "description": "Optional inline styles for the wrapper."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "'React Bits'"
+      },
+      {
+        "name": "particleSize",
+        "default": "2"
+      },
+      {
+        "name": "density",
+        "default": "4"
+      },
+      {
+        "name": "color",
+        "default": "'#ffffff'"
+      },
+      {
+        "name": "highlightColor",
+        "default": "'#8b5cf6'"
+      },
+      {
+        "name": "scatter",
+        "default": "180"
+      },
+      {
+        "name": "gatherDuration",
+        "default": "1600"
+      },
+      {
+        "name": "stagger",
+        "default": "420"
+      },
+      {
+        "name": "pointerRepel",
+        "default": "40"
+      },
+      {
+        "name": "repelRadius",
+        "default": "120"
+      },
+      {
+        "name": "idleDrift",
+        "default": "0.7"
+      },
+      {
+        "name": "trigger",
+        "default": "'mount'"
+      },
+      {
+        "name": "fontSize",
+        "default": "'clamp(3rem, 12vw, 8rem)'"
+      },
+      {
+        "name": "fontWeight",
+        "default": "800"
+      },
+      {
+        "name": "fontFamily",
+        "default": "'inherit'"
+      },
+      {
+        "name": "glow",
+        "default": "true"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style"
+      }
     ]
   },
   {
@@ -1707,6 +4115,175 @@
         "label": "Loop",
         "type": "switch"
       }
+    ],
+    "propTable": [
+      {
+        "name": "texts",
+        "type": "string[]",
+        "default": "[]",
+        "description": "An array of text strings to be rotated."
+      },
+      {
+        "name": "rotationInterval",
+        "type": "number",
+        "default": "2000",
+        "description": "The interval (in milliseconds) between text rotations."
+      },
+      {
+        "name": "initial",
+        "type": "object",
+        "default": "{ y: \"100%\", opacity: 0 }",
+        "description": "Initial animation state for each element."
+      },
+      {
+        "name": "animate",
+        "type": "object",
+        "default": "{ y: 0, opacity: 1 }",
+        "description": "Animation state when elements enter."
+      },
+      {
+        "name": "exit",
+        "type": "object",
+        "default": "{ y: \"-120%\", opacity: 0 }",
+        "description": "Exit animation state for elements."
+      },
+      {
+        "name": "animatePresenceMode",
+        "type": "string",
+        "default": "\"wait\"",
+        "description": "Mode for AnimatePresence; for example, 'wait' to finish exit animations before entering."
+      },
+      {
+        "name": "animatePresenceInitial",
+        "type": "boolean",
+        "default": "false",
+        "description": "Determines whether the AnimatePresence component should run its initial animation."
+      },
+      {
+        "name": "staggerDuration",
+        "type": "number",
+        "default": "0",
+        "description": "Delay between each character's animation."
+      },
+      {
+        "name": "staggerFrom",
+        "type": "string",
+        "default": "\"first\"",
+        "description": "Specifies the order from which the stagger starts."
+      },
+      {
+        "name": "transition",
+        "type": "object",
+        "default": "",
+        "description": "Transition settings for the animations."
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "default": "true",
+        "description": "Determines if the rotation should loop back to the first text after the last one."
+      },
+      {
+        "name": "auto",
+        "type": "boolean",
+        "default": "true",
+        "description": "If true, the text rotation starts automatically."
+      },
+      {
+        "name": "splitBy",
+        "type": "string",
+        "default": "\"characters\"",
+        "description": "Determines how the text is split into animatable elements (e.g., by characters, words, or lines)."
+      },
+      {
+        "name": "onNext",
+        "type": "function",
+        "default": "undefined",
+        "description": "Callback function invoked when the text rotates to the next item."
+      },
+      {
+        "name": "mainClassName",
+        "type": "string",
+        "default": "''",
+        "description": "Additional class names for the main container element."
+      },
+      {
+        "name": "splitLevelClassName",
+        "type": "string",
+        "default": "''",
+        "description": "Additional class names for the container wrapping each split group (e.g., a word)."
+      },
+      {
+        "name": "elementLevelClassName",
+        "type": "string",
+        "default": "''",
+        "description": "Additional class names for each individual animated element."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "texts"
+      },
+      {
+        "name": "transition",
+        "default": "{ type: 'spring', damping: 25, stiffness: 300 }"
+      },
+      {
+        "name": "initial",
+        "default": "{ y: '100%', opacity: 0 }"
+      },
+      {
+        "name": "animate",
+        "default": "{ y: 0, opacity: 1 }"
+      },
+      {
+        "name": "exit",
+        "default": "{ y: '-120%', opacity: 0 }"
+      },
+      {
+        "name": "animatePresenceMode",
+        "default": "'wait'"
+      },
+      {
+        "name": "animatePresenceInitial",
+        "default": "false"
+      },
+      {
+        "name": "rotationInterval",
+        "default": "2000"
+      },
+      {
+        "name": "staggerDuration",
+        "default": "0"
+      },
+      {
+        "name": "staggerFrom",
+        "default": "'first'"
+      },
+      {
+        "name": "loop",
+        "default": "true"
+      },
+      {
+        "name": "auto",
+        "default": "true"
+      },
+      {
+        "name": "splitBy",
+        "default": "'characters'"
+      },
+      {
+        "name": "onNext"
+      },
+      {
+        "name": "mainClassName"
+      },
+      {
+        "name": "splitLevelClassName"
+      },
+      {
+        "name": "elementLevelClassName"
+      }
     ]
   },
   {
@@ -1749,6 +4326,79 @@
         "max": 2,
         "step": 0.1
       }
+    ],
+    "propTable": [
+      {
+        "name": "radius",
+        "type": "number",
+        "default": "100",
+        "description": "The radius around the mouse pointer within which characters will scramble."
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "1.2",
+        "description": "The duration of the scramble effect on a character."
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "default": "0.5",
+        "description": "The speed of the scramble animation."
+      },
+      {
+        "name": "scrambleChars",
+        "type": "string",
+        "default": "'.:'",
+        "description": "The characters used for scrambling."
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "default": "",
+        "description": "The text content to be scrambled."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Additional CSS classes for the component."
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "default": "{}",
+        "description": "Inline styles for the component."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "radius",
+        "default": "100"
+      },
+      {
+        "name": "duration",
+        "default": "1.2"
+      },
+      {
+        "name": "speed",
+        "default": "0.5"
+      },
+      {
+        "name": "scrambleChars",
+        "default": "'.:'"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style",
+        "default": "{}"
+      },
+      {
+        "name": "children"
+      }
     ]
   },
   {
@@ -1774,6 +4424,98 @@
         "min": 1,
         "max": 10,
         "step": 0.1
+      }
+    ],
+    "propTable": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "—",
+        "description": "The content to animate. If a string, it will be split into individual characters."
+      },
+      {
+        "name": "scrollContainerRef",
+        "type": "RefObject<HTMLElement>",
+        "default": "window",
+        "description": "Optional ref to the scroll container. Defaults to window if not provided."
+      },
+      {
+        "name": "containerClassName",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Additional Tailwind classes for the container element."
+      },
+      {
+        "name": "textClassName",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Additional Tailwind classes for the text element."
+      },
+      {
+        "name": "animationDuration",
+        "type": "number",
+        "default": "1",
+        "description": "Duration (in seconds) of the animation."
+      },
+      {
+        "name": "ease",
+        "type": "string",
+        "default": "\"back.inOut(2)\"",
+        "description": "Easing function used for the animation."
+      },
+      {
+        "name": "scrollStart",
+        "type": "string",
+        "default": "\"center bottom+=50%\"",
+        "description": "The scroll trigger start position."
+      },
+      {
+        "name": "scrollEnd",
+        "type": "string",
+        "default": "\"bottom bottom-=40%\"",
+        "description": "The scroll trigger end position."
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "default": "0.03",
+        "description": "Delay between the animation start of each character."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "children"
+      },
+      {
+        "name": "scrollContainerRef"
+      },
+      {
+        "name": "containerClassName",
+        "default": "''"
+      },
+      {
+        "name": "textClassName",
+        "default": "''"
+      },
+      {
+        "name": "animationDuration",
+        "default": "1"
+      },
+      {
+        "name": "ease",
+        "default": "'back.inOut(2)'"
+      },
+      {
+        "name": "scrollStart",
+        "default": "'center bottom+=50%'"
+      },
+      {
+        "name": "scrollEnd",
+        "default": "'bottom bottom-=40%'"
+      },
+      {
+        "name": "stagger",
+        "default": "0.03"
       }
     ]
   },
@@ -1816,6 +4558,108 @@
         "max": 10,
         "step": 1,
         "unit": "°"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "—",
+        "description": "The text or elements to be animated. If a string is provided, it will be split into words."
+      },
+      {
+        "name": "scrollContainerRef",
+        "type": "React.RefObject",
+        "default": "window",
+        "description": "Optional ref for the scroll container. If provided, GSAP will use this container for scroll triggers; otherwise, it defaults to the window."
+      },
+      {
+        "name": "enableBlur",
+        "type": "boolean",
+        "default": "true",
+        "description": "Enables the blur animation effect on the words."
+      },
+      {
+        "name": "baseOpacity",
+        "type": "number",
+        "default": "0.1",
+        "description": "The initial opacity value for the words before the animation."
+      },
+      {
+        "name": "baseRotation",
+        "type": "number",
+        "default": "3",
+        "description": "The starting rotation (in degrees) for the container before it animates to 0."
+      },
+      {
+        "name": "blurStrength",
+        "type": "number",
+        "default": "4",
+        "description": "The strength of the blur effect (in pixels) applied at the start of the animation."
+      },
+      {
+        "name": "containerClassName",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Additional CSS class(es) to apply to the container element."
+      },
+      {
+        "name": "textClassName",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Additional CSS class(es) to apply to the text element."
+      },
+      {
+        "name": "rotationEnd",
+        "type": "string",
+        "default": "\"bottom bottom\"",
+        "description": "The scroll trigger end point for the container rotation animation."
+      },
+      {
+        "name": "wordAnimationEnd",
+        "type": "string",
+        "default": "\"bottom bottom\"",
+        "description": "The scroll trigger end point for the word opacity and blur animations. The animation will complete when the bottom of the text reaches the bottom of the container."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "children"
+      },
+      {
+        "name": "scrollContainerRef"
+      },
+      {
+        "name": "enableBlur",
+        "default": "true"
+      },
+      {
+        "name": "baseOpacity",
+        "default": "0.1"
+      },
+      {
+        "name": "baseRotation",
+        "default": "3"
+      },
+      {
+        "name": "blurStrength",
+        "default": "4"
+      },
+      {
+        "name": "containerClassName",
+        "default": "''"
+      },
+      {
+        "name": "textClassName",
+        "default": "''"
+      },
+      {
+        "name": "rotationEnd",
+        "default": "'bottom bottom'"
+      },
+      {
+        "name": "wordAnimationEnd",
+        "default": "'bottom bottom'"
       }
     ]
   },
@@ -1860,6 +4704,127 @@
         "min": 100,
         "max": 800,
         "step": 50
+      }
+    ],
+    "propTable": [
+      {
+        "name": "scrollContainerRef",
+        "type": "React.RefObject<HTMLElement>",
+        "default": "undefined",
+        "description": "Optional ref for a custom scroll container to track scroll position."
+      },
+      {
+        "name": "texts",
+        "type": "React.ReactNode[]",
+        "default": "[]",
+        "description": "Array of items to display as scrolling content. Accepts strings, JSX elements, icons, or any valid React node."
+      },
+      {
+        "name": "velocity",
+        "type": "number",
+        "default": "100",
+        "description": "Base velocity for scrolling; sign is flipped for odd indexed texts."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "CSS class applied to each text copy (span)."
+      },
+      {
+        "name": "damping",
+        "type": "number",
+        "default": "50",
+        "description": "Damping value for the spring animation."
+      },
+      {
+        "name": "stiffness",
+        "type": "number",
+        "default": "400",
+        "description": "Stiffness value for the spring animation."
+      },
+      {
+        "name": "numCopies",
+        "type": "number",
+        "default": "6",
+        "description": "Number of copies of the text rendered for a continuous scrolling effect."
+      },
+      {
+        "name": "velocityMapping",
+        "type": "{ input: number[]; output: number[] }",
+        "default": "{ input: [0, 1000], output: [0, 5] }",
+        "description": "Mapping from scroll velocity to a movement multiplier for dynamic scrolling."
+      },
+      {
+        "name": "parallaxClassName",
+        "type": "string",
+        "default": "\"parallax\"",
+        "description": "CSS class for the parallax container."
+      },
+      {
+        "name": "scrollerClassName",
+        "type": "string",
+        "default": "\"scroller\"",
+        "description": "CSS class for the scroller container."
+      },
+      {
+        "name": "parallaxStyle",
+        "type": "React.CSSProperties",
+        "default": "undefined",
+        "description": "Inline styles for the parallax container."
+      },
+      {
+        "name": "scrollerStyle",
+        "type": "React.CSSProperties",
+        "default": "undefined",
+        "description": "Inline styles for the scroller container."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "scrollContainerRef"
+      },
+      {
+        "name": "texts",
+        "default": "[]"
+      },
+      {
+        "name": "velocity",
+        "default": "100"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "damping",
+        "default": "50"
+      },
+      {
+        "name": "stiffness",
+        "default": "400"
+      },
+      {
+        "name": "numCopies",
+        "default": "6"
+      },
+      {
+        "name": "velocityMapping",
+        "default": "{ input: [0, 1000], output: [0, 5] }"
+      },
+      {
+        "name": "parallaxClassName",
+        "default": "'parallax'"
+      },
+      {
+        "name": "scrollerClassName",
+        "default": "'scroller'"
+      },
+      {
+        "name": "parallaxStyle"
+      },
+      {
+        "name": "scrollerStyle"
       }
     ]
   },
@@ -2028,6 +4993,201 @@
         "label": "Disabled",
         "type": "switch"
       }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "-",
+        "description": "The text to shine. Children work too."
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "\"#b5b5b5\"",
+        "description": "Base color of the text."
+      },
+      {
+        "name": "shineColor",
+        "type": "string",
+        "default": "\"#ffffff\"",
+        "description": "Color of the light passing over it."
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "default": "2",
+        "description": "Seconds for one sweep across the text."
+      },
+      {
+        "name": "delay",
+        "type": "number",
+        "default": "0",
+        "description": "Seconds of rest between sweeps."
+      },
+      {
+        "name": "angle",
+        "type": "number",
+        "default": "120",
+        "description": "Tilt of the band of light in degrees. 90 is upright, higher leans it forward."
+      },
+      {
+        "name": "shineWidth",
+        "type": "number",
+        "default": "40",
+        "description": "How wide the band of light is, as a percentage of the text."
+      },
+      {
+        "name": "softness",
+        "type": "number",
+        "default": "0.8",
+        "description": "How gently the band fades at its edges, from 0 for a crisp glint to 1 for a soft sheen."
+      },
+      {
+        "name": "bands",
+        "type": "number",
+        "default": "1",
+        "description": "How many bands of light follow each other, like reflections sliding across chrome."
+      },
+      {
+        "name": "glow",
+        "type": "number",
+        "default": "0",
+        "description": "A soft bloom of light that travels with the band, from 0 to 1."
+      },
+      {
+        "name": "direction",
+        "type": "'left' | 'right'",
+        "default": "\"left\"",
+        "description": "Which way the light travels."
+      },
+      {
+        "name": "easing",
+        "type": "'smooth' | 'linear' | 'snappy'",
+        "default": "\"smooth\"",
+        "description": "Feel of each sweep. Smooth glides in and out, linear keeps an even pace and snappy flashes across with a pause between."
+      },
+      {
+        "name": "trigger",
+        "type": "'loop' | 'hover' | 'view'",
+        "default": "\"loop\"",
+        "description": "When it shines: on a loop, once each time the pointer enters, or once when scrolled into view."
+      },
+      {
+        "name": "yoyo",
+        "type": "boolean",
+        "default": "false",
+        "description": "Sweeps back and forth instead of always starting from the same side."
+      },
+      {
+        "name": "followPointer",
+        "type": "boolean",
+        "default": "false",
+        "description": "While hovered, the light glides after the pointer, then slides off when it leaves."
+      },
+      {
+        "name": "pauseOnHover",
+        "type": "boolean",
+        "default": "false",
+        "description": "Freezes the sweep while the pointer is over the text."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows plain text with no shine."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "''",
+        "description": "Extra class names for the root element."
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "default": "-",
+        "description": "Inline styles for the root element."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text"
+      },
+      {
+        "name": "children"
+      },
+      {
+        "name": "color",
+        "default": "'#b5b5b5'"
+      },
+      {
+        "name": "shineColor",
+        "default": "'#ffffff'"
+      },
+      {
+        "name": "speed",
+        "default": "2"
+      },
+      {
+        "name": "delay",
+        "default": "0"
+      },
+      {
+        "name": "angle",
+        "default": "120"
+      },
+      {
+        "name": "shineWidth",
+        "default": "40"
+      },
+      {
+        "name": "softness",
+        "default": "0.8"
+      },
+      {
+        "name": "bands",
+        "default": "1"
+      },
+      {
+        "name": "glow",
+        "default": "0"
+      },
+      {
+        "name": "direction",
+        "default": "'left'"
+      },
+      {
+        "name": "easing",
+        "default": "'smooth'"
+      },
+      {
+        "name": "trigger",
+        "default": "'loop'"
+      },
+      {
+        "name": "yoyo",
+        "default": "false"
+      },
+      {
+        "name": "followPointer",
+        "default": "false"
+      },
+      {
+        "name": "pauseOnHover",
+        "default": "false"
+      },
+      {
+        "name": "disabled",
+        "default": "false"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style"
+      }
     ]
   },
   {
@@ -2139,6 +5299,236 @@
         "unit": "s",
         "disabledWhen": "!loop",
         "transform": "(val) => Number(val)"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"\"",
+        "description": "The text content to shuffle."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Optional CSS class for the wrapper element."
+      },
+      {
+        "name": "style",
+        "type": "object",
+        "default": "{}",
+        "description": "Inline styles applied to the wrapper element."
+      },
+      {
+        "name": "shuffleDirection",
+        "type": "\"left\" | \"right\" | \"up\" | \"down\"",
+        "default": "\"right\"",
+        "description": "Direction the per-letter strip slides to reveal the final character."
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "0.35",
+        "description": "Duration (s) of the strip slide per letter."
+      },
+      {
+        "name": "maxDelay",
+        "type": "number",
+        "default": "0",
+        "description": "Max random delay per strip when animationMode = \"random\"."
+      },
+      {
+        "name": "ease",
+        "type": "string | Function",
+        "default": "\"power3.out\"",
+        "description": "GSAP ease for sliding and color tween."
+      },
+      {
+        "name": "threshold",
+        "type": "number",
+        "default": "0.1",
+        "description": "Portion of the element that must enter view before starting."
+      },
+      {
+        "name": "rootMargin",
+        "type": "string",
+        "default": "\"-100px\"",
+        "description": "ScrollTrigger start offset (px, %, etc.)."
+      },
+      {
+        "name": "tag",
+        "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"p\" | \"span\"",
+        "default": "\"p\"",
+        "description": "HTML tag to render for the text container."
+      },
+      {
+        "name": "textAlign",
+        "type": "CSS text-align",
+        "default": "\"center\"",
+        "description": "Text alignment applied via inline style."
+      },
+      {
+        "name": "onShuffleComplete",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Called after a full run completes (and on each loop repeat)."
+      },
+      {
+        "name": "shuffleTimes",
+        "type": "number",
+        "default": "1",
+        "description": "How many interim scrambled glyphs to scroll past before the final char."
+      },
+      {
+        "name": "animationMode",
+        "type": "\"evenodd\" | \"random\"",
+        "default": "\"evenodd\"",
+        "description": "Odd/even staggered strips or random per-strip delays."
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "default": "false",
+        "description": "Repeat the shuffle indefinitely."
+      },
+      {
+        "name": "loopDelay",
+        "type": "number",
+        "default": "0",
+        "description": "Delay (s) between loop repeats."
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "default": "0.03",
+        "description": "Stagger (s) for strips in \"evenodd\" mode."
+      },
+      {
+        "name": "scrambleCharset",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Characters to use for interim scrambles; empty keeps original copies."
+      },
+      {
+        "name": "colorFrom",
+        "type": "string",
+        "default": "undefined",
+        "description": "Optional starting text color while shuffling."
+      },
+      {
+        "name": "colorTo",
+        "type": "string",
+        "default": "undefined",
+        "description": "Optional final text color to tween to."
+      },
+      {
+        "name": "triggerOnce",
+        "type": "boolean",
+        "default": "true",
+        "description": "Auto-run only on first scroll into view."
+      },
+      {
+        "name": "respectReducedMotion",
+        "type": "boolean",
+        "default": "true",
+        "description": "Skip animation if user prefers reduced motion."
+      },
+      {
+        "name": "triggerOnHover",
+        "type": "boolean",
+        "default": "true",
+        "description": "Allow re-playing the animation on hover after it completes."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style",
+        "default": "{}"
+      },
+      {
+        "name": "shuffleDirection",
+        "default": "'right'"
+      },
+      {
+        "name": "duration",
+        "default": "0.35"
+      },
+      {
+        "name": "maxDelay",
+        "default": "0"
+      },
+      {
+        "name": "ease",
+        "default": "'power3.out'"
+      },
+      {
+        "name": "threshold",
+        "default": "0.1"
+      },
+      {
+        "name": "rootMargin",
+        "default": "'-100px'"
+      },
+      {
+        "name": "tag",
+        "default": "'p'"
+      },
+      {
+        "name": "textAlign",
+        "default": "'center'"
+      },
+      {
+        "name": "onShuffleComplete"
+      },
+      {
+        "name": "shuffleTimes",
+        "default": "1"
+      },
+      {
+        "name": "animationMode",
+        "default": "'evenodd'"
+      },
+      {
+        "name": "loop",
+        "default": "false"
+      },
+      {
+        "name": "loopDelay",
+        "default": "0"
+      },
+      {
+        "name": "stagger",
+        "default": "0.03"
+      },
+      {
+        "name": "scrambleCharset",
+        "default": "''"
+      },
+      {
+        "name": "colorFrom"
+      },
+      {
+        "name": "colorTo"
+      },
+      {
+        "name": "triggerOnce",
+        "default": "true"
+      },
+      {
+        "name": "respectReducedMotion",
+        "default": "true"
+      },
+      {
+        "name": "triggerOnHover",
+        "default": "true"
       }
     ]
   },
@@ -2297,6 +5687,169 @@
         "label": "Loop",
         "type": "switch"
       }
+    ],
+    "propTable": [
+      {
+        "name": "words",
+        "type": "string[]",
+        "default": "['LAUNCH READY', 'SYNC ONLINE', 'SIGNAL LIVE']",
+        "description": "Phrases to cycle through like a departure board."
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "default": "undefined",
+        "description": "Optional single phrase. When set, it takes precedence over words."
+      },
+      {
+        "name": "flipDuration",
+        "type": "number",
+        "default": "0.12",
+        "description": "Duration, in seconds, of each individual flap turn."
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "default": "0.06",
+        "description": "Delay, in seconds, between each tile starting its cascade."
+      },
+      {
+        "name": "cycleDelay",
+        "type": "number",
+        "default": "2400",
+        "description": "Hold time, in milliseconds, before cycling to the next phrase."
+      },
+      {
+        "name": "charset",
+        "type": "\"alpha\" | \"alphanumeric\" | \"numeric\" | string",
+        "default": "\"alphanumeric\"",
+        "description": "Characters used for the intermediate flip glyphs."
+      },
+      {
+        "name": "flipsPerChar",
+        "type": "number",
+        "default": "8",
+        "description": "Number of intermediate glyphs each changed tile flips through."
+      },
+      {
+        "name": "tileColor",
+        "type": "string",
+        "default": "\"#111827\"",
+        "description": "Base color of each mechanical tile."
+      },
+      {
+        "name": "textColor",
+        "type": "string",
+        "default": "\"#f8fafc\"",
+        "description": "Color of the glyphs on every flap."
+      },
+      {
+        "name": "tileRadius",
+        "type": "number | string",
+        "default": "8",
+        "description": "Corner radius for each tile."
+      },
+      {
+        "name": "gap",
+        "type": "number | string",
+        "default": "6",
+        "description": "Space between adjacent flap tiles."
+      },
+      {
+        "name": "fontSize",
+        "type": "number | string",
+        "default": "52",
+        "description": "Tile type size. Numeric values are treated as pixels."
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether the phrase array repeats after the final phrase."
+      },
+      {
+        "name": "padTo",
+        "type": "number",
+        "default": "12",
+        "description": "Fixed tile count used to keep the board width stable."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Optional class name for custom styling."
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "default": "{}",
+        "description": "Optional inline styles for the root element."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "words",
+        "default": "['LAUNCH READY', 'SYNC ONLINE', 'SIGNAL LIVE']"
+      },
+      {
+        "name": "text"
+      },
+      {
+        "name": "flipDuration",
+        "default": "0.12"
+      },
+      {
+        "name": "stagger",
+        "default": "0.06"
+      },
+      {
+        "name": "cycleDelay",
+        "default": "2400"
+      },
+      {
+        "name": "charset",
+        "default": "'alphanumeric'"
+      },
+      {
+        "name": "flipsPerChar",
+        "default": "8"
+      },
+      {
+        "name": "tileColor",
+        "default": "'#111827'"
+      },
+      {
+        "name": "textColor",
+        "default": "'#f8fafc'"
+      },
+      {
+        "name": "tileRadius",
+        "default": "8"
+      },
+      {
+        "name": "gap",
+        "default": "6"
+      },
+      {
+        "name": "fontSize",
+        "default": "52"
+      },
+      {
+        "name": "loop",
+        "default": "true"
+      },
+      {
+        "name": "padTo",
+        "default": "12"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style",
+        "default": "{}"
+      }
     ]
   },
   {
@@ -2369,6 +5922,138 @@
         "key": "showCallback",
         "label": "Show Completion Toast",
         "type": "switch"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "tag",
+        "type": "string",
+        "default": "\"p\"",
+        "description": "HTML tag to render: \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"p\","
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"\"",
+        "description": "The text content to animate."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Additional class names to style the component."
+      },
+      {
+        "name": "delay",
+        "type": "number",
+        "default": "50",
+        "description": "Delay between animations for each letter (in ms)."
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "1.25",
+        "description": "Duration of each letter animation (in seconds)."
+      },
+      {
+        "name": "ease",
+        "type": "string",
+        "default": "\"power3.out\"",
+        "description": "GSAP easing function for the animation."
+      },
+      {
+        "name": "splitType",
+        "type": "string",
+        "default": "\"chars\"",
+        "description": "Split type: \"chars\", \"words\", \"lines\", or \"words, chars\"."
+      },
+      {
+        "name": "from",
+        "type": "object",
+        "default": "{ opacity: 0, y: 40 }",
+        "description": "Initial GSAP properties for each letter/word."
+      },
+      {
+        "name": "to",
+        "type": "object",
+        "default": "{ opacity: 1, y: 0 }",
+        "description": "Target GSAP properties for each letter/word."
+      },
+      {
+        "name": "threshold",
+        "type": "number",
+        "default": "0.1",
+        "description": "Intersection threshold to trigger the animation (0-1)."
+      },
+      {
+        "name": "rootMargin",
+        "type": "string",
+        "default": "\"-100px\"",
+        "description": "Root margin for the ScrollTrigger."
+      },
+      {
+        "name": "textAlign",
+        "type": "string",
+        "default": "\"center\"",
+        "description": "Text alignment: 'left', 'center', 'right', etc."
+      },
+      {
+        "name": "onLetterAnimationComplete",
+        "type": "function",
+        "default": "undefined",
+        "description": "Callback function when all animations complete."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "delay",
+        "default": "50"
+      },
+      {
+        "name": "duration",
+        "default": "1.25"
+      },
+      {
+        "name": "ease",
+        "default": "'power3.out'"
+      },
+      {
+        "name": "splitType",
+        "default": "'chars'"
+      },
+      {
+        "name": "from",
+        "default": "{ opacity: 0, y: 40 }"
+      },
+      {
+        "name": "to",
+        "default": "{ opacity: 1, y: 0 }"
+      },
+      {
+        "name": "threshold",
+        "default": "0.1"
+      },
+      {
+        "name": "rootMargin",
+        "default": "'-100px'"
+      },
+      {
+        "name": "textAlign",
+        "default": "'center'"
+      },
+      {
+        "name": "tag",
+        "default": "'p'"
+      },
+      {
+        "name": "onLetterAnimationComplete"
       }
     ]
   },
@@ -2538,6 +6223,170 @@
         "key": "reverse",
         "label": "Reverse Stagger",
         "type": "switch"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"Draw Attention\"",
+        "description": "The heading copy rendered as measured SVG glyphs."
+      },
+      {
+        "name": "strokeColor",
+        "type": "string",
+        "default": "\"#A78BFA\"",
+        "description": "Color used for the drawing outline."
+      },
+      {
+        "name": "fillColor",
+        "type": "string",
+        "default": "\"#F8FAFC\"",
+        "description": "Color that floods into the glyphs after the outline draw."
+      },
+      {
+        "name": "strokeWidth",
+        "type": "number",
+        "default": "1.4",
+        "description": "Width of the SVG text outline."
+      },
+      {
+        "name": "drawDuration",
+        "type": "number",
+        "default": "1.6",
+        "description": "Seconds each character outline spends drawing on."
+      },
+      {
+        "name": "fillDelay",
+        "type": "number",
+        "default": "0.2",
+        "description": "Seconds to wait after the outline draw before the fill begins."
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "default": "0.05",
+        "description": "Delay in seconds between each character animation."
+      },
+      {
+        "name": "ease",
+        "type": "string",
+        "default": "\"power2.out\"",
+        "description": "GSAP easing used for the outline draw."
+      },
+      {
+        "name": "trigger",
+        "type": "\"mount\" | \"hover\" | \"scroll\" | \"loop\"",
+        "default": "\"mount\"",
+        "description": "Chooses when the draw timeline starts."
+      },
+      {
+        "name": "fillMode",
+        "type": "\"fade\" | \"wipe\" | \"none\"",
+        "default": "\"wipe\"",
+        "description": "Controls whether fill appears with a fade, left-to-right wipe, or not at all."
+      },
+      {
+        "name": "fontSize",
+        "type": "number | string",
+        "default": "128",
+        "description": "SVG font size before the responsive viewBox scales the wordmark."
+      },
+      {
+        "name": "fontWeight",
+        "type": "number | string",
+        "default": "800",
+        "description": "Weight of the rendered letterforms."
+      },
+      {
+        "name": "letterSpacing",
+        "type": "number | string",
+        "default": "-4",
+        "description": "Tracking applied during measurement and rendering."
+      },
+      {
+        "name": "reverse",
+        "type": "boolean",
+        "default": "false",
+        "description": "Draws the stagger from the final character back to the first."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Optional class applied to the root wrapper."
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "default": "{}",
+        "description": "Inline styles passed to the root wrapper."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "DEFAULT_TEXT"
+      },
+      {
+        "name": "strokeColor",
+        "default": "'#A78BFA'"
+      },
+      {
+        "name": "fillColor",
+        "default": "'#F8FAFC'"
+      },
+      {
+        "name": "strokeWidth",
+        "default": "1.4"
+      },
+      {
+        "name": "drawDuration",
+        "default": "1.6"
+      },
+      {
+        "name": "fillDelay",
+        "default": "0.2"
+      },
+      {
+        "name": "stagger",
+        "default": "0.05"
+      },
+      {
+        "name": "ease",
+        "default": "'power2.out'"
+      },
+      {
+        "name": "trigger",
+        "default": "'mount'"
+      },
+      {
+        "name": "fillMode",
+        "default": "'wipe'"
+      },
+      {
+        "name": "fontSize",
+        "default": "128"
+      },
+      {
+        "name": "fontWeight",
+        "default": "800"
+      },
+      {
+        "name": "letterSpacing",
+        "default": "-4"
+      },
+      {
+        "name": "reverse",
+        "default": "false"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style",
+        "default": "{}"
       }
     ]
   },
@@ -2750,22 +6599,440 @@
         "label": "Sweep",
         "type": "switch"
       }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "'React Bits'",
+        "description": "The wordmark to render."
+      },
+      {
+        "name": "fontFamily",
+        "type": "string",
+        "default": "''",
+        "description": "Any font family loaded on the page. Leave empty to inherit the font of the container."
+      },
+      {
+        "name": "fontWeight",
+        "type": "number",
+        "default": "600",
+        "description": "Weight of the wordmark."
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "default": "150",
+        "description": "Largest font size in px. The wordmark shrinks to fit narrower containers."
+      },
+      {
+        "name": "letterSpacing",
+        "type": "number",
+        "default": "-0.05",
+        "description": "Extra space between letters, in em."
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "'#ffffff'",
+        "description": "Colour of the letters and their outlines."
+      },
+      {
+        "name": "accentColor",
+        "type": "string",
+        "default": "'#ffffff'",
+        "description": "Colour of the selection frame, connector and labels."
+      },
+      {
+        "name": "reveal",
+        "type": "'area' | 'letter' | 'off'",
+        "default": "'letter'",
+        "description": "Area fades the letters into outlines inside a circle around the pointer. Letter turns only the active letter into its outline. Off keeps every letter solid."
+      },
+      {
+        "name": "reach",
+        "type": "number",
+        "default": "200",
+        "description": "Radius around the pointer where the letters turn into vector outlines, in px."
+      },
+      {
+        "name": "softness",
+        "type": "number",
+        "default": "0.7",
+        "description": "How gradually the fill hands over to the outlines. 0 is a hard edge."
+      },
+      {
+        "name": "dashLength",
+        "type": "number",
+        "default": "4",
+        "description": "Length of each outline dash, in px."
+      },
+      {
+        "name": "dashGap",
+        "type": "number",
+        "default": "2",
+        "description": "Space between outline dashes, in px."
+      },
+      {
+        "name": "lineStyle",
+        "type": "'dashed' | 'solid'",
+        "default": "'dashed'",
+        "description": "How the outlines under the pointer are drawn. Only the outer silhouette is traced either way."
+      },
+      {
+        "name": "strokeWidth",
+        "type": "number",
+        "default": "1.5",
+        "description": "Thickness of the outline, in px."
+      },
+      {
+        "name": "specks",
+        "type": "number",
+        "default": "15",
+        "description": "Tiny squares that blink and respawn around the active letter, seeded per letter. 0 turns them off."
+      },
+      {
+        "name": "selection",
+        "type": "boolean",
+        "default": "true",
+        "description": "Frame the letter under the pointer. The frame glides from letter to letter."
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "default": "true",
+        "description": "Label the frame with the letter and its size, or with its offset while dragged."
+      },
+      {
+        "name": "draggable",
+        "type": "boolean",
+        "default": "true",
+        "description": "Let letters be dragged off the baseline. They spring back home on release."
+      },
+      {
+        "name": "sweep",
+        "type": "boolean",
+        "default": "true",
+        "description": "Sweep the reveal across the wordmark on its own while the pointer is away."
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "default": "1",
+        "description": "Speed of the idle sweep."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "''",
+        "description": "Extra classes on the container."
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "default": "-",
+        "description": "Inline styles on the container."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "'React Bits'"
+      },
+      {
+        "name": "fontFamily",
+        "default": "''"
+      },
+      {
+        "name": "fontWeight",
+        "default": "600"
+      },
+      {
+        "name": "fontSize",
+        "default": "150"
+      },
+      {
+        "name": "letterSpacing",
+        "default": "-0.05"
+      },
+      {
+        "name": "color",
+        "default": "'#ffffff'"
+      },
+      {
+        "name": "accentColor",
+        "default": "'#ffffff'"
+      },
+      {
+        "name": "reach",
+        "default": "200"
+      },
+      {
+        "name": "softness",
+        "default": "0.7"
+      },
+      {
+        "name": "dashLength",
+        "default": "4"
+      },
+      {
+        "name": "dashGap",
+        "default": "2"
+      },
+      {
+        "name": "strokeWidth",
+        "default": "1.5"
+      },
+      {
+        "name": "lineStyle",
+        "default": "'dashed'"
+      },
+      {
+        "name": "reveal",
+        "default": "'letter'"
+      },
+      {
+        "name": "specks",
+        "default": "15"
+      },
+      {
+        "name": "selection",
+        "default": "true"
+      },
+      {
+        "name": "labels",
+        "default": "true"
+      },
+      {
+        "name": "draggable",
+        "default": "true"
+      },
+      {
+        "name": "sweep",
+        "default": "true"
+      },
+      {
+        "name": "speed",
+        "default": "1"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style"
+      }
     ]
   },
   {
     "id": "TextCursor",
     "name": "Text Cursor",
     "defaults": {
-      "text": "⚛️",
+      "preset": "words",
+      "text": "Hello",
+      "mode": "stamp",
+      "fontSize": 28,
+      "spacing": 88,
+      "maxPoints": 7,
+      "shrink": 0.5,
+      "fade": 0.6,
+      "smoothing": 0.3,
+      "exitDuration": 0.5,
+      "removalInterval": 30,
       "followMouseDirection": true,
-      "randomFloat": true
+      "keepUpright": true,
+      "randomFloat": true,
+      "popIn": true,
+      "color": "",
+      "hideCursor": false
     },
     "controls": [
+      {
+        "key": "preset",
+        "label": "Preset",
+        "type": "select",
+        "options": [
+          [
+            "words",
+            "Words"
+          ],
+          [
+            "emoji",
+            "Emoji"
+          ],
+          [
+            "chain",
+            "Chain"
+          ],
+          [
+            "ribbon",
+            "Ribbon"
+          ]
+        ],
+        "presets": {
+          "words": {
+            "text": "Hello",
+            "mode": "stamp",
+            "fontSize": 28,
+            "spacing": 88,
+            "maxPoints": 7,
+            "shrink": 0.5,
+            "fade": 0.6,
+            "smoothing": 0.3,
+            "exitDuration": 0.5,
+            "removalInterval": 30,
+            "followMouseDirection": true,
+            "keepUpright": true,
+            "randomFloat": true,
+            "popIn": true
+          },
+          "emoji": {
+            "text": "✨",
+            "mode": "stamp",
+            "fontSize": 30,
+            "spacing": 46,
+            "maxPoints": 10,
+            "shrink": 0.6,
+            "fade": 0.5,
+            "smoothing": 0.3,
+            "exitDuration": 0.5,
+            "removalInterval": 30,
+            "followMouseDirection": true,
+            "keepUpright": true,
+            "randomFloat": true,
+            "popIn": true
+          },
+          "chain": {
+            "text": "→",
+            "mode": "chain",
+            "fontSize": 24,
+            "spacing": 22,
+            "maxPoints": 18,
+            "shrink": 0.55,
+            "fade": 0.75,
+            "smoothing": 0.3,
+            "exitDuration": 0.5,
+            "removalInterval": 30,
+            "followMouseDirection": true,
+            "keepUpright": true,
+            "randomFloat": false,
+            "popIn": true
+          },
+          "ribbon": {
+            "text": "React Bits follows your cursor ✦ ",
+            "mode": "ribbon",
+            "fontSize": 26,
+            "spacing": 1,
+            "maxPoints": 7,
+            "shrink": 0.35,
+            "fade": 0.7,
+            "smoothing": 0.4,
+            "exitDuration": 0.5,
+            "removalInterval": 30,
+            "followMouseDirection": true,
+            "keepUpright": true,
+            "randomFloat": true,
+            "popIn": true
+          }
+        }
+      },
       {
         "key": "text",
         "label": "Text",
         "type": "text",
-        "maxLength": 10
+        "maxLength": 40
+      },
+      {
+        "key": "color",
+        "label": "Color",
+        "type": "color"
+      },
+      {
+        "key": "mode",
+        "label": "Mode",
+        "type": "select",
+        "options": [
+          [
+            "stamp",
+            "Stamp"
+          ],
+          [
+            "chain",
+            "Chain"
+          ],
+          [
+            "ribbon",
+            "Ribbon"
+          ]
+        ]
+      },
+      {
+        "key": "fontSize",
+        "label": "Font Size",
+        "type": "range",
+        "min": 12,
+        "max": 72,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "key": "spacing",
+        "label": "Spacing",
+        "type": "range",
+        "min": 0,
+        "max": 200,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "key": "maxPoints",
+        "label": "Max Points",
+        "type": "range",
+        "min": 1,
+        "max": 30,
+        "step": 1
+      },
+      {
+        "key": "shrink",
+        "label": "Shrink",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "fade",
+        "label": "Fade",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "smoothing",
+        "label": "Smoothing",
+        "type": "range",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "key": "exitDuration",
+        "label": "Exit Duration",
+        "type": "range",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.05,
+        "unit": "s"
+      },
+      {
+        "key": "removalInterval",
+        "label": "Removal Interval",
+        "type": "range",
+        "min": 5,
+        "max": 200,
+        "step": 5,
+        "unit": "ms"
       },
       {
         "key": "followMouseDirection",
@@ -2773,9 +7040,227 @@
         "type": "switch"
       },
       {
-        "key": "randomFloat",
-        "label": "Enable Random Floating",
+        "key": "keepUpright",
+        "label": "Keep Upright",
         "type": "switch"
+      },
+      {
+        "key": "randomFloat",
+        "label": "Random Float",
+        "type": "switch"
+      },
+      {
+        "key": "popIn",
+        "label": "Pop In",
+        "type": "switch"
+      },
+      {
+        "key": "hideCursor",
+        "label": "Hide Cursor",
+        "type": "switch"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "'Hello'",
+        "description": "The text or emoji the trail is made of."
+      },
+      {
+        "name": "mode",
+        "type": "'stamp' | 'chain' | 'ribbon'",
+        "default": "'stamp'",
+        "description": "Stamp leaves copies along the path, chain makes copies follow each other like a snake, and ribbon lays the letters along the path."
+      },
+      {
+        "name": "spacing",
+        "type": "number",
+        "default": "88",
+        "description": "Distance between copies, in px. In ribbon mode, extra space between letters."
+      },
+      {
+        "name": "maxPoints",
+        "type": "number",
+        "default": "7",
+        "description": "Most copies shown at once in stamp and chain modes."
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "'currentColor'",
+        "description": "Color of the text."
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "default": "28",
+        "description": "Font size of the text, in px."
+      },
+      {
+        "name": "fontWeight",
+        "type": "number | string",
+        "default": "600",
+        "description": "Font weight of the text."
+      },
+      {
+        "name": "fontFamily",
+        "type": "string",
+        "default": "'inherit'",
+        "description": "Font family of the text."
+      },
+      {
+        "name": "shrink",
+        "type": "number",
+        "default": "0.5",
+        "description": "How much smaller the trail gets toward its end, from 0 to 1."
+      },
+      {
+        "name": "fade",
+        "type": "number",
+        "default": "0.6",
+        "description": "How much the trail fades toward its end, from 0 to 1."
+      },
+      {
+        "name": "smoothing",
+        "type": "number",
+        "default": "0.3",
+        "description": "Softens the path the trail follows, from 0 to 1. Higher values lag a little behind the cursor."
+      },
+      {
+        "name": "followMouseDirection",
+        "type": "boolean",
+        "default": "true",
+        "description": "Turns the text to face the direction the cursor moves."
+      },
+      {
+        "name": "randomFloat",
+        "type": "boolean",
+        "default": "true",
+        "description": "Lets stamped copies sway gently, and makes chains and ribbons ripple."
+      },
+      {
+        "name": "popIn",
+        "type": "boolean",
+        "default": "true",
+        "description": "Makes new copies pop in with a little overshoot."
+      },
+      {
+        "name": "keepUpright",
+        "type": "boolean",
+        "default": "true",
+        "description": "In stamp mode, keeps copies from turning upside down when the cursor moves left."
+      },
+      {
+        "name": "exitDuration",
+        "type": "number",
+        "default": "0.5",
+        "description": "How long a stamped copy takes to shrink away, in seconds."
+      },
+      {
+        "name": "removalInterval",
+        "type": "number",
+        "default": "30",
+        "description": "How quickly the trail pulls back into the cursor once it stops, in ms per copy."
+      },
+      {
+        "name": "hideCursor",
+        "type": "boolean",
+        "default": "false",
+        "description": "Hides the system cursor over the element."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "''",
+        "description": "Extra class names for the container."
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "default": "-",
+        "description": "Inline styles for the container."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "'Hello'"
+      },
+      {
+        "name": "mode",
+        "default": "'stamp'"
+      },
+      {
+        "name": "spacing",
+        "default": "88"
+      },
+      {
+        "name": "maxPoints",
+        "default": "7"
+      },
+      {
+        "name": "followMouseDirection",
+        "default": "true"
+      },
+      {
+        "name": "randomFloat",
+        "default": "true"
+      },
+      {
+        "name": "exitDuration",
+        "default": "0.5"
+      },
+      {
+        "name": "removalInterval",
+        "default": "30"
+      },
+      {
+        "name": "shrink",
+        "default": "0.5"
+      },
+      {
+        "name": "fade",
+        "default": "0.6"
+      },
+      {
+        "name": "smoothing",
+        "default": "0.3"
+      },
+      {
+        "name": "popIn",
+        "default": "true"
+      },
+      {
+        "name": "keepUpright",
+        "default": "true"
+      },
+      {
+        "name": "hideCursor",
+        "default": "false"
+      },
+      {
+        "name": "color",
+        "default": "'currentColor'"
+      },
+      {
+        "name": "fontSize",
+        "default": "28"
+      },
+      {
+        "name": "fontWeight",
+        "default": "600"
+      },
+      {
+        "name": "fontFamily",
+        "default": "'inherit'"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style"
       }
     ]
   },
@@ -2930,6 +7415,189 @@
         "step": 0.5,
         "unit": "px"
       }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"React ✦ Bits\"",
+        "description": "The phrase repeated along the curve."
+      },
+      {
+        "name": "shape",
+        "type": "\"wave\" | \"circle\" | \"infinity\" | \"arch\" | \"line\"",
+        "default": "\"wave\"",
+        "description": "Built-in curve the text flows along."
+      },
+      {
+        "name": "path",
+        "type": "string",
+        "default": "undefined",
+        "description": "Custom SVG path data, drawn in a 1200x400 viewBox. Overrides shape when provided."
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "default": "90",
+        "description": "Travel speed along the path, in units per second."
+      },
+      {
+        "name": "direction",
+        "type": "\"forward\" | \"reverse\"",
+        "default": "\"forward\"",
+        "description": "Direction the text scrolls around the curve."
+      },
+      {
+        "name": "separator",
+        "type": "string",
+        "default": "\"✦\"",
+        "description": "Glyph placed between each repetition."
+      },
+      {
+        "name": "curviness",
+        "type": "number",
+        "default": "90",
+        "description": "Amplitude of the wave, or the radius of the closed shapes."
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "default": "46",
+        "description": "Font size of the looping text."
+      },
+      {
+        "name": "fontWeight",
+        "type": "number",
+        "default": "800",
+        "description": "Font weight of the looping text."
+      },
+      {
+        "name": "letterSpacing",
+        "type": "number",
+        "default": "2",
+        "description": "Extra tracking between letters."
+      },
+      {
+        "name": "uppercase",
+        "type": "boolean",
+        "default": "true",
+        "description": "Renders the phrase in uppercase."
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "\"#ffffff\"",
+        "description": "Fill color of the text."
+      },
+      {
+        "name": "ribbon",
+        "type": "boolean",
+        "default": "true",
+        "description": "Draws a solid band behind the text along the path."
+      },
+      {
+        "name": "ribbonColor",
+        "type": "string",
+        "default": "\"#5227FF\"",
+        "description": "Color of the band behind the text."
+      },
+      {
+        "name": "ribbonWidth",
+        "type": "number",
+        "default": "86",
+        "description": "Thickness of the band behind the text."
+      },
+      {
+        "name": "pauseOnHover",
+        "type": "boolean",
+        "default": "true",
+        "description": "Pauses the loop while the pointer is over it."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Additional CSS classes for the wrapper."
+      },
+      {
+        "name": "style",
+        "type": "object",
+        "default": "{}",
+        "description": "Inline styles for the wrapper."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "'React ✦ Bits'"
+      },
+      {
+        "name": "shape",
+        "default": "'wave'"
+      },
+      {
+        "name": "path"
+      },
+      {
+        "name": "speed",
+        "default": "90"
+      },
+      {
+        "name": "direction",
+        "default": "'forward'"
+      },
+      {
+        "name": "separator",
+        "default": "'✦'"
+      },
+      {
+        "name": "curviness",
+        "default": "90"
+      },
+      {
+        "name": "fontSize",
+        "default": "46"
+      },
+      {
+        "name": "fontWeight",
+        "default": "800"
+      },
+      {
+        "name": "letterSpacing",
+        "default": "2"
+      },
+      {
+        "name": "uppercase",
+        "default": "true"
+      },
+      {
+        "name": "color",
+        "default": "'#ffffff'"
+      },
+      {
+        "name": "ribbon",
+        "default": "true"
+      },
+      {
+        "name": "ribbonColor",
+        "default": "'#5227FF'"
+      },
+      {
+        "name": "ribbonWidth",
+        "default": "86"
+      },
+      {
+        "name": "pauseOnHover",
+        "default": "true"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style",
+        "default": "{}"
+      }
     ]
   },
   {
@@ -2992,6 +7660,150 @@
         "key": "italic",
         "label": "Italic",
         "type": "switch"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"Compressa\"",
+        "description": "Text content that will be displayed and animated."
+      },
+      {
+        "name": "fontFamily",
+        "type": "string",
+        "default": "Roboto Flex",
+        "description": "Name of the variable font family."
+      },
+      {
+        "name": "fontUrl",
+        "type": "string",
+        "default": "URL to a .woff2 or .ttf file",
+        "description": "URL for the variable font file (needed)"
+      },
+      {
+        "name": "flex",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether the characters are spaced using flex layout."
+      },
+      {
+        "name": "scale",
+        "type": "boolean",
+        "default": "false",
+        "description": "If true, vertically scales the text to fill its container height."
+      },
+      {
+        "name": "alpha",
+        "type": "boolean",
+        "default": "false",
+        "description": "If true, applies an opacity effect based on cursor distance."
+      },
+      {
+        "name": "stroke",
+        "type": "boolean",
+        "default": "false",
+        "description": "If true, adds a stroke effect around characters."
+      },
+      {
+        "name": "width",
+        "type": "boolean",
+        "default": "true",
+        "description": "If true, varies the variable-font \"width\" axis."
+      },
+      {
+        "name": "weight",
+        "type": "boolean",
+        "default": "true",
+        "description": "If true, varies the variable-font \"weight\" axis."
+      },
+      {
+        "name": "italic",
+        "type": "boolean",
+        "default": "true",
+        "description": "If true, varies the variable-font \"italics\" axis."
+      },
+      {
+        "name": "textColor",
+        "type": "string",
+        "default": "#FFFFFF",
+        "description": "The fill color of the text"
+      },
+      {
+        "name": "strokeColor",
+        "type": "string",
+        "default": "#FF0000",
+        "description": "The stroke color that will be applied to the text when \"stroke\" is set to true"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Additional class for styling the <h1> wrapper."
+      },
+      {
+        "name": "minFontSize",
+        "type": "number",
+        "default": "24",
+        "description": "Sets a minimum font-size to avoid overly tiny text on smaller screens."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "'Compressa'"
+      },
+      {
+        "name": "fontFamily",
+        "default": "'Roboto Flex'"
+      },
+      {
+        "name": "fontUrl",
+        "default": "'https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap'"
+      },
+      {
+        "name": "width",
+        "default": "true"
+      },
+      {
+        "name": "weight",
+        "default": "true"
+      },
+      {
+        "name": "italic",
+        "default": "true"
+      },
+      {
+        "name": "alpha",
+        "default": "false"
+      },
+      {
+        "name": "flex",
+        "default": "true"
+      },
+      {
+        "name": "stroke",
+        "default": "false"
+      },
+      {
+        "name": "scale",
+        "default": "false"
+      },
+      {
+        "name": "textColor",
+        "default": "'#FFFFFF'"
+      },
+      {
+        "name": "strokeColor",
+        "default": "'#FF0000'"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "minFontSize",
+        "default": "24"
       }
     ]
   },
@@ -3107,6 +7919,187 @@
         "unit": "ms",
         "disabledWhen": "!variableSpeedEnabled"
       }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string | string[]",
+        "default": "-",
+        "description": "Text or array of texts to type out"
+      },
+      {
+        "name": "as",
+        "type": "ElementType",
+        "default": "div",
+        "description": "HTML tag to render the component as"
+      },
+      {
+        "name": "typingSpeed",
+        "type": "number",
+        "default": "50",
+        "description": "Speed of typing in milliseconds"
+      },
+      {
+        "name": "initialDelay",
+        "type": "number",
+        "default": "0",
+        "description": "Initial delay before typing starts"
+      },
+      {
+        "name": "pauseDuration",
+        "type": "number",
+        "default": "2000",
+        "description": "Time to wait between typing and deleting"
+      },
+      {
+        "name": "deletingSpeed",
+        "type": "number",
+        "default": "30",
+        "description": "Speed of deleting characters"
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether to loop through texts array"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "''",
+        "description": "Optional class name for styling"
+      },
+      {
+        "name": "showCursor",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether to show the cursor"
+      },
+      {
+        "name": "hideCursorWhileTyping",
+        "type": "boolean",
+        "default": "false",
+        "description": "Hide cursor while typing"
+      },
+      {
+        "name": "cursorCharacter",
+        "type": "string | React.ReactNode",
+        "default": "|",
+        "description": "Character or React node to use as cursor"
+      },
+      {
+        "name": "cursorBlinkDuration",
+        "type": "number",
+        "default": "0.5",
+        "description": "Animation duration for cursor blinking"
+      },
+      {
+        "name": "cursorClassName",
+        "type": "string",
+        "default": "''",
+        "description": "Optional class name for cursor styling"
+      },
+      {
+        "name": "textColors",
+        "type": "string[]",
+        "default": "[]",
+        "description": "Array of colors for each sentence"
+      },
+      {
+        "name": "variableSpeed",
+        "type": "{min: number, max: number}",
+        "default": "undefined",
+        "description": "Random typing speed within range for human-like feel"
+      },
+      {
+        "name": "onSentenceComplete",
+        "type": "(sentence: string, index: number) => void",
+        "default": "undefined",
+        "description": "Callback fired after each sentence is finished"
+      },
+      {
+        "name": "startOnVisible",
+        "type": "boolean",
+        "default": "false",
+        "description": "Start typing when component is visible in viewport"
+      },
+      {
+        "name": "reverseMode",
+        "type": "boolean",
+        "default": "false",
+        "description": "Type backwards (right to left)"
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text"
+      },
+      {
+        "name": "as",
+        "default": "'div'"
+      },
+      {
+        "name": "typingSpeed",
+        "default": "50"
+      },
+      {
+        "name": "initialDelay",
+        "default": "0"
+      },
+      {
+        "name": "pauseDuration",
+        "default": "2000"
+      },
+      {
+        "name": "deletingSpeed",
+        "default": "30"
+      },
+      {
+        "name": "loop",
+        "default": "true"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "showCursor",
+        "default": "true"
+      },
+      {
+        "name": "hideCursorWhileTyping",
+        "default": "false"
+      },
+      {
+        "name": "cursorCharacter",
+        "default": "'|'"
+      },
+      {
+        "name": "cursorClassName",
+        "default": "''"
+      },
+      {
+        "name": "cursorBlinkDuration",
+        "default": "0.5"
+      },
+      {
+        "name": "textColors",
+        "default": "[]"
+      },
+      {
+        "name": "variableSpeed"
+      },
+      {
+        "name": "onSentenceComplete"
+      },
+      {
+        "name": "startOnVisible",
+        "default": "false"
+      },
+      {
+        "name": "reverseMode",
+        "default": "false"
+      }
     ]
   },
   {
@@ -3159,6 +8152,90 @@
         "unit": "s",
         "disabledWhen": "manualMode"
       }
+    ],
+    "propTable": [
+      {
+        "name": "sentence",
+        "type": "string",
+        "default": "'True Focus'",
+        "description": "The text to display with the focus animation."
+      },
+      {
+        "name": "separator",
+        "type": "string",
+        "default": "' '",
+        "description": "Optional string used to separate words in the sentence."
+      },
+      {
+        "name": "manualMode",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables automatic animation when set to true."
+      },
+      {
+        "name": "blurAmount",
+        "type": "number",
+        "default": "5",
+        "description": "The amount of blur applied to non-active words."
+      },
+      {
+        "name": "borderColor",
+        "type": "string",
+        "default": "'green'",
+        "description": "The color of the focus borders."
+      },
+      {
+        "name": "glowColor",
+        "type": "string",
+        "default": "'rgba(0, 255, 0, 0.6)'",
+        "description": "The color of the glowing effect on the borders."
+      },
+      {
+        "name": "animationDuration",
+        "type": "number",
+        "default": "0.5",
+        "description": "The duration of the animation for each word."
+      },
+      {
+        "name": "pauseBetweenAnimations",
+        "type": "number",
+        "default": "1",
+        "description": "Time to pause between focusing on each word (in auto mode)."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "sentence",
+        "default": "'True Focus'"
+      },
+      {
+        "name": "separator",
+        "default": "' '"
+      },
+      {
+        "name": "manualMode",
+        "default": "false"
+      },
+      {
+        "name": "blurAmount",
+        "default": "5"
+      },
+      {
+        "name": "borderColor",
+        "default": "'green'"
+      },
+      {
+        "name": "glowColor",
+        "default": "'rgba(0, 255, 0, 0.6)'"
+      },
+      {
+        "name": "animationDuration",
+        "default": "0.5"
+      },
+      {
+        "name": "pauseBetweenAnimations",
+        "default": "1"
+      }
     ]
   },
   {
@@ -3196,6 +8273,76 @@
             "Gaussian"
           ]
         ]
+      }
+    ],
+    "propTable": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "\"\"",
+        "description": "The text content to display."
+      },
+      {
+        "name": "fromFontVariationSettings",
+        "type": "string",
+        "default": "'wght' 400, 'opsz' 9",
+        "description": "The starting variation settings."
+      },
+      {
+        "name": "toFontVariationSettings",
+        "type": "string",
+        "default": "'wght' 800, 'opsz' 40",
+        "description": "The variation settings to reach at cursor proximity."
+      },
+      {
+        "name": "containerRef",
+        "type": "RefObject<HTMLDivElement>",
+        "default": "undefined",
+        "description": "Reference to container for relative calculations."
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "default": "50",
+        "description": "Proximity radius to influence the effect."
+      },
+      {
+        "name": "falloff",
+        "type": "'linear' | 'exponential' | 'gaussian'",
+        "default": "\"linear\"",
+        "description": "Type of falloff for the effect."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "label"
+      },
+      {
+        "name": "fromFontVariationSettings"
+      },
+      {
+        "name": "toFontVariationSettings"
+      },
+      {
+        "name": "containerRef"
+      },
+      {
+        "name": "radius",
+        "default": "50"
+      },
+      {
+        "name": "falloff",
+        "default": "'linear'"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "onClick"
+      },
+      {
+        "name": "style"
       }
     ]
   },
@@ -3350,6 +8497,169 @@
         "key": "ripple",
         "label": "Ripple",
         "type": "switch"
+      }
+    ],
+    "propTable": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "\"Bend the moment\"",
+        "description": "The headline text rendered into the WebGL texture."
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "\"#f8f5ff\"",
+        "description": "Text fill color before the glass refraction pass."
+      },
+      {
+        "name": "warpStrength",
+        "type": "number",
+        "default": "0.08",
+        "description": "Amount of ambient glass distortion at rest."
+      },
+      {
+        "name": "warpScale",
+        "type": "number",
+        "default": "1.7",
+        "description": "Size of the moving distortion cells."
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "default": "0.55",
+        "description": "Speed of the ambient undulation."
+      },
+      {
+        "name": "pointerInfluence",
+        "type": "number",
+        "default": "0.42",
+        "description": "Radius of the cursor lensing area."
+      },
+      {
+        "name": "pointerStrength",
+        "type": "number",
+        "default": "0.38",
+        "description": "Strength of cursor-driven bending and magnification."
+      },
+      {
+        "name": "refraction",
+        "type": "number",
+        "default": "0.018",
+        "description": "Subtle RGB channel split for the glass edge."
+      },
+      {
+        "name": "ripple",
+        "type": "boolean",
+        "default": "true",
+        "description": "Adds a soft ripple to the pointer lens."
+      },
+      {
+        "name": "fontSize",
+        "type": "string | number",
+        "default": "\"clamp(3rem, 10vw, 9rem)\"",
+        "description": "Canvas raster font size. Numbers are pixels."
+      },
+      {
+        "name": "fontWeight",
+        "type": "string | number",
+        "default": "800",
+        "description": "Font weight used when rasterising the text texture."
+      },
+      {
+        "name": "fontFamily",
+        "type": "string",
+        "default": "\"inherit\"",
+        "description": "Font family used when rasterising the text texture."
+      },
+      {
+        "name": "letterSpacing",
+        "type": "string | number",
+        "default": "\"-0.06em\"",
+        "description": "Tracking applied while drawing the text into the texture."
+      },
+      {
+        "name": "lineHeight",
+        "type": "string | number",
+        "default": "0.9",
+        "description": "Line height for multi-line text."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "\"\"",
+        "description": "Optional class name for the root element."
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "default": "undefined",
+        "description": "Optional inline styles for sizing or layout."
+      }
+    ],
+    "componentProps": [
+      {
+        "name": "text",
+        "default": "'Bend the moment'"
+      },
+      {
+        "name": "color",
+        "default": "'#f8f5ff'"
+      },
+      {
+        "name": "warpStrength",
+        "default": "0.08"
+      },
+      {
+        "name": "warpScale",
+        "default": "1.7"
+      },
+      {
+        "name": "speed",
+        "default": "0.55"
+      },
+      {
+        "name": "pointerInfluence",
+        "default": "0.42"
+      },
+      {
+        "name": "pointerStrength",
+        "default": "0.38"
+      },
+      {
+        "name": "refraction",
+        "default": "0.018"
+      },
+      {
+        "name": "ripple",
+        "default": "true"
+      },
+      {
+        "name": "fontSize",
+        "default": "'clamp(3rem, 10vw, 9rem)'"
+      },
+      {
+        "name": "fontWeight",
+        "default": "800"
+      },
+      {
+        "name": "fontFamily",
+        "default": "'inherit'"
+      },
+      {
+        "name": "letterSpacing",
+        "default": "'-0.06em'"
+      },
+      {
+        "name": "lineHeight",
+        "default": "0.9"
+      },
+      {
+        "name": "className",
+        "default": "''"
+      },
+      {
+        "name": "style"
       }
     ]
   }

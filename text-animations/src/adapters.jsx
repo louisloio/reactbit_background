@@ -18,35 +18,18 @@ import { createElement } from 'react';
 
 const listControl = (key, label) => ({ key, label, type: 'list' });
 
-const ASCII_PRESETS = {
-  classic: {},
-  terminal: { charset: ' .:-=+*#%@', colors: ['#b8f5c8', '#5ee08a', '#1f9d55'], blocks: 0, chroma: 0.3, hueShift: 0, asciiFontSize: 10 },
-  blocks: { charset: ' ░▒▓█', colors: ['#ffffff', '#d4d4d8', '#a1a1aa'], blocks: 0.2, hueShift: 0, chroma: 0.6 },
-  binary: { charset: ' 01', colors: ['#ffffff', '#bae6fd', '#38bdf8'], blocks: 0.35, hueShift: 0.4, asciiFontSize: 9 },
-  mono: { colors: ['#ffffff', '#e4e4e7', '#a1a1aa'], blocks: 0.15, chroma: 0, hueShift: 0, waves: 0.6 }
-};
-
 const MASKED_MEDIA = {
   video: 'https://reactbits.dev/assets/video/masked-heading.mp4',
   image: 'https://images.unsplash.com/photo-1500673587002-1d2548cfba1b?q=80&w=1600&auto=format&fit=crop'
 };
 
 export const ADAPTERS = {
-  ASCIIText: { fill: true,
+  ASCIIText: {
     defaults: { textScale: 1.8, asciiFontSize: 4 },
     controls: [
-      {
-        key: 'preset',
-        label: 'Preset',
-        type: 'select',
-        options: Object.keys(ASCII_PRESETS).map(k => [k, k[0].toUpperCase() + k.slice(1)])
-      },
       { key: 'colors', label: 'Colors', type: 'colors' },
       { key: 'textColor', label: 'Text Color', type: 'color' }
-    ],
-    demoOnly: ['preset'],
-    onSet: (key, value, props, defaults) =>
-      key === 'preset' ? { ...defaults, ...ASCII_PRESETS[value], text: props.text, preset: value } : null
+    ]
   },
 
   BlurText: { remount: true },
@@ -81,19 +64,21 @@ export const ADAPTERS = {
     map: p => ({ ...p, tint: p.tintEnabled ? p.tint : false })
   },
 
-  FallingText: { fill: true,
+  FallingText: {
     remount: true,
     defaults: {
-      text: 'React Bits is a library of animated and interactive React components.',
-      highlightWords: ['React', 'Bits', 'animated', 'components'],
-      fontSize: '1.4rem'
+      text: 'Some sentences are built to last. This one falls apart on contact.',
+      highlightWords: ['falls', 'apart'],
+      theme: 'dark'
     },
     controls: [
       { key: 'text', label: 'Text', type: 'text' },
-      listControl('highlightWords', 'Highlight Words'),
-      { key: 'fontSize', label: 'Font Size', type: 'text' }
+      { key: 'highlightWords', label: 'Highlight Words', type: 'list' }
     ],
-    map: p => ({ ...p, highlightClass: 'highlighted' })
+    demoOnly: ['size'],
+    // The demo's Size slider is in rem
+    map: p => ({ ...p, fontSize: `${p.size ?? 2}rem`, highlightClass: 'highlighted' }),
+    skipProps: ['fontSize', 'highlightClass']
   },
 
   FoldText: { remount: true },
@@ -139,7 +124,8 @@ export const ADAPTERS = {
     remount: true,
     defaults: { mediaType: 'image', textScale: 0.06 },
     controls: [{ key: 'text', label: 'Custom Text', type: 'text' }],
-    map: p => ({ ...p, src: MASKED_MEDIA[p.mediaType] ?? MASKED_MEDIA.image })
+    // Your own image / video URL (More settings → Src) wins over the sample media
+    map: p => ({ ...p, src: p.src || (MASKED_MEDIA[p.mediaType] ?? MASKED_MEDIA.image) })
   },
 
   ParticleText: { fill: true, remount: true },
@@ -186,6 +172,7 @@ export const ADAPTERS = {
     children: 'text',
     map: (p, ctx) => ({ ...p, animationDuration: p.duration, scrollContainerRef: ctx.scrollRef }),
     demoOnly: ['duration'],
+    skipProps: ['animationDuration'],
     hint: 'Scroll inside the text area to play the animation.'
   },
 
@@ -241,7 +228,12 @@ export const ADAPTERS = {
     wrap: (el, p) => <div className={`tx-loop tx-loop--${p.shape === 'line' ? 'band' : 'fit'}`}>{el}</div>
   },
 
-  TextCursor: { fill: true, remount: true, hint: 'Move the pointer over the text area.' },
+  TextCursor: {
+    remount: true,
+    hint: 'Move the pointer over the text area.',
+    // The demo leaves Color empty to mean "use the text colour"
+    map: p => ({ ...p, color: p.color || 'currentColor' })
+  },
 
   TextPressure: { fill: true,
     remount: true,
@@ -257,6 +249,7 @@ export const ADAPTERS = {
     remount: true,
     controls: [listControl('texts', 'Sentences')],
     demoOnly: ['texts', 'variableSpeedEnabled', 'variableSpeedMin', 'variableSpeedMax'],
+    skipProps: ['text', 'variableSpeed'],
     map: p => ({
       ...p,
       text: p.texts,

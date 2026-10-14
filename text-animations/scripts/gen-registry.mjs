@@ -27,6 +27,48 @@ const walk = (node, visit) => {
 
 const titleCase = id => id.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/ASCII/, 'ASCII');
 
+const COMPONENT_DIR = new URL('../src/components/', import.meta.url);
+
+// Finds the component's props pattern: `({ a = 1, b }) =>`, `function X({ ... })`,
+// or `forwardRef((props, ref) => { const { a = 1 } = props; ... })`
+function readComponentProps(id) {
+  let src;
+  try {
+    src = readFileSync(new URL(`${id}/${id}.jsx`, COMPONENT_DIR), 'utf8');
+  } catch {
+    return [];
+  }
+  const ast = parse(src, { sourceType: 'module', plugins: ['jsx'] });
+  const slice = n => src.slice(n.start, n.end);
+  let pattern = null;
+  walk(ast.program, node => {
+    if (pattern) return false;
+    const fn =
+      (node.type === 'VariableDeclarator' && node.id.name === id && node.init) ||
+      (node.type === 'FunctionDeclaration' && node.id?.name === id && node) ||
+      null;
+    if (!fn) return;
+    let f = fn.type === 'CallExpression' ? fn.arguments[0] : fn; // forwardRef(...)
+    if (!f?.params) return;
+    const first = f.params[0];
+    if (first?.type === 'ObjectPattern') pattern = first;
+    else if (first?.type === 'Identifier') {
+      // const { ... } = props inside the body
+      walk(f.body, n => {
+        if (!pattern && n.type === 'VariableDeclarator' && n.id.type === 'ObjectPattern' && n.init?.name === first.name) pattern = n.id;
+      });
+    }
+  });
+  if (!pattern) return [];
+  return pattern.properties
+    .filter(pr => pr.type === 'ObjectProperty')
+    .map(pr => {
+      const name = pr.key.name ?? pr.key.value;
+      const dflt = pr.value.type === 'AssignmentPattern' ? slice(pr.value.right) : undefined;
+      return { name, default: dflt };
+    });
+}
+
 const result = [];
 const warnings = [];
 
@@ -97,6 +139,18 @@ for (const file of readdirSync(DEMO_DIR).filter(f => f.endsWith('Demo.jsx')).sor
           }
         }
       });
+    // Preset selects call applyPreset(value), which merges PRESETS[value] into the props
+    if (!key && type === 'select' && onChange?.type === 'Identifier' && /preset/i.test(onChange.name) && scope.PRESETS) {
+      const opts = lit('options') ?? Object.keys(scope.PRESETS).map(k => ({ value: k, label: k }));
+      controls.push({
+        key: 'preset',
+        label: lit('title') ?? 'Preset',
+        type: 'select',
+        options: opts.map(o => (typeof o === 'object' ? [o.value, o.label ?? String(o.value)] : [o, String(o)])),
+        presets: scope.PRESETS
+      });
+      return;
+    }
     if (!key) {
       warnings.push(`${id}: control "${lit('title')}" has no updateProp key`);
       return;
@@ -124,7 +178,27 @@ for (const file of readdirSync(DEMO_DIR).filter(f => f.endsWith('Demo.jsx')).sor
   });
 
   for (const c of controls) if (!(c.key in defaults)) warnings.push(`${id}: ${c.key} not in DEFAULT_PROPS`);
-  result.push({ id, name: titleCase(id), defaults, controls });
+
+  // Every documented prop (the demo's props table), so props the Customize box leaves out can be
+  // offered as extra controls: [{ name, type, default (source text), description }]
+  const propTable = [];
+  walk(ast.program, node => {
+    if (node.type !== 'ObjectExpression') return;
+    const get = k => node.properties.find(pr => (pr.key?.name ?? pr.key?.value) === k)?.value;
+    const name = get('name');
+    const type = get('type');
+    const description = get('description');
+    if (!name || !type || !description) return;
+    const text = n => (n.type === 'StringLiteral' ? n.value : n.type === 'TemplateLiteral' ? n.quasis.map(q => q.value.cooked).join('') : slice(n));
+    const dflt = get('default');
+    propTable.push({ name: text(name), type: text(type), default: dflt ? text(dflt) : undefined, description: text(description) });
+  });
+
+  // The component's own parameter list (name + default source): the complete set of props,
+  // since some props tables leave props out (e.g. DecryptedText's `characters`)
+  const componentProps = readComponentProps(id);
+
+  result.push({ id, name: titleCase(id), defaults, controls, propTable, componentProps });
 }
 
 writeFileSync(OUT, JSON.stringify(result, null, 2));

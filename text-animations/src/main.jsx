@@ -201,8 +201,11 @@ function TextTab({ ctx }) {
         {entry ? (
           <>
             <p className="tx-section">{entry.name}</p>
-            {visible.map(c => (
-              <Control key={`${c.key}-${c.type}`} c={c} value={props[c.key]} onChange={v => setProp(c.key, v)} />
+            {visible.map((c, i) => (
+              <div key={`${c.key}-${c.type}`} title={c.description} className="tx-control">
+                {c.extra && !visible[i - 1]?.extra && <p className="tx-section">More settings</p>}
+                <Control c={c} value={props[c.key] ?? c.default} onChange={v => setProp(c.key, v)} />
+              </div>
             ))}
           </>
         ) : (

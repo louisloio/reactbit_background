@@ -6,8 +6,17 @@ import { Component as ReactComponent, useEffect, useRef, useState } from 'react'
 
 export const disabledFn = expr => {
   try {
-    // Demo expressions refer to props by bare name, e.g. "reveal !== 'area'"
-    return new Function('p', `with (p) { return (${expr}); }`);
+    // Demo expressions refer to props by bare name ("reveal !== 'area'") or through the demo's
+    // own object names ("settings.order === 'together'", "props.loop"). A failing expression
+    // never hides a control (and never breaks the panel).
+    const fn = new Function('p', `with (p) { const settings = p, props = p; return (${expr}); }`);
+    return p => {
+      try {
+        return !!fn(p);
+      } catch {
+        return false;
+      }
+    };
   } catch {
     return () => false;
   }

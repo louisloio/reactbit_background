@@ -12,7 +12,8 @@ html.tx-open main {
   width: 100%;
   flex-shrink: 0;
   pointer-events: auto;
-  overflow: hidden;
+  /* Glows, shadows and letters that fly out stay visible past the area's edges */
+  overflow: visible;
   line-height: 1.1;
   text-align: var(--tx-align, center);
 }
@@ -424,4 +425,10 @@ html.tx-open main {
 .tx-surface .cust-icon-btn:disabled {
   opacity: 0.35;
   cursor: default;
+}
+
+/* Extra controls are wrapped (for their description tooltip); keep the row separators */
+.tx-control + .tx-control > .pnl-row,
+.tx-control + .tx-control > .tx-section + .pnl-row {
+  border-top: 0.5px solid rgba(255, 255, 255, 0.05);
 }
