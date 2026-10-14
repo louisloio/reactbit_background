@@ -7,6 +7,7 @@ import { lazy, Suspense, useEffect, useMemo, useState, useSyncExternalStore } fr
 
 import { BACKGROUNDS } from './bg-registry.js';
 import { Boundary, BrowseRow, Control, copyText, I, Icon, jsxValue, toHex } from './ui.jsx';
+import { TrameSettings } from './trame.jsx';
 
 // ---------- registry ----------
 
@@ -289,6 +290,7 @@ export function BgSettings() {
             {s.id === 'solid' ? 'A plain colour. Set it with the Colour row above.' : 'This background has no settings.'}
           </p>
         )}
+        <TrameSettings />
       </div>
       {showCode && entry?.id !== 'solid' && <pre className="pnl-code">{code}</pre>}
       <footer className="pnl-foot">

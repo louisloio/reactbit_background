@@ -27,6 +27,10 @@ import {
 import { Boundary, BrowseRow, Control, copyText, disabledFn, I, Icon, jsxValue } from './ui.jsx';
 import { loadSavedLooks, lookUrl, storeSavedLooks, takeLookFromUrl } from './looks.js';
 import { applyGlowLook, getGlowLook, GlowTab } from './glow.jsx';
+import { applyTrameLook, getTrameLook, keepWebGLFramesReadable, TrameLayer } from './trame.jsx';
+
+// Before any background creates its WebGL context, so the pattern overlay can read its frames
+keepWebGLFramesReadable();
 import './app.css';
 
 const STORAGE_KEY = 'core.textAnimations.v1';
@@ -265,6 +269,7 @@ const currentLook = () => {
     v: 1,
     bg: getBackgroundLook(),
     glow: getGlowLook(),
+    trame: getTrameLook(),
     text: { id: s.id, height: s.height, base: s.base, props: s.id ? s.props[s.id] ?? {} : {} }
   };
 };
@@ -273,6 +278,7 @@ const applyLook = look => {
   if (!look || typeof look !== 'object') return;
   if (look.bg) applyBackgroundLook(look.bg);
   if (look.glow) applyGlowLook(look.glow);
+  if (look.trame) applyTrameLook(look.trame);
   const t = look.text;
   if (t && (t.id === null || BY_ID[t.id]))
     setState(st => ({
@@ -589,7 +595,14 @@ function App({ buttonHost, panelHost, slot, layout, bgRoot }) {
       ) : (
         createPortal(<CustomisePanel ctx={ctx} />, panelHost)
       )}
-      {bgRoot && createPortal(<BackgroundStage />, bgRoot)}
+      {bgRoot &&
+        createPortal(
+          <>
+            <BackgroundStage />
+            <TrameLayer root={bgRoot} />
+          </>,
+          bgRoot
+        )}
       {createPortal(<Stage slot={slot} ctx={ctx} />, slot)}
     </>
   );
