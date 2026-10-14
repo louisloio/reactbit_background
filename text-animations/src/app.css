@@ -403,3 +403,25 @@ html.tx-open main {
   white-space: normal;
   line-height: 16px;
 }
+
+/* ---------- background surface row (both pages) ---------- */
+#bg-surface {
+  padding: 4px 16px;
+  border-bottom: 0.5px solid var(--border-subtle);
+  font-family: var(--font-content);
+  font-size: 13px;
+  line-height: 18px;
+}
+.tx-surface .pnl-color input[type='color'] {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0.5px solid var(--border-subtle);
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+}
+.tx-surface .cust-icon-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}

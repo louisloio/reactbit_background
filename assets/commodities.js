@@ -188,12 +188,13 @@
     fill.style.width = `${s.value}%`;
     fill.tabIndex = 0;
     fill.setAttribute('aria-label', `${s.country}: ${s.value}% full`);
-    const show = () => {
+    // Pointer: follow the cursor (the bar end can sit under the drawer); keyboard: anchor to the bar
+    const showAt = (x, y) => showTip(x, y, `${s.value}%`, s.country);
+    fill.addEventListener('pointermove', e => showAt(e.clientX, e.clientY));
+    fill.addEventListener('focus', () => {
       const r = fill.getBoundingClientRect();
-      showTip(r.right, r.top + r.height / 2, `${s.value}%`, s.country);
-    };
-    fill.addEventListener('pointerenter', show);
-    fill.addEventListener('focus', show);
+      showAt(r.left + Math.min(r.width, 120), r.top + r.height / 2);
+    });
     fill.addEventListener('pointerleave', hideTip);
     fill.addEventListener('blur', hideTip);
     track.append(fill);

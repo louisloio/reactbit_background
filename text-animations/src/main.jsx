@@ -475,6 +475,96 @@ function TextTab({ ctx }) {
   );
 }
 
+// ---------- background surface ----------
+// One colour for what the background animation sits on: the bundle's backdrop, plus the
+// background's own `backgroundColor` setting when it has one (Beams, Orb, Radar, …).
+
+const SURFACE_KEY = 'core.surface.v1';
+const bgApi = () => window.__coreBg;
+const bgSubscribe = l => bgApi()?.subscribe(l) ?? (() => {});
+const useBackground = () => useSyncExternalStore(bgSubscribe, () => bgApi()?.get() ?? null);
+const loadSurface = () => {
+  try {
+    return localStorage.getItem(SURFACE_KEY);
+  } catch {
+    return null;
+  }
+};
+const saveSurface = v => {
+  try {
+    if (v) localStorage.setItem(SURFACE_KEY, v);
+    else localStorage.removeItem(SURFACE_KEY);
+  } catch {
+    /* storage unavailable */
+  }
+};
+const fallbackBackdrop = id => (id === 'solid' ? '#5500ff' : '#120f17');
+
+// Effective colour of the current background's own surface setting (null when it has none)
+const ownSurface = s => {
+  const defaults = bgApi()?.defaults(s.id);
+  if (!defaults || !('backgroundColor' in defaults)) return null;
+  return { value: (s.demo[s.id] ?? defaults).backgroundColor ?? defaults.backgroundColor, defaults };
+};
+
+const applySurface = color => {
+  const api = bgApi();
+  const s = api?.get();
+  if (!s) return;
+  const own = ownSurface(s);
+  const patch = { backdrop: color };
+  if (own) {
+    const props = { ...(s.demo[s.id] ?? own.defaults), backgroundColor: color ?? own.defaults.backgroundColor };
+    patch.demo = { ...s.demo, [s.id]: props };
+  }
+  api.set(patch);
+  saveSurface(color);
+};
+
+function SurfaceRow() {
+  const bg = useBackground();
+  const id = bg?.id;
+
+  // A chosen surface follows you to backgrounds that still use their default colour
+  useEffect(() => {
+    const surface = loadSurface();
+    const s = bgApi()?.get();
+    if (!surface || !s) return;
+    const own = ownSurface(s);
+    if (own && own.value === own.defaults.backgroundColor && own.value !== surface) applySurface(surface);
+  }, [id]);
+
+  if (!bg) return null;
+  const own = ownSurface(bg);
+  const value = own ? own.value : bg.backdrop ?? fallbackBackdrop(bg.id);
+  const changed = !!bg.backdrop || (own && own.value !== own.defaults.backgroundColor);
+  const label = bg.id === 'solid' ? 'Colour' : 'Surface';
+
+  return (
+    <div className="tx-surface">
+      <label className="pnl-row" htmlFor="tx-surface" title="The colour behind the background animation">
+        <span>{label}</span>
+        <span className="pnl-color">
+          <code>{String(value)}</code>
+          <input id="tx-surface" type="color" value={toHex(value)} onChange={e => applySurface(e.target.value)} />
+          <button
+            className="cust-icon-btn"
+            aria-label={`Reset ${label.toLowerCase()}`}
+            title="Back to the default"
+            disabled={!changed}
+            onClick={e => {
+              e.preventDefault();
+              applySurface(null);
+            }}
+          >
+            <Icon d={I.reset} />
+          </button>
+        </span>
+      </label>
+    </div>
+  );
+}
+
 // ---------- unified customise panel ----------
 
 // ---------- looks: share + saved ----------
@@ -647,7 +737,7 @@ const TABS = [
   ['text', 'Text']
 ];
 
-function CustomisePanel({ ctx }) {
+function CustomisePanel({ ctx, surfaceHost }) {
   const s = useStore();
   const bgTab = useRef(null);
 
@@ -658,7 +748,7 @@ function CustomisePanel({ ctx }) {
     const panel = document.querySelector('#bg-panel');
     if (!bgTab.current || !picker) return;
     picker.classList.add('cust-browse');
-    bgTab.current.append(picker);
+    bgTab.current.append(picker, surfaceHost);
     if (panel) bgTab.current.append(panel);
   }, []);
 
@@ -695,9 +785,10 @@ function CustomisePanel({ ctx }) {
 
 // ---------- Classic page: fixed columns ----------
 
-function BackgroundColumn({ host }) {
+function BackgroundColumn({ host, surfaceHost }) {
   // Move the bundle's settings panel next to its picker, then keep it open
   useEffect(() => {
+    document.querySelector('#bg-picker')?.after(surfaceHost);
     const keepOpen = () => {
       const panel = document.querySelector('body > #bg-panel');
       if (panel) host.append(panel);
@@ -798,7 +889,7 @@ function Stage({ slot, ctx }) {
 
 // ---------- mount ----------
 
-function App({ buttonHost, panelHost, slot, layout }) {
+function App({ buttonHost, panelHost, slot, layout, surfaceHost }) {
   const s = useStore();
   const isPanel = layout?.panel;
   const ctx = useMemo(() => ({ scrollRef: { current: slot }, slotRef: { current: slot } }), [slot]);
@@ -835,12 +926,13 @@ function App({ buttonHost, panelHost, slot, layout }) {
       )}
       {isPanel ? (
         <>
-          <BackgroundColumn host={layout.bgHost} />
+          <BackgroundColumn host={layout.bgHost} surfaceHost={surfaceHost} />
           {createPortal(<TextTab ctx={ctx} />, layout.textHost)}
         </>
       ) : (
-        createPortal(<CustomisePanel ctx={ctx} />, panelHost)
+        createPortal(<CustomisePanel ctx={ctx} surfaceHost={surfaceHost} />, panelHost)
       )}
+      {createPortal(<SurfaceRow />, surfaceHost)}
       {createPortal(<Stage slot={slot} ctx={ctx} />, slot)}
     </>
   );
@@ -867,6 +959,9 @@ const start = () => {
     ? { panel: true, bgHost: document.querySelector('#bg-column-body'), textHost: document.querySelector('#text-column-body') }
     : null;
 
+  const surfaceHost = document.createElement('div');
+  surfaceHost.id = 'bg-surface';
+
   const panelHost = document.createElement('div');
   panelHost.id = 'cust-panel';
   document.body.appendChild(panelHost);
@@ -876,7 +971,9 @@ const start = () => {
   rootEl.hidden = true;
   document.body.appendChild(rootEl);
 
-  createRoot(rootEl).render(<App buttonHost={buttonHost} panelHost={panelHost} slot={slot} layout={layout} />);
+  createRoot(rootEl).render(
+    <App buttonHost={buttonHost} panelHost={panelHost} slot={slot} layout={layout} surfaceHost={surfaceHost} />
+  );
 
   // Restore background settings from the last visit, then apply a shared look if the URL has one
   persistBackground();

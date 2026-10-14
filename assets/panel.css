@@ -220,6 +220,7 @@ body.layout-panel .drawer #bg-root {
 /* ---------- commodities sample content ---------- */
 .ws-content {
   position: relative;
+  z-index: 1; /* own stacking context: chart tooltips stay under the Chat AI drawer */
   --series-1: #3987e5;
   --up: #4fbf7a;
   --down: #e66767;
