@@ -13,23 +13,26 @@ const hexToRgb = hex => {
 
 const getAnchorAndDir = (origin, w, h) => {
   const outside = 0.2;
+  // Core appshell change: top/bottom origins sit 20% of the *shorter* side outside (was the height),
+  // so tall, narrow containers (the Chat AI drawer) still see the fan of beams. Wide areas unchanged.
+  const v = outside * Math.min(w, h);
   switch (origin) {
     case 'top-left':
-      return { anchor: [0, -outside * h], dir: [0, 1] };
+      return { anchor: [0, -v], dir: [0, 1] };
     case 'top-right':
-      return { anchor: [w, -outside * h], dir: [0, 1] };
+      return { anchor: [w, -v], dir: [0, 1] };
     case 'left':
       return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] };
     case 'right':
       return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] };
     case 'bottom-left':
-      return { anchor: [0, (1 + outside) * h], dir: [0, -1] };
+      return { anchor: [0, h + v], dir: [0, -1] };
     case 'bottom-center':
-      return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] };
+      return { anchor: [0.5 * w, h + v], dir: [0, -1] };
     case 'bottom-right':
-      return { anchor: [w, (1 + outside) * h], dir: [0, -1] };
+      return { anchor: [w, h + v], dir: [0, -1] };
     default: // "top-center"
-      return { anchor: [0.5 * w, -outside * h], dir: [0, 1] };
+      return { anchor: [0.5 * w, -v], dir: [0, 1] };
   }
 };
 
@@ -156,10 +159,13 @@ float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord,
   float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001));
 
   float distance = length(sourceToCoord);
-  float maxDistance = iResolution.x * rayLength;
+  // Core appshell change: reach is measured on the longer side (was width only), so the rays still
+  // reach into tall, narrow containers such as the Chat AI drawer. Wide areas are unchanged.
+  float span = max(iResolution.x, iResolution.y);
+  float maxDistance = span * rayLength;
   float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0);
   
-  float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0);
+  float fadeFalloff = clamp((span * fadeDistance - distance) / (span * fadeDistance), 0.5, 1.0);
   float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0;
 
   float baseStrength = clamp(
