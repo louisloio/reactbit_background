@@ -16,7 +16,7 @@ html.tx-open body.layout-panel main.ws {
   inset: var(--header-h) var(--rail-w) 0 var(--rail-w);
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(240px, 399px) minmax(240px, 399px) minmax(340px, 1fr) 380px;
+  grid-template-columns: minmax(240px, 399px) minmax(240px, 399px) minmax(340px, 1fr);
   gap: 0 32px;
   align-items: stretch;
   justify-content: stretch;
@@ -123,14 +123,20 @@ html.tx-open body.layout-panel main.ws {
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
-  padding: 32px 0;
+  padding: 32px 32px 32px 0;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
 
-/* ---------- Chat AI drawer ---------- */
+/* ---------- Chat AI drawer: floats over the content, which runs behind it ---------- */
 .drawer {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 380px;
+  z-index: 3;
+  box-shadow: -12px 0 32px rgba(0, 0, 0, 0.35);
   min-height: 0;
   display: flex;
   flex-direction: column;
