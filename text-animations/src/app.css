@@ -3,9 +3,7 @@ main {
   flex-direction: column;
   gap: 100px;
 }
-html.tx-open main {
-  padding-right: calc(var(--rail-w) + 8px + 320px + 24px);
-}
+/* The Customise panel floats over the page: the text and input don't move when it opens */
 
 .tx-slot {
   position: relative;
